@@ -1,0 +1,38 @@
+.form {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -35%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 37.5rem;
+}
+
+.title {
+  font-size: 3.2rem;
+  font-weight: 700;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.logo {
+  font-family: 'Mochiy Pop P One', sans-serif;
+  align-self: center;
+  color: #1cb0f6;
+  font-size: 6rem;
+  margin-bottom: 4rem;
+}
+
+.error {
+  font-weight: 300;
+  color: red;
+  margin-bottom: 2rem;
+  text-transform: capitalize;
+}

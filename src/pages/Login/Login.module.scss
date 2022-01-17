@@ -1,0 +1,11 @@
+.login {
+  flex: 1 1 auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+}
+
+.registration {
+  align-self: flex-end;
+}

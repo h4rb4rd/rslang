@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 6rem;
+  width: 100%;
+}
+
+.button {
+  width: 100%;
+  color: #1cb0f6;
+  font-weight: 500;
+  border-radius: 16px;
+  border: 2px solid #e5e5e5;
+  border-bottom: 6px solid #e5e5e5;
+  background-color: #fff;
+  padding: 12px 16px;
+  transition: all 0.1s;
+
+  &:hover {
+    background-color: #ddf4ff;
+    border-color: #1cb0f6;
+  }
+  &:active {
+    border-bottom: 2px solid #1cb0f6;
+  }
+
+  &.blue {
+    color: #fff;
+    border-color: #1899d6;
+    background-color: #1cb0f6;
+  }
+  &:disabled {
+    filter: grayscale(1);
+    pointer-events: none;
+  }
+}
