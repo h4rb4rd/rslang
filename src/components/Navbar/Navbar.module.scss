@@ -7,7 +7,10 @@ a {
   font-size: 2rem;
   font-weight: 600;
   color: #afafaf;
-  margin-right: 1rem;
+
+  &:not(:last-child) {
+    margin-right: 1rem;
+  }
 
   &:hover {
     color: #7c7c7c;
