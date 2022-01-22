@@ -15,7 +15,6 @@ function Form({ title, btnText, handleSignup, isLoading, values, setValues }) {
 
   return (
     <form className={cl.form} onSubmit={(e) => handleSubmit(e)}>
-      <div className={cl.logo}>RSlang</div>
       <h1 className={cl.title}>{title}</h1>
       {values.error && <span className={cl.error}>{values.error}</span>}
       <div className={cl.inputs}>
@@ -32,7 +31,7 @@ function Form({ title, btnText, handleSignup, isLoading, values, setValues }) {
           placeholder="Password"
         />
       </div>
-      <MyButton type="submit" btnColor="primary" disabled={isLoading}>
+      <MyButton type="submit" btnColor="blue" disabled={isLoading}>
         {btnText}
       </MyButton>
     </form>

@@ -1,0 +1,23 @@
+.navbar {
+  display: flex;
+  align-items: center;
+}
+
+a {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #afafaf;
+  margin-right: 1rem;
+
+  &:hover {
+    color: #7c7c7c;
+  }
+}
+
+.active {
+  color: #1cb0f6;
+
+  &:hover {
+    color: #1899d6;
+  }
+}

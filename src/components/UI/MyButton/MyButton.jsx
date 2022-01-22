@@ -6,8 +6,12 @@ import cl from './MyButton.module.scss';
 function MyButton({ children, btnColor, ...props }) {
   const classes = [cl.button];
 
-  if (btnColor === 'primary') {
+  if (btnColor === 'blue') {
     classes.push(cl.blue);
+  }
+
+  if (btnColor === 'green') {
+    classes.push(cl.green);
   }
 
   return (

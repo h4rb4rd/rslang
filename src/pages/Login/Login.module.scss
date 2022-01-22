@@ -3,9 +3,21 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 3rem;
 }
 
 .registration {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
   align-self: flex-end;
+}
+
+.logo {
+  span {
+    font-size: 6rem;
+  }
+  margin-bottom: 4rem;
 }

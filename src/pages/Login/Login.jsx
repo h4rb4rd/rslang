@@ -7,6 +7,7 @@ import cl from './Login.module.scss';
 // components
 import MyButton from '../../components/UI/MyButton/MyButton';
 import Form from '../../components/Form';
+import Logo from '../../components/Logo/Logo';
 
 function Login() {
   const [formType, setformType] = useState('login');
@@ -50,6 +51,9 @@ function Login() {
         <MyButton onClick={toggleFormType} type="button">
           {formType === 'login' ? 'Регистрация' : 'Войти'}
         </MyButton>
+      </div>
+      <div className={cl.logo}>
+        <Logo />
       </div>
       {formType === 'login' ? (
         <Form
