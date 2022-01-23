@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { signup, login } from '../../utils/firebase';
 // styles
@@ -74,6 +75,9 @@ function Login() {
           setValues={setSignFormValues}
         />
       )}
+      <div className={cl.promo}>
+        <Link to="/about">О проекте</Link>
+      </div>
     </div>
   );
 }
