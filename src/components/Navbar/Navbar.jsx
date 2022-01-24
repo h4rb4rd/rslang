@@ -7,14 +7,20 @@ import cl from './Navbar.module.scss';
 function Navbar() {
   return (
     <nav className={cl.navbar}>
-      <NavLink to="/" className={(navData) => (navData.isActive ? `${cl.active}` : '')}>
-        Page 1
+      <NavLink to="/textbook" className={(navData) => (navData.isActive ? `${cl.active}` : '')}>
+        Учебник
       </NavLink>
-      <NavLink to="/page2" className={(navData) => (navData.isActive ? `${cl.active}` : '')}>
-        Page 2
+      <NavLink to="/dictionary" className={(navData) => (navData.isActive ? `${cl.active}` : '')}>
+        Словарь
       </NavLink>
-      <NavLink to="/page3" className={(navData) => (navData.isActive ? `${cl.active}` : '')}>
-        Page 3
+      <NavLink to="/games" className={(navData) => (navData.isActive ? `${cl.active}` : '')}>
+        Игры
+      </NavLink>
+      <NavLink to="/statistics" className={(navData) => (navData.isActive ? `${cl.active}` : '')}>
+        Статистика
+      </NavLink>
+      <NavLink to="/team" className={(navData) => (navData.isActive ? `${cl.active}` : '')}>
+        О команде
       </NavLink>
     </nav>
   );

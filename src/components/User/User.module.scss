@@ -1,6 +1,7 @@
 .user {
   position: relative;
   cursor: pointer;
+  z-index: 10;
 
   button {
     padding: 0.6rem 1rem;

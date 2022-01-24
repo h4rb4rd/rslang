@@ -46,7 +46,7 @@ function User({ openUserInfo, closeUserInfo, isVisible }) {
         <Avatar />
         <div className={cl.email}>{currentUser.email}</div>
         <MyButton onClick={hadnleLogout} disabled={loading} btnColor="blue">
-          Logout
+          Выйти
         </MyButton>
       </PopUp>
       <Avatar />

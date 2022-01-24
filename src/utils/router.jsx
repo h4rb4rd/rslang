@@ -5,17 +5,21 @@ import Login from '../pages/Login';
 import Error from '../pages/Error';
 import About from '../pages/About';
 
-import Page1 from '../pages/Page1';
-import Page2 from '../pages/Page2';
-import Page3 from '../pages/Page3';
+import Textbook from '../pages/Textbook';
+import Dictionary from '../pages/Dictionary';
+import Games from '../pages/Games';
+import Statistics from '../pages/Statistics';
+import Team from '../pages/Team';
 
 export const privateRoutes = [
-  { id: '1', path: '/', component: <Page1 /> },
-  { id: '2', path: '/page2', component: <Page2 /> },
-  { id: '3', path: '/page3', component: <Page3 /> },
-  { id: '4', path: '/about', component: <About /> },
-  { id: '5', path: '/login', component: <Navigate to="/" /> },
-  { id: '6', path: '*', component: <Error /> },
+  { id: '1', path: '/', component: <About /> },
+  { id: '2', path: '/textbook', component: <Textbook /> },
+  { id: '3', path: '/dictionary', component: <Dictionary /> },
+  { id: '4', path: '/games', component: <Games /> },
+  { id: '5', path: '/statistics', component: <Statistics /> },
+  { id: '6', path: '/team', component: <Team /> },
+  { id: '7', path: '/login', component: <Navigate to="/" /> },
+  { id: '8', path: '*', component: <Error /> },
 ];
 
 export const publicRoutes = [
