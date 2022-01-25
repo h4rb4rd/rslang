@@ -10,6 +10,10 @@ import Dictionary from '../pages/Dictionary';
 import Games from '../pages/Games';
 import Statistics from '../pages/Statistics';
 import Team from '../pages/Team';
+import Savannah from '../pages/Savannah';
+import Audiocall from '../pages/Audiocall';
+import Sprint from '../pages/Sprint';
+import Owngame from '../pages/Owngame';
 
 export const privateRoutes = [
   { id: '1', path: '/', component: <About /> },
@@ -18,8 +22,12 @@ export const privateRoutes = [
   { id: '4', path: '/games', component: <Games /> },
   { id: '5', path: '/statistics', component: <Statistics /> },
   { id: '6', path: '/team', component: <Team /> },
-  { id: '7', path: '/login', component: <Navigate to="/" /> },
-  { id: '8', path: '*', component: <Error /> },
+  { id: '7', path: '/savannah', component: <Savannah /> },
+  { id: '8', path: '/audiocall', component: <Audiocall /> },
+  { id: '9', path: '/sprint', component: <Sprint /> },
+  { id: '10', path: '/owngame', component: <Owngame /> },
+  { id: '11', path: '/login', component: <Navigate to="/" /> },
+  { id: '12', path: '*', component: <Error /> },
 ];
 
 export const publicRoutes = [
