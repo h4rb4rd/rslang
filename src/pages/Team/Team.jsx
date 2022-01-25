@@ -9,25 +9,45 @@ import developerImage from '../../assets/team/developer.jpg';
 function Team() {
   const developers = [
     {
+      id: 1,
       name: 'Developer Name',
       imageUrl: developerImage,
       position: 'Developer',
       githubUrl: 'https://github.com/',
       description: [
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum vel illo, doloremque, a fugit',
-        'unde amet consectetur temporibus maiores exercitationem numquam? Dignissimos, esse',
-        'cupiditate dolores id fuga architecto rem distinctio?',
+        {
+          id: 1,
+          text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum vel illo, doloremque, a fugit',
+        },
+        {
+          id: 2,
+          text: 'unde amet consectetur temporibus maiores exercitationem numquam? Dignissimos, esse',
+        },
+        {
+          id: 3,
+          text: 'cupiditate dolores id fuga architecto rem distinctio?',
+        },
       ],
     },
     {
+      id: 2,
       name: 'Developer Name',
       imageUrl: developerImage,
       position: 'Developer',
       githubUrl: 'https://github.com/',
       description: [
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum vel illo, doloremque, a fugit',
-        'unde amet consectetur temporibus maiores exercitationem numquam? Dignissimos, esse',
-        'cupiditate dolores id fuga architecto rem distinctio?',
+        {
+          id: 1,
+          text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum vel illo, doloremque, a fugit',
+        },
+        {
+          id: 2,
+          text: 'unde amet consectetur temporibus maiores exercitationem numquam? Dignissimos, esse',
+        },
+        {
+          id: 3,
+          text: 'cupiditate dolores id fuga architecto rem distinctio?',
+        },
       ],
     },
   ];
@@ -36,8 +56,8 @@ function Team() {
     <div className={cl.team}>
       <h2 className={cl.title}>О команде</h2>
       <div className={cl.content}>
-        {developers.map((developer) => {
-          return <Developer {...developer} />;
+        {developers.map(({ id, ...rest }) => {
+          return <Developer key={id} {...rest} />;
         })}
       </div>
     </div>
@@ -54,8 +74,8 @@ function Developer({ name, imageUrl, position, githubUrl, description }) {
         Github
       </a>
       <ul className={cl.description}>
-        {description.map((text) => {
-          return <li>{text}</li>;
+        {description.map(({ id, text }) => {
+          return <li key={id}>{text}</li>;
         })}
       </ul>
     </div>

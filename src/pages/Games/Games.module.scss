@@ -1,2 +1,86 @@
 .games {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(180deg, #1caff6 0, #5accec 100%);
+  padding: 5rem 0;
+
+  &:before {
+    content: '';
+    position: absolute;
+    background-image: url('../../assets/about/clouds.svg');
+    background-size: contain;
+    background-position: center center;
+    width: 100%;
+    height: 30%;
+    z-index: 0;
+    z-index: 0;
+  }
+}
+
+.content {
+  align-self: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 68.2rem;
+  gap: 4rem;
+  z-index: 10;
+}
+
+.title {
+  text-align: center;
+  font-size: 5rem;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 5rem;
+}
+
+.game {
+  width: 32rem;
+
+  a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: #fff;
+    background-color: rgba(28, 176, 246, 0.7);
+    border: 5px solid #1899d6;
+    border-radius: 70px;
+    height: 15rem;
+    width: 100%;
+
+    &:before {
+      content: '';
+      display: block;
+      background-image: none;
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 5rem;
+      height: 5rem;
+      margin-right: 1rem;
+    }
+
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+
+.savannah a:before {
+  background-image: url('../../assets/games/savannah.svg');
+}
+
+.audiocall a:before {
+  background-image: url('../../assets/games/audiocall.svg');
+}
+
+.sprint a:before {
+  background-image: url('../../assets/games/sprint.svg');
+}
+
+.owngame a:before {
+  background-image: url('../../assets/games/game.svg');
 }
