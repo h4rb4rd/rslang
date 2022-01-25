@@ -98,3 +98,14 @@
     }
   }
 }
+
+.close {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+
+  a {
+    font-size: 3rem;
+    color: #fff;
+  }
+}

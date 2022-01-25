@@ -19,15 +19,22 @@ function About() {
 
   return (
     <div className={cl.about}>
+      {!authUserState && (
+        <div className={cl.close}>
+          <Link to="/login">&#10006;</Link>
+        </div>
+      )}
       <div className={cl.content}>
         <Logo />
         <h3 className={cl.offer}>
           Учите языки бесплатно, весело и <br /> эффективно!
         </h3>
         <Advantages />
-        <div className={cl.start}>
-          <Link to={authUserState ? '/textbook' : '/'}>Начать обучение</Link>
-        </div>
+        {authUserState && (
+          <div className={cl.start}>
+            <Link to="/">Начать обучение</Link>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -67,7 +74,7 @@ function Advantages() {
       text: 'Повторяй слова, используй их почаще и старайся создавать с их помощью новые предложения',
     },
     {
-      id: 3,
+      id: 4,
       iconPath: statstics,
       iconAlt: 'statstics',
       title: 'Статистика обучения',
@@ -77,8 +84,10 @@ function Advantages() {
 
   return (
     <div className={cl.advantages}>
-      {AdvantagesData.map(({ iconPath, iconAlt, title, text }) => {
-        return <Advantage iconPath={iconPath} iconAlt={iconAlt} title={title} text={text} />;
+      {AdvantagesData.map(({ id, iconPath, iconAlt, title, text }) => {
+        return (
+          <Advantage key={id} iconPath={iconPath} iconAlt={iconAlt} title={title} text={text} />
+        );
       })}
     </div>
   );
