@@ -1,2 +1,74 @@
 .team {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5rem 0;
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: 500;
+  color: #1cb0f6;
+  margin-bottom: 5rem;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4rem;
+}
+
+.developer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 32rem;
+}
+
+.image {
+  width: 32rem;
+  margin-bottom: 1rem;
+}
+
+.name {
+  font-size: 2.4rem;
+  color: #7c7c7c;
+  margin-bottom: 1rem;
+}
+.position {
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: #afafaf;
+  margin-bottom: 2rem;
+}
+
+.github {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  color: #1cb0f6;
+  margin-bottom: 1rem;
+
+  &:before {
+    content: '';
+    display: block;
+    background-image: url('../../assets/footer/github.svg');
+    background-size: contain;
+    width: 3rem;
+    height: 3rem;
+  }
+
+  &:hover {
+    color: #1cb0f6;
+  }
+}
+
+.description {
+  color: #7c7c7c;
+  li {
+    list-style: square;
+    margin-bottom: 1rem;
+  }
 }
