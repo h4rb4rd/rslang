@@ -1,9 +1,10 @@
 .games {
+  position: relative;
   flex: 1 1 auto;
   display: flex;
   justify-content: center;
   background: linear-gradient(180deg, #1caff6 0, #5accec 100%);
-  padding: 5rem 0;
+  padding: 3rem 0;
 
   &:before {
     content: '';
@@ -83,4 +84,42 @@
 
 .owngame a:before {
   background-image: url('../../assets/games/game.svg');
+}
+
+.promo {
+  position: absolute;
+  top: 5rem;
+  left: 5rem;
+  background-image: url('../../assets/about/cloud-left.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 9.46rem;
+  width: 23rem;
+
+  a {
+    position: absolute;
+    width: 100%;
+    top: 64%;
+    left: 5.3rem;
+    transform: translateY(-60%);
+    color: #1cb0f6;
+
+    &:hover {
+      color: #1cb0f6;
+    }
+  }
+}
+
+@media screen and (max-width: 991.98px) {
+  .content {
+    margin-top: 12rem;
+  }
+  .promo {
+    top: 3rem;
+    left: 5rem;
+  }
+
+  .title {
+    margin-bottom: 1rem;
+  }
 }

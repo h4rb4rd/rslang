@@ -25,23 +25,10 @@
   position: absolute;
   top: 2rem;
   left: 2rem;
-  max-height: 5.2rem;
 
   a {
-    display: inline-block;
+    font-size: 3rem;
     font-weight: 500;
     color: #1cb0f6;
-    border-radius: 16px;
-    border: 2px solid #e5e5e5;
-    border-bottom: 6px solid #e5e5e5;
-    background-color: #fff;
-    padding: 1.2rem 1.6rem;
-    transition: all 0.1s;
-
-    &:hover {
-      color: #1cb0f6;
-      background-color: #ddf4ff;
-      border-color: #1cb0f6;
-    }
   }
 }

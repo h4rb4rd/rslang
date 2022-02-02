@@ -15,7 +15,7 @@ function Navbar({ isBurgerOpen }) {
   }
   return (
     <nav className={classes.join(' ')}>
-      <Link to="/">
+      <Link to="/textbook">
         <Logo />
       </Link>
       <div className={cl.links}>

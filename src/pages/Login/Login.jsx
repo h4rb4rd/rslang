@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { signup, login } from '../../utils/firebase';
 // styles
 import cl from './Login.module.scss';
 
@@ -10,41 +9,42 @@ import MyButton from '../../components/UI/MyButton/MyButton';
 import Form from '../../components/Form';
 import Logo from '../../components/Logo/Logo';
 
+// ***********
+import ApiSerives from '../../services/ApiService';
+import useFetchLogin from '../../hooks/useFetchLogin';
+import useFetchSignup from '../../hooks/useFetchSignup';
+import useInput from '../../hooks/useInput';
+
 function Login() {
   const [formType, setformType] = useState('login');
-  const [signFormValues, setSignFormValues] = useState({ email: '', password: '', error: '' });
-  const [loginFormValues, setLoginFormValues] = useState({ email: '', password: '', error: '' });
-  const [isLoading, setIsLoading] = useState(false);
+  const usernameSignupInput = useInput('', 'username');
+  const emailSignupInput = useInput('', 'email');
+  const passwordSignupInput = useInput('', 'password');
 
-  const toggleFormType = () => {
-    return formType === 'login' ? setformType('register') : setformType('login');
-  };
+  const emailLoginInput = useInput('', 'email');
+  const passwordLoginInput = useInput('', 'password');
 
-  const handleSignup = async (email, password) => {
-    setIsLoading(true);
+  const signupnValidateError =
+    usernameSignupInput.error || emailSignupInput.error || passwordSignupInput.error;
 
-    try {
-      await signup(email, password);
-    } catch (err) {
-      const message = err.code.replace('auth/', '').split('-').join(' ');
-      setSignFormValues({ ...signFormValues, error: message });
-    }
+  const loginValidateError = emailLoginInput.error || passwordLoginInput.error;
 
-    setIsLoading(false);
-  };
+  const isSignupInputEmpty =
+    usernameSignupInput.value && emailSignupInput.value && passwordSignupInput.value;
+  const isLoginInputEmpty = emailLoginInput.value && passwordLoginInput.value;
 
-  const handleLogin = async (email, password) => {
-    setIsLoading(true);
+  const toggleFormType = () =>
+    formType === 'login' ? setformType('singup') : setformType('login');
 
-    try {
-      await login(email, password);
-    } catch (err) {
-      const message = err.code.replace('auth/', '').split('-').join(' ');
-      setLoginFormValues({ ...signFormValues, error: message });
-    }
+  // signup
+  const [fetchSignup, isSignupFetching, signupError] = useFetchSignup(
+    async (name, email, password) => ApiSerives.signup(name, email, password)
+  );
 
-    setIsLoading(false);
-  };
+  // login
+  const [fetchLogin, isLoginFetching, loginError] = useFetchLogin(async (email, password) =>
+    ApiSerives.login(email, password)
+  );
 
   return (
     <div className={cl.login}>
@@ -58,25 +58,34 @@ function Login() {
       </div>
       {formType === 'login' ? (
         <Form
+          formType="login"
           title="Войти"
           btnText="Войти"
-          isLoading={isLoading}
-          values={loginFormValues}
-          handleSignup={handleLogin}
-          setValues={setLoginFormValues}
+          emailInput={emailLoginInput}
+          passwordInput={passwordLoginInput}
+          isLoading={isLoginFetching}
+          authError={loginError}
+          validError={loginValidateError}
+          isInputEmpty={isLoginInputEmpty}
+          handleSubmit={fetchLogin}
         />
       ) : (
         <Form
+          formType="signup"
           title="Создайте аккаунт"
           btnText="Создать аккаунт"
-          isLoading={isLoading}
-          values={signFormValues}
-          handleSignup={handleSignup}
-          setValues={setSignFormValues}
+          usernameInput={usernameSignupInput}
+          emailInput={emailSignupInput}
+          passwordInput={passwordSignupInput}
+          isLoading={isSignupFetching}
+          authError={signupError}
+          validError={signupnValidateError}
+          isInputEmpty={isSignupInputEmpty}
+          handleSubmit={fetchSignup}
         />
       )}
       <div className={cl.promo}>
-        <Link to="/about">О проекте</Link>
+        <Link to="/about">&#10006;</Link>
       </div>
     </div>
   );

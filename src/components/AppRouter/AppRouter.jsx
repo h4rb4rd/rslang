@@ -9,14 +9,13 @@ import Header from '../Header';
 import Footer from '../Footer/Footer';
 
 function AppRouter() {
-  const authUserState = useContext(AuthContext);
-
+  const { isAuth, setIsAuth } = useContext(AuthContext);
   return (
     <>
-      {authUserState && <Header />}
+      {isAuth && <Header />}
       <main style={{ flex: '1 1 auto', display: 'flex', flexDirection: 'column' }}>
         <Routes>
-          {authUserState
+          {isAuth
             ? privateRoutes.map((route) => {
                 return <Route key={route.id} path={route.path} element={route.component} />;
               })
@@ -25,7 +24,7 @@ function AppRouter() {
               })}
         </Routes>
       </main>
-      {authUserState && <Footer />}
+      {isAuth && <Footer />}
     </>
   );
 }

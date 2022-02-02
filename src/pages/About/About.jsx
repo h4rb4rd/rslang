@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import AuthContext from '../../context';
 
 // styles
 import cl from './About.module.scss';
@@ -15,26 +14,23 @@ import book from '../../assets/about/book.svg';
 import Logo from '../../components/Logo';
 
 function About() {
-  const authUserState = useContext(AuthContext);
-
   return (
     <div className={cl.about}>
-      {!authUserState && (
-        <div className={cl.close}>
-          <Link to="/login">&#10006;</Link>
-        </div>
-      )}
+      <div className={cl.textbook}>
+        <Link to="/textbook">Учебник</Link>
+      </div>
+      <div className={cl.games}>
+        <Link to="/games">Мини игры</Link>
+      </div>
       <div className={cl.content}>
         <Logo />
         <h3 className={cl.offer}>
           Учите языки бесплатно, весело и <br /> эффективно!
         </h3>
         <Advantages />
-        {authUserState && (
-          <div className={cl.start}>
-            <Link to="/">Начать обучение</Link>
-          </div>
-        )}
+        <div className={cl.start}>
+          <Link to="/login">Начать обучение</Link>
+        </div>
       </div>
     </div>
   );

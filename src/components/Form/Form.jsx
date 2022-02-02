@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 // styles
 import cl from './Form.module.scss';
@@ -7,31 +7,77 @@ import cl from './Form.module.scss';
 import MyInput from '../UI/MyInput';
 import MyButton from '../UI/MyButton';
 
-function Form({ title, btnText, handleSignup, isLoading, values, setValues }) {
-  const handleSubmit = (e) => {
+function Form({
+  formType,
+  title,
+  btnText,
+  usernameInput,
+  emailInput,
+  passwordInput,
+  isLoading,
+  authError,
+  validError,
+  isInputEmpty,
+  handleSubmit,
+}) {
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  const onHandleSubmit = (e) => {
     e.preventDefault();
-    handleSignup(values.email, values.password);
+
+    if (formType === 'login') {
+      handleSubmit(emailInput.value, passwordInput.value);
+    }
+
+    if (formType === 'signup') {
+      handleSubmit(usernameInput.value, emailInput.value, passwordInput.value);
+    }
   };
 
+  useEffect(() => {
+    if (isLoading || validError || !isInputEmpty) {
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
+    }
+  }, [isLoading, validError, isInputEmpty]);
+
   return (
-    <form className={cl.form} onSubmit={(e) => handleSubmit(e)}>
+    <form className={cl.form} onSubmit={(e) => onHandleSubmit(e)}>
       <h1 className={cl.title}>{title}</h1>
-      {values.error && <span className={cl.error}>{values.error}</span>}
+      {authError && <span className={cl.error}>{authError}</span>}
       <div className={cl.inputs}>
+        {formType === 'signup' && (
+          <MyInput
+            name="username"
+            value={usernameInput.value}
+            onChange={(e) => usernameInput.onChange(e)}
+            onBlur={(e) => usernameInput.onBlur(e)}
+            type="text"
+            placeholder="Имя пользователя:"
+            error={usernameInput.isDirty && usernameInput.error}
+          />
+        )}
         <MyInput
-          value={values.email}
-          onChange={(e) => setValues({ ...values, email: e.target.value })}
+          name="email"
+          value={emailInput.value}
+          onChange={(e) => emailInput.onChange(e)}
+          onBlur={(e) => emailInput.onBlur(e)}
           type="email"
-          placeholder="Email"
+          placeholder="Почта:"
+          error={emailInput.isDirty && emailInput.error}
         />
         <MyInput
-          value={values.password}
-          onChange={(e) => setValues({ ...values, password: e.target.value })}
+          name="password"
+          value={passwordInput.value}
+          onChange={(e) => passwordInput.onChange(e)}
+          onBlur={(e) => passwordInput.onBlur(e)}
           type="password"
-          placeholder="Password"
+          placeholder="Пароль:"
+          error={passwordInput.isDirty && passwordInput.error}
         />
       </div>
-      <MyButton type="submit" btnColor="blue" disabled={isLoading}>
+      <MyButton type="submit" btnColor="blue" disabled={isDisabled}>
         {btnText}
       </MyButton>
     </form>
