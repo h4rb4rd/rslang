@@ -57,6 +57,11 @@ export default class ApiSerive {
     callback(response.data[0].paginatedResults);
   }
 
+  static async getUnauthorizedWords(groupNum, pageNum, callback) {
+    const response = await this.authInstance.get(`/words?group=${groupNum}&page=${pageNum}`);
+    callback(response.data);
+  }
+
   static async getHardWords(userId, callback) {
     const response = await axios.get(
       `/users/${userId}/aggregatedWords?filter={"$and":[{ "userWord.optional.isHard":true}]}`,

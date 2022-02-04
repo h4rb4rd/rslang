@@ -18,6 +18,14 @@ export const fetchWords = (userId, groupNum, pageNum, limit, callback) => {
   }
 };
 
+export const fetchUnauthorizedWords = (groupNum, pageNum, callback) => {
+  try {
+    ApiSerive.getUnauthorizedWords(groupNum, pageNum, callback);
+  } catch (err) {
+    throw err.response;
+  }
+};
+
 export const fetchAddUserWord = (userId, wordId, difficulty, options) => {
   try {
     ApiSerive.addUserWord(userId, wordId, difficulty, options);

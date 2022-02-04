@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import AuthContext from '../../context';
-import { fetchHardWords, fetchWords } from '../../services/fetchService';
+import { fetchHardWords, fetchWords, fetchUnauthorizedWords } from '../../services/fetchService';
 
 // styles
 import cl from './Textbook.module.scss';
@@ -24,7 +24,9 @@ function Textbook() {
   const wordsPerPage = 20;
 
   useEffect(() => {
-    if (groupNum === 6) {
+    if (!isAuth) {
+      fetchUnauthorizedWords(groupNum, pageNum, setWords);
+    } else if (groupNum === 6) {
       fetchHardWords(userId, setWords);
     } else {
       fetchWords(userId, groupNum, pageNum, wordsPerPage, setWords);
@@ -52,7 +54,7 @@ function Textbook() {
           setGroupNum={setGroupNum}
         />
         {words ? (
-          <WordCards words={words} isTranslate={isTranslate} groupNum={groupNum} />
+          <WordCards words={words} isTranslate={isTranslate} groupNum={groupNum} isAuth={isAuth} />
         ) : (
           <Preloader />
         )}

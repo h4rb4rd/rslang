@@ -6,16 +6,16 @@ import cl from './WordCards.module.scss';
 // components
 import WordCard from '../WordCard/WordCard';
 
-function WordCards({ words, isTranslate, groupNum }) {
+function WordCards({ words, isTranslate, groupNum, isAuth }) {
   return (
     <div className={cl.cards}>
       {words.length ? (
         words.map((word) => {
           return (
             <WordCard
-              key={word._id}
+              key={isAuth ? word._id : word.id}
               word={word.word}
-              wordId={word._id}
+              wordId={isAuth ? word._id : word.id}
               wordTranslate={word.wordTranslate}
               transcription={word.transcription}
               textMeaning={word.textMeaning}
