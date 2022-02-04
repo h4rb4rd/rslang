@@ -1,3 +1,74 @@
 .textbook {
+  position: relative;
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(180deg, #1caff6 0, #5accec 100%);
   padding: 3rem 0;
+
+  &:before {
+    content: '';
+    position: absolute;
+    background-image: url('../../assets/about/clouds.svg');
+    background-size: contain;
+    background-position: center center;
+    width: 100%;
+    height: 30rem;
+    z-index: 0;
+    z-index: 0;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 126rem;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  padding: 3rem 0px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 5rem;
+}
+
+.promo {
+  position: absolute;
+  top: 5rem;
+  right: 5rem;
+
+  a {
+    position: relative;
+    display: block;
+    background-image: url('../../assets/about/cloud-right.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 9.46rem;
+    width: 23rem;
+
+    color: #1cb0f6;
+
+    span {
+      position: absolute;
+      width: 100%;
+      top: 64%;
+      left: 3.5rem;
+      transform: translateY(-60%);
+    }
+  }
+}
+
+@media screen and (max-width: 991.98px) {
+  .content {
+    margin-top: 10rem;
+  }
+  .promo {
+    top: 3rem;
+  }
 }

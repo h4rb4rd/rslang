@@ -15,7 +15,7 @@
     background-size: contain;
     background-position: center center;
     width: 100%;
-    height: 30%;
+    height: 30rem;
     z-index: 0;
     z-index: 0;
   }
@@ -114,18 +114,23 @@
   position: absolute;
   top: 5rem;
   left: 5rem;
-  background-image: url('../../assets/about/cloud-left.svg');
-  background-size: contain;
-  background-repeat: no-repeat;
-  height: 7.5rem;
-  width: 18.25rem;
 
   a {
-    position: absolute;
-    top: 60%;
-    left: 6rem;
-    transform: translateY(-60%);
+    position: relative;
+    display: block;
+    background-image: url('../../assets/about/cloud-left.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 7.5rem;
+    width: 18.25rem;
     color: #1cb0f6;
+
+    span {
+      position: absolute;
+      top: 60%;
+      left: 6rem;
+      transform: translateY(-60%);
+    }
 
     &:hover {
       color: #1cb0f6;
@@ -137,21 +142,22 @@
   position: absolute;
   top: 5rem;
   right: 5rem;
-  background-image: url('../../assets/about/cloud-right.svg');
-  background-size: contain;
-  background-repeat: no-repeat;
-  height: 7.5rem;
-  width: 18.25rem;
 
   a {
-    position: absolute;
-    top: 60%;
-    right: 4.5rem;
-    transform: translateY(-60%);
+    position: relative;
+    display: block;
+    background-image: url('../../assets/about/cloud-right.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 7.5rem;
+    width: 18.25rem;
     color: #1cb0f6;
 
-    &:hover {
-      color: #1cb0f6;
+    span {
+      position: absolute;
+      top: 60%;
+      right: 4.5rem;
+      transform: translateY(-60%);
     }
   }
 }
@@ -164,15 +170,13 @@
   .textbook {
     top: 5rem;
     left: 1rem;
-    height: 6rem;
-    width: 14.6rem;
 
     a {
+      height: 6rem;
+      width: 14.6rem;
       font-size: 1.8rem;
-      left: 5rem;
-
-      &:hover {
-        color: #1cb0f6;
+      span {
+        left: 5rem;
       }
     }
   }
@@ -180,12 +184,14 @@
   .games {
     top: 5rem;
     right: 1rem;
-    height: 6rem;
-    width: 14.6rem;
 
     a {
+      height: 6rem;
+      width: 14.6rem;
       font-size: 1.8rem;
-      right: 3.2rem;
+      span {
+        right: 3.2rem;
+      }
     }
   }
 }

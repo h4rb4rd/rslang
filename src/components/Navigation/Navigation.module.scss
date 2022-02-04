@@ -1,0 +1,168 @@
+.navigation {
+  align-self: flex-start;
+  display: flex;
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+.chapters,
+.settings,
+.games {
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: #1cb0f6;
+  font-weight: 500;
+  border-radius: 10px;
+  border: 1px solid #e5e5e5;
+  background-color: #fff;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+
+  &:before {
+    content: '';
+    display: block;
+    height: 2rem;
+    width: 2rem;
+    background-repeat: no-repeat;
+    object-fit: contain;
+    margin-right: 1rem;
+  }
+}
+
+.chapters {
+  margin-right: 1rem;
+  &:before {
+    background-image: url('../../assets/navigation/folder.svg');
+  }
+}
+
+.games {
+  margin-right: 1rem;
+  margin-left: 1rem;
+  &:before {
+    background-image: url('../../assets/navigation/gamepad.svg');
+  }
+
+  &.disabled {
+    filter: grayscale(1);
+    pointer-events: none;
+  }
+}
+.settings {
+  &:before {
+    background-image: url('../../assets/navigation/settings.svg');
+  }
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.chapter {
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: #1cb0f6;
+  font-weight: 400;
+  font-size: 1.6rem;
+  border-radius: 10px;
+  border: 1px solid #e5e5e5;
+  background-color: #fff;
+  width: 100%;
+  padding: 1rem 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  &:before {
+    content: '';
+    display: block;
+    height: 1.5rem;
+    width: 1.5rem;
+    object-fit: contain;
+    background-image: url('../../assets/navigation/folder.svg');
+    background-repeat: no-repeat;
+    margin-right: 1rem;
+  }
+  &:hover {
+    color: #fff;
+    background-color: #1cb0f6;
+
+    &:before {
+      background-image: url('../../assets/navigation/folder-white.svg');
+    }
+  }
+  &:disabled {
+    pointer-events: none;
+    color: #7c7c7c;
+  }
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 20rem;
+  min-height: 8rem;
+}
+
+.games a {
+  align-self: flex-start;
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: #1cb0f6;
+  font-weight: 400;
+  font-size: 1.6rem;
+  border-radius: 10px;
+  border: 1px solid #e5e5e5;
+  background-color: #fff;
+  width: 100%;
+  padding: 1rem 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  &:before {
+    content: '';
+    display: block;
+    height: 1.5rem;
+    width: 1.5rem;
+    object-fit: contain;
+    background-image: url('../../assets/navigation/gamepad.svg');
+    background-repeat: no-repeat;
+    margin-right: 1rem;
+  }
+  &:hover {
+    color: #fff;
+    background-color: #1cb0f6;
+
+    &:before {
+      background-image: url('../../assets/navigation/gamepad-white.svg');
+    }
+  }
+  &:disabled {
+    pointer-events: none;
+    color: #7c7c7c;
+  }
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 1.6rem;
+
+  input {
+    cursor: pointer;
+    margin-right: 1rem;
+  }
+}

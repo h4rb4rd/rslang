@@ -6,7 +6,7 @@ import { privateRoutes, publicRoutes } from '../../utils/router';
 
 // components
 import Header from '../Header';
-import Footer from '../Footer/Footer';
+import Footer from '../Footer';
 
 function AppRouter() {
   const { isAuth, setIsAuth } = useContext(AuthContext);

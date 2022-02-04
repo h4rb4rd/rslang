@@ -22,11 +22,8 @@ function Navbar({ isBurgerOpen }) {
         <NavLink to="/textbook" className={(navData) => (navData.isActive ? `${cl.active}` : '')}>
           Учебник
         </NavLink>
-        <NavLink to="/dictionary" className={(navData) => (navData.isActive ? `${cl.active}` : '')}>
-          Словарь
-        </NavLink>
         <NavLink to="/games" className={(navData) => (navData.isActive ? `${cl.active}` : '')}>
-          Игры
+          Мини игры
         </NavLink>
         <NavLink to="/statistics" className={(navData) => (navData.isActive ? `${cl.active}` : '')}>
           Статистика

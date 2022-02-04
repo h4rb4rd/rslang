@@ -17,10 +17,14 @@ function About() {
   return (
     <div className={cl.about}>
       <div className={cl.textbook}>
-        <Link to="/textbook">Учебник</Link>
+        <Link to="/textbook">
+          <span>Учебник</span>
+        </Link>
       </div>
       <div className={cl.games}>
-        <Link to="/games">Мини игры</Link>
+        <Link to="/games">
+          <span>Мини игры</span>
+        </Link>
       </div>
       <div className={cl.content}>
         <Logo />

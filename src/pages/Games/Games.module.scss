@@ -13,7 +13,7 @@
     background-size: contain;
     background-position: center center;
     width: 100%;
-    height: 30%;
+    height: 30rem;
     z-index: 0;
     z-index: 0;
   }
@@ -90,22 +90,24 @@
   position: absolute;
   top: 5rem;
   left: 5rem;
-  background-image: url('../../assets/about/cloud-left.svg');
-  background-size: contain;
-  background-repeat: no-repeat;
-  height: 9.46rem;
-  width: 23rem;
 
   a {
-    position: absolute;
-    width: 100%;
-    top: 64%;
-    left: 5.3rem;
-    transform: translateY(-60%);
+    position: relative;
+    display: block;
+    background-image: url('../../assets/about/cloud-left.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 9.46rem;
+    width: 23rem;
+
     color: #1cb0f6;
 
-    &:hover {
-      color: #1cb0f6;
+    span {
+      position: absolute;
+      width: 100%;
+      top: 64%;
+      left: 5.3rem;
+      transform: translateY(-60%);
     }
   }
 }

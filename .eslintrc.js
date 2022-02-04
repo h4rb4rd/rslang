@@ -25,6 +25,7 @@ module.exports = {
     'no-param-reassign': [2, { props: false }],
     'no-unused-expressions': 'off',
     'no-unused-vars': 'warn',
+    'no-underscore-dangle': ['error', { allow: ['_id'] }],
     'require-jsdoc': 'off',
     'import/extensions': 'off',
     'react/prop-types': 'off',

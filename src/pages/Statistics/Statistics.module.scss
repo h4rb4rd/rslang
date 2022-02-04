@@ -1,2 +1,20 @@
 .statistics {
+  position: relative;
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(180deg, #1caff6 0, #5accec 100%);
+  padding: 3rem 0;
+
+  &:before {
+    content: '';
+    position: absolute;
+    background-image: url('../../assets/about/clouds.svg');
+    background-size: contain;
+    background-position: center center;
+    width: 100%;
+    height: 30rem;
+    z-index: 0;
+    z-index: 0;
+  }
 }

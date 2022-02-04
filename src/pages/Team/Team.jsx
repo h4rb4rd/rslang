@@ -54,11 +54,13 @@ function Team() {
 
   return (
     <div className={cl.team}>
-      <h2 className={cl.title}>О команде</h2>
-      <div className={cl.content}>
-        {developers.map(({ id, ...rest }) => {
-          return <Developer key={id} {...rest} />;
-        })}
+      <div className={cl.wrapper}>
+        <h2 className={cl.title}>О команде</h2>
+        <div className={cl.content}>
+          {developers.map(({ id, ...rest }) => {
+            return <Developer key={id} {...rest} />;
+          })}
+        </div>
       </div>
     </div>
   );

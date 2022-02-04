@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+
 import AuthContext from '../../context';
+
 // styles
 import cl from './Games.module.scss';
 
@@ -11,7 +13,9 @@ function Games() {
     <div className={cl.games}>
       {!isAuth && (
         <div className={cl.promo}>
-          <Link to="/">Узнать больше</Link>
+          <Link to="/about">
+            <span>Узнать больше</span>
+          </Link>
         </div>
       )}
       <div className={cl.content}>
