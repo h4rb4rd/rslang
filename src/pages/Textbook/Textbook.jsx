@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 import AuthContext from '../../context';
@@ -23,8 +23,8 @@ function Textbook() {
   const userId = localStorage.getItem('userId');
   const wordsPerPage = 20;
 
-  useEffect(() => {
-    if (!isAuth) {
+  const getWords = async () => {
+    if (!userId) {
       fetchUnauthorizedWords(groupNum, pageNum, setWords);
     } else if (groupNum === 6) {
       fetchHardWords(userId, setWords);
@@ -34,6 +34,10 @@ function Textbook() {
 
     localStorage.setItem('page-num', pageNum);
     localStorage.setItem('group-num', groupNum);
+  };
+
+  useEffect(() => {
+    getWords();
   }, [pageNum, groupNum]);
 
   useEffect(() => {

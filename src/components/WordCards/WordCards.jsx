@@ -6,7 +6,7 @@ import cl from './WordCards.module.scss';
 // components
 import WordCard from '../WordCard/WordCard';
 
-function WordCards({ words, isTranslate, groupNum, isAuth }) {
+function WordCards({ words, isTranslate, groupNum, isAuth, setWords }) {
   return (
     <div className={cl.cards}>
       {words.length ? (

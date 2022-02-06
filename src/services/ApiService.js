@@ -10,15 +10,6 @@ export default class ApiSerive {
     headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
   });
 
-  static dataInstance = axios.create({
-    baseURL: this.API_URL,
-    headers: {
-      Authorization: `Bearer ${this.TOKEN}`,
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  });
-
   static signup = async (name, email, password) => {
     const response = await this.authInstance.post('/users', { name, email, password });
     return response;
@@ -79,17 +70,40 @@ export default class ApiSerive {
   }
 
   static async addUserWord(userId, wordId, difficulty, options) {
-    await this.dataInstance.post(`/users/${userId}/words/${wordId}`, {
-      difficulty,
-      optional: options,
-    });
+    await axios.post(
+      `/users/${userId}/words/${wordId}`,
+      {
+        difficulty,
+        optional: options,
+      },
+      {
+        baseURL: this.API_URL,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      }
+    );
   }
 
   static async updateUserWord(userId, wordId, difficulty, options) {
-    await this.dataInstance.put(`/users/${userId}/words/${wordId}`, {
-      difficulty,
-      optional: options,
-    });
+    const res = await axios.put(
+      `/users/${userId}/words/${wordId}`,
+      {
+        difficulty,
+        optional: options,
+      },
+      {
+        baseURL: this.API_URL,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    console.log(res);
   }
 }
 

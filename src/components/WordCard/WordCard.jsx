@@ -107,9 +107,9 @@ function WordCard({
     setOptions(optional);
   };
 
-  const handleRemoveHardWord = () => {
+  const handleRemoveHardWord = async () => {
     const optional = { ...options, isHard: false };
-    fetchUpdateUserWord(userId, wordId, 'easy', optional);
+    await fetchUpdateUserWord(userId, wordId, 'easy', optional);
     setIsHard(false);
     setOptions(optional);
   };
