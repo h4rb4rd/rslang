@@ -1,2 +1,111 @@
 .sprint {
+    flex:1 1 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, #1caff6 0, #5accec 100%);;
+}
+
+.lvlWrapper{
+    display: flex;
+    justify-content: center;
+    column-gap: 10px;
+}
+
+.level {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    font-family: "Mochiy Pop P One", sans-serif;
+    align-self: center;
+    color: #1cb0f6;
+    font-size: 3rem;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.sprintGame {
+    flex: 1;
+    height: calc(100vh - 17rem);
+    max-width: 500px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 10px;
+}
+
+.wordWrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    font-family: "Mochiy Pop P One", sans-serif;
+    align-items: center;
+    color: #1cb0f6;
+    font-size: 3rem;
+}
+
+.btnWrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    column-gap: 15px;
+}
+
+.answBtn {
+    outline: none;
+    border: none;
+    font-family: "Mochiy Pop P One", sans-serif;
+    color: #1cb0f6;
+    padding: 5px;
+    max-width: 130px;
+    width: 100%;
+    
+    position: relative;
+    cursor: pointer;
+}
+
+.btnNo {
+    background-color: #f53958;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.btnOk {
+    background-color: lime;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.btnOk::after{
+    left: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+    border-color: rgba(136, 183, 213, 0);
+	border-left-color: lime;
+	border-width: 25px;
+	margin-top: -25px;
+}
+
+.btnNo::before{
+    right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+    border-color: rgba(194, 225, 245, 0);
+	border-right-color: #f53958;
+	border-width: 25px;
+	margin-top: -25px;
 }

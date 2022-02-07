@@ -5,7 +5,7 @@ import AuthContext from '../../context';
 import { privateRoutes, publicRoutes } from '../../utils/router';
 
 // components
-import Header from '../Header';
+import Header from '../header';
 import Footer from '../Footer';
 
 function AppRouter() {
