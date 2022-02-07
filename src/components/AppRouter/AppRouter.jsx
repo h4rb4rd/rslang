@@ -9,7 +9,8 @@ import Header from '../Header';
 import Footer from '../Footer';
 
 function AppRouter() {
-  const { isAuth, setIsAuth } = useContext(AuthContext);
+  const { isAuth } = useContext(AuthContext);
+
   return (
     <>
       {isAuth && <Header />}

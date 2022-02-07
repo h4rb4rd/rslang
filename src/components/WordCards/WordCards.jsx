@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import AuthContext from '../../context';
 
 // styles
 import cl from './WordCards.module.scss';
@@ -6,10 +7,12 @@ import cl from './WordCards.module.scss';
 // components
 import WordCard from '../WordCard/WordCard';
 
-function WordCards({ words, isTranslate, groupNum, isAuth, setWords }) {
+function WordCards({ words, isTranslate, pageNum, groupNum, wordsLimit, setWords }) {
+  const { isAuth } = useContext(AuthContext);
+
   return (
     <div className={cl.cards}>
-      {words.length ? (
+      {words?.length ? (
         words.map((word) => {
           return (
             <WordCard
@@ -28,7 +31,10 @@ function WordCards({ words, isTranslate, groupNum, isAuth, setWords }) {
               audioMeaning={word.audioMeaning}
               userWord={word.userWord}
               isTranslate={isTranslate}
+              pageNum={pageNum}
               groupNum={groupNum}
+              wordsLimit={wordsLimit}
+              setWords={setWords}
             />
           );
         })

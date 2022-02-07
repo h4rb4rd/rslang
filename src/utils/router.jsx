@@ -14,16 +14,13 @@ import Audiocall from '../pages/Audiocall';
 import Sprint from '../pages/Sprint';
 
 export const privateRoutes = [
-  { id: '1', path: '/', component: <Navigate to="/textbook" /> },
   { id: '2', path: '/textbook', component: <Textbook /> },
   { id: '3', path: '/games', component: <Games /> },
   { id: '4', path: '/statistics', component: <Statistics /> },
   { id: '5', path: '/team', component: <Team /> },
   { id: '6', path: '/audiocall', component: <Audiocall /> },
   { id: '7', path: '/sprint', component: <Sprint /> },
-  { id: '8', path: '/login', component: <Navigate to="/textbook" /> },
-  { id: '9', path: '/about', component: <Navigate to="/textbook" /> },
-  { id: '10', path: '*', component: <Error /> },
+  { id: '10', path: '*', component: <Navigate to="/textbook" /> },
 ];
 
 export const publicRoutes = [

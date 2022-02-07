@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState, useCallback } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import AuthContext from '../../context';
-import { fetchHardWords, fetchWords, fetchUnauthorizedWords } from '../../services/fetchService';
+import ApiService from '../../services/ApiService';
 
 // styles
 import cl from './Textbook.module.scss';
@@ -12,8 +12,10 @@ import Navigation from '../../components/Navigation';
 import WordCards from '../../components/WordCards';
 import Preloader from '../../components/Preloader/Preloader';
 
+const WORDS_PER_PAGE = 20;
+
 function Textbook() {
-  const { isAuth, setIsAuth } = useContext(AuthContext);
+  const { isAuth } = useContext(AuthContext);
   const [words, setWords] = useState(null);
   const [pageNum, setPageNum] = useState(Number(localStorage.getItem('page-num')) || 0);
   const [groupNum, setGroupNum] = useState(Number(localStorage.getItem('group-num')) || 0);
@@ -21,15 +23,14 @@ function Textbook() {
   const [isPageEasy, setIsPageEasy] = useState(false);
 
   const userId = localStorage.getItem('userId');
-  const wordsPerPage = 20;
 
-  const getWords = async () => {
+  const getWords = () => {
     if (!userId) {
-      fetchUnauthorizedWords(groupNum, pageNum, setWords);
+      ApiService.getUnauthorizedWords(groupNum, pageNum, setWords);
     } else if (groupNum === 6) {
-      fetchHardWords(userId, setWords);
+      ApiService.getHardWords(userId, setWords);
     } else {
-      fetchWords(userId, groupNum, pageNum, wordsPerPage, setWords);
+      ApiService.getWords(userId, groupNum, pageNum, WORDS_PER_PAGE, setWords);
     }
 
     localStorage.setItem('page-num', pageNum);
@@ -41,7 +42,11 @@ function Textbook() {
   }, [pageNum, groupNum]);
 
   useEffect(() => {
-    setIsPageEasy(words?.every((word) => word?.userWord?.optional?.isEasy === true));
+    if (words?.length) {
+      setIsPageEasy(words?.every((word) => word?.userWord?.optional?.isEasy));
+    } else {
+      setIsPageEasy(false);
+    }
   }, [words]);
 
   return (
@@ -58,7 +63,14 @@ function Textbook() {
           setGroupNum={setGroupNum}
         />
         {words ? (
-          <WordCards words={words} isTranslate={isTranslate} groupNum={groupNum} isAuth={isAuth} />
+          <WordCards
+            words={words}
+            isTranslate={isTranslate}
+            groupNum={groupNum}
+            pageNum={pageNum}
+            wordsLimit={WORDS_PER_PAGE}
+            setWords={setWords}
+          />
         ) : (
           <Preloader />
         )}

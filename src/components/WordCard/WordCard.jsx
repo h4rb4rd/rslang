@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 
-import ApiSerives from '../../services/ApiService';
+import ApiService from '../../services/ApiService';
 import AuthContext from '../../context';
 
-import { fetchAddUserWord, fetchUpdateUserWord } from '../../services/fetchService';
 // styles
 import cl from './WordCard.module.scss';
 
@@ -14,7 +13,6 @@ import iconInDifficult from '../../assets/wordcard/indifficult.svg';
 import iconDone from '../../assets/wordcard/done.svg';
 import iconInDone from '../../assets/wordcard/indone.svg';
 import iconFolder from '../../assets/navigation/folder.svg';
-import iconRemove from '../../assets/wordcard/remove.svg';
 
 function WordCard({
   word,
@@ -31,21 +29,21 @@ function WordCard({
   audioMeaning,
   userWord,
   isTranslate,
+  pageNum,
   groupNum,
+  wordsLimit,
+  setWords,
 }) {
-  const { isAuth, setIsAuth } = useContext(AuthContext);
+  const { isAuth } = useContext(AuthContext);
   const userId = localStorage.getItem('userId');
-  const [isHard, setIsHard] = useState(userWord?.optional?.isHard);
-  const [isEasy, setIsEasy] = useState(userWord?.optional?.isEasy);
   const [options, setOptions] = useState(userWord?.optional || {});
+  const [isHardLoading, setIsHardLoading] = useState(false);
+  const [isEasyWord, setIsEasyWord] = useState(false);
 
   const $textExample = useRef();
   const $textMeaning = useRef();
 
   const removeBtnClasses = [cl.difficult];
-  if (!isHard) {
-    removeBtnClasses.push(cl.gray);
-  }
 
   useEffect(() => {
     if ($textExample.current) {
@@ -61,63 +59,132 @@ function WordCard({
 
   const playWordAudio = () => {
     const wordAudio = new Audio();
-    wordAudio.src = `${ApiSerives.API_URL}/${audio}`;
+    wordAudio.src = `${ApiService.API_URL}/${audio}`;
     wordAudio.play();
   };
 
   const playExampleAudio = () => {
     const exampleAudio = new Audio();
-    exampleAudio.src = `${ApiSerives.API_URL}/${audioExample}`;
+    exampleAudio.src = `${ApiService.API_URL}/${audioExample}`;
     exampleAudio.play();
   };
 
   const playMeaningAudion = () => {
     const meaningAudio = new Audio();
-    meaningAudio.src = `${ApiSerives.API_URL}/${audioMeaning}`;
+    meaningAudio.src = `${ApiService.API_URL}/${audioMeaning}`;
     meaningAudio.play();
   };
 
   const handleAddHardWord = () => {
+    setIsHardLoading(true);
     const optional = { ...options, isHard: true };
-    fetchAddUserWord(userId, wordId, 'hard', optional);
-    setIsHard(true);
-    setOptions(optional);
+
+    ApiService.addUserWord(userId, wordId, 'easy', optional)
+      .then(() => {
+        ApiService.getWords(userId, groupNum, pageNum, wordsLimit, setWords);
+        setOptions(optional);
+      })
+      .catch((err) => {
+        throw err.response;
+      })
+      .finally(() => {
+        setIsHardLoading(false);
+      });
   };
 
   const handleAddEasyWord = () => {
+    setIsEasyWord(true);
     const optional = { ...options, isEasy: true };
-    fetchAddUserWord(userId, wordId, 'easy', optional);
-    setIsEasy(true);
-    setOptions(optional);
+
+    ApiService.addUserWord(userId, wordId, 'easy', optional)
+      .then(() => {
+        ApiService.getWords(userId, groupNum, pageNum, wordsLimit, setWords);
+        setOptions(optional);
+      })
+      .catch((err) => {
+        throw err.response;
+      })
+      .finally(() => {
+        setIsEasyWord(false);
+      });
   };
 
   const handleUpdateHardWord = () => {
+    setIsHardLoading(true);
     const value = userWord?.optional?.isHard;
     const optional = { ...options, isHard: !value };
-    fetchUpdateUserWord(userId, wordId, 'hard', optional);
-    setIsHard(true);
-    setOptions(optional);
+
+    ApiService.updateUserWord(userId, wordId, 'easy', optional)
+      .then(() => {
+        ApiService.getWords(userId, groupNum, pageNum, wordsLimit, setWords);
+        setOptions(optional);
+      })
+      .catch((err) => {
+        throw err.response;
+      })
+      .finally(() => {
+        setIsHardLoading(false);
+      });
   };
 
   const handleUpdateEasyWord = () => {
+    setIsEasyWord(true);
+
     const value = userWord?.optional?.isEasy;
     const optional = { ...options, isEasy: !value };
-    fetchUpdateUserWord(userId, wordId, 'easy', optional);
-    setIsEasy(true);
-    setOptions(optional);
+    ApiService.updateUserWord(userId, wordId, 'easy', optional)
+      .then(() => {
+        ApiService.getWords(userId, groupNum, pageNum, wordsLimit, setWords);
+        setOptions(optional);
+      })
+      .catch((err) => {
+        throw err.response;
+      })
+      .finally(() => {
+        setIsEasyWord(false);
+      });
   };
 
-  const handleRemoveHardWord = async () => {
-    const optional = { ...options, isHard: false };
-    await fetchUpdateUserWord(userId, wordId, 'easy', optional);
-    setIsHard(false);
-    setOptions(optional);
+  const handleUpdateHardWordInHardChapter = () => {
+    setIsHardLoading(true);
+    const value = userWord?.optional?.isHard;
+    const optional = { ...options, isHard: !value };
+
+    ApiService.updateUserWord(userId, wordId, 'easy', optional)
+      .then(() => {
+        ApiService.getHardWords(userId, setWords);
+        setOptions(optional);
+      })
+      .catch((err) => {
+        throw err.response;
+      })
+      .finally(() => {
+        setIsHardLoading(false);
+      });
+  };
+
+  const handleUpdateEasyWordInHardChapter = () => {
+    setIsEasyWord(true);
+
+    const value = userWord?.optional?.isEasy;
+    const optional = { ...options, isEasy: !value };
+    ApiService.updateUserWord(userId, wordId, 'easy', optional)
+      .then(() => {
+        ApiService.getHardWords(userId, setWords);
+        setOptions(optional);
+      })
+      .catch((err) => {
+        throw err.response;
+      })
+      .finally(() => {
+        setIsEasyWord(false);
+      });
   };
 
   return (
     <div className={cl.card}>
       <div className={cl.image}>
-        <img src={`${ApiSerives.API_URL}/${image}`} alt={word} />
+        <img src={`${ApiService.API_URL}/${image}`} alt={word} />
       </div>
       <div className={cl.content}>
         <div className={cl.word}>
@@ -159,32 +226,54 @@ function WordCard({
           {groupNum === 6 ? (
             <button
               className={removeBtnClasses.join(' ')}
-              onClick={handleRemoveHardWord}
-              disabled={!isHard}
+              onClick={handleUpdateHardWordInHardChapter}
+              disabled={isHardLoading}
             >
-              <img src={iconRemove} alt="difficult" title='Удалить из раздела "Cложные слова"' />
+              <img
+                src={userWord?.optional?.isHard ? iconInDifficult : iconDifficult}
+                alt="difficult"
+                title='Добавить в "Cложные слова"'
+              />
             </button>
           ) : (
             <button
               className={cl.difficult}
-              onClick={isEasy || isHard ? handleUpdateHardWord : handleAddHardWord}
-              disabled={isHard}
+              onClick={userWord?.optional ? handleUpdateHardWord : handleAddHardWord}
+              disabled={isHardLoading}
             >
               <img
-                src={isHard ? iconInDifficult : iconDifficult}
+                src={userWord?.optional?.isHard ? iconInDifficult : iconDifficult}
                 alt="difficult"
                 title='Добавить в "Cложные слова"'
               />
             </button>
           )}
 
-          <button
-            className={cl.done}
-            onClick={isEasy || isHard ? handleUpdateEasyWord : handleAddEasyWord}
-            disabled={isEasy}
-          >
-            <img src={isEasy ? iconInDone : iconDone} alt="done" title="Отметить как изученное" />
-          </button>
+          {groupNum === 6 ? (
+            <button
+              className={cl.done}
+              onClick={handleUpdateEasyWordInHardChapter}
+              disabled={isEasyWord}
+            >
+              <img
+                src={userWord?.optional?.isEasy ? iconInDone : iconDone}
+                alt="done"
+                title="Отметить как изученное"
+              />
+            </button>
+          ) : (
+            <button
+              className={cl.done}
+              onClick={userWord?.optional ? handleUpdateEasyWord : handleAddEasyWord}
+              disabled={isEasyWord}
+            >
+              <img
+                src={userWord?.optional?.isEasy ? iconInDone : iconDone}
+                alt="done"
+                title="Отметить как изученное"
+              />
+            </button>
+          )}
         </div>
       )}
     </div>

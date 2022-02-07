@@ -1,7 +1,7 @@
 import React, { useState, useRef, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { fetchUser } from '../../services/fetchService';
+import ApiService from '../../services/ApiService';
 
 // styles
 import cl from './User.module.scss';
@@ -16,14 +16,14 @@ import MyButton from '../UI/MyButton';
 import AuthContext from '../../context';
 
 function User({ openUserInfo, closeUserInfo, isVisible }) {
-  const { isAuth, setIsAuth } = useContext(AuthContext);
+  const { setIsAuth } = useContext(AuthContext);
   const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
   const userInfo = useRef();
   const userId = localStorage.getItem('userId');
 
   useEffect(() => {
-    fetchUser(userId, setUserData);
+    ApiService.getUser(userId, setUserData);
   }, []);
 
   const hadnleLogout = () => {
