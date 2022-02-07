@@ -26,6 +26,7 @@ module.exports = {
     'no-unused-expressions': 'off',
     'no-unused-vars': 'warn',
     'no-underscore-dangle': ['error', { allow: ['_id'] }],
+    'import/prefer-default-export': 'off',
     'require-jsdoc': 'off',
     'import/extensions': 'off',
     'react/prop-types': 'off',

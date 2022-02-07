@@ -12,7 +12,8 @@ import Navigation from '../../components/Navigation';
 import WordCards from '../../components/WordCards';
 import Preloader from '../../components/Preloader/Preloader';
 
-const WORDS_PER_PAGE = 20;
+// constants
+import { TEXTBOOK_WORDS_PER_PAGE } from '../../constants';
 
 function Textbook() {
   const { isAuth } = useContext(AuthContext);
@@ -30,7 +31,7 @@ function Textbook() {
     } else if (groupNum === 6) {
       ApiService.getHardWords(userId, setWords);
     } else {
-      ApiService.getWords(userId, groupNum, pageNum, WORDS_PER_PAGE, setWords);
+      ApiService.getWords(userId, groupNum, pageNum, TEXTBOOK_WORDS_PER_PAGE, setWords);
     }
 
     localStorage.setItem('page-num', pageNum);
@@ -68,7 +69,6 @@ function Textbook() {
             isTranslate={isTranslate}
             groupNum={groupNum}
             pageNum={pageNum}
-            wordsLimit={WORDS_PER_PAGE}
             setWords={setWords}
           />
         ) : (

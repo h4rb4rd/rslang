@@ -7,7 +7,7 @@ import cl from './WordCards.module.scss';
 // components
 import WordCard from '../WordCard/WordCard';
 
-function WordCards({ words, isTranslate, pageNum, groupNum, wordsLimit, setWords }) {
+function WordCards({ words, isTranslate, pageNum, groupNum, setWords }) {
   const { isAuth } = useContext(AuthContext);
 
   return (
@@ -33,7 +33,6 @@ function WordCards({ words, isTranslate, pageNum, groupNum, wordsLimit, setWords
               isTranslate={isTranslate}
               pageNum={pageNum}
               groupNum={groupNum}
-              wordsLimit={wordsLimit}
               setWords={setWords}
             />
           );

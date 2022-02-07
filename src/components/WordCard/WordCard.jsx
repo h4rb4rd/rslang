@@ -14,6 +14,9 @@ import iconDone from '../../assets/wordcard/done.svg';
 import iconInDone from '../../assets/wordcard/indone.svg';
 import iconFolder from '../../assets/navigation/folder.svg';
 
+// constants
+import { TEXTBOOK_WORDS_PER_PAGE } from '../../constants';
+
 function WordCard({
   word,
   wordId,
@@ -31,7 +34,6 @@ function WordCard({
   isTranslate,
   pageNum,
   groupNum,
-  wordsLimit,
   setWords,
 }) {
   const { isAuth } = useContext(AuthContext);
@@ -42,8 +44,6 @@ function WordCard({
 
   const $textExample = useRef();
   const $textMeaning = useRef();
-
-  const removeBtnClasses = [cl.difficult];
 
   useEffect(() => {
     if ($textExample.current) {
@@ -81,7 +81,11 @@ function WordCard({
 
     ApiService.addUserWord(userId, wordId, 'easy', optional)
       .then(() => {
-        ApiService.getWords(userId, groupNum, pageNum, wordsLimit, setWords);
+        if (groupNum === 6) {
+          ApiService.getHardWords(userId, setWords);
+        } else {
+          ApiService.getWords(userId, groupNum, pageNum, TEXTBOOK_WORDS_PER_PAGE, setWords);
+        }
         setOptions(optional);
       })
       .catch((err) => {
@@ -98,7 +102,11 @@ function WordCard({
 
     ApiService.addUserWord(userId, wordId, 'easy', optional)
       .then(() => {
-        ApiService.getWords(userId, groupNum, pageNum, wordsLimit, setWords);
+        if (groupNum === 6) {
+          ApiService.getHardWords(userId, setWords);
+        } else {
+          ApiService.getWords(userId, groupNum, pageNum, TEXTBOOK_WORDS_PER_PAGE, setWords);
+        }
         setOptions(optional);
       })
       .catch((err) => {
@@ -116,7 +124,11 @@ function WordCard({
 
     ApiService.updateUserWord(userId, wordId, 'easy', optional)
       .then(() => {
-        ApiService.getWords(userId, groupNum, pageNum, wordsLimit, setWords);
+        if (groupNum === 6) {
+          ApiService.getHardWords(userId, setWords);
+        } else {
+          ApiService.getWords(userId, groupNum, pageNum, TEXTBOOK_WORDS_PER_PAGE, setWords);
+        }
         setOptions(optional);
       })
       .catch((err) => {
@@ -134,43 +146,11 @@ function WordCard({
     const optional = { ...options, isEasy: !value };
     ApiService.updateUserWord(userId, wordId, 'easy', optional)
       .then(() => {
-        ApiService.getWords(userId, groupNum, pageNum, wordsLimit, setWords);
-        setOptions(optional);
-      })
-      .catch((err) => {
-        throw err.response;
-      })
-      .finally(() => {
-        setIsEasyWord(false);
-      });
-  };
-
-  const handleUpdateHardWordInHardChapter = () => {
-    setIsHardLoading(true);
-    const value = userWord?.optional?.isHard;
-    const optional = { ...options, isHard: !value };
-
-    ApiService.updateUserWord(userId, wordId, 'easy', optional)
-      .then(() => {
-        ApiService.getHardWords(userId, setWords);
-        setOptions(optional);
-      })
-      .catch((err) => {
-        throw err.response;
-      })
-      .finally(() => {
-        setIsHardLoading(false);
-      });
-  };
-
-  const handleUpdateEasyWordInHardChapter = () => {
-    setIsEasyWord(true);
-
-    const value = userWord?.optional?.isEasy;
-    const optional = { ...options, isEasy: !value };
-    ApiService.updateUserWord(userId, wordId, 'easy', optional)
-      .then(() => {
-        ApiService.getHardWords(userId, setWords);
+        if (groupNum === 6) {
+          ApiService.getHardWords(userId, setWords);
+        } else {
+          ApiService.getWords(userId, groupNum, pageNum, TEXTBOOK_WORDS_PER_PAGE, setWords);
+        }
         setOptions(optional);
       })
       .catch((err) => {
@@ -223,57 +203,28 @@ function WordCard({
       </div>
       {isAuth && (
         <div className={cl.buttons}>
-          {groupNum === 6 ? (
-            <button
-              className={removeBtnClasses.join(' ')}
-              onClick={handleUpdateHardWordInHardChapter}
-              disabled={isHardLoading}
-            >
-              <img
-                src={userWord?.optional?.isHard ? iconInDifficult : iconDifficult}
-                alt="difficult"
-                title='Добавить в "Cложные слова"'
-              />
-            </button>
-          ) : (
-            <button
-              className={cl.difficult}
-              onClick={userWord?.optional ? handleUpdateHardWord : handleAddHardWord}
-              disabled={isHardLoading}
-            >
-              <img
-                src={userWord?.optional?.isHard ? iconInDifficult : iconDifficult}
-                alt="difficult"
-                title='Добавить в "Cложные слова"'
-              />
-            </button>
-          )}
-
-          {groupNum === 6 ? (
-            <button
-              className={cl.done}
-              onClick={handleUpdateEasyWordInHardChapter}
-              disabled={isEasyWord}
-            >
-              <img
-                src={userWord?.optional?.isEasy ? iconInDone : iconDone}
-                alt="done"
-                title="Отметить как изученное"
-              />
-            </button>
-          ) : (
-            <button
-              className={cl.done}
-              onClick={userWord?.optional ? handleUpdateEasyWord : handleAddEasyWord}
-              disabled={isEasyWord}
-            >
-              <img
-                src={userWord?.optional?.isEasy ? iconInDone : iconDone}
-                alt="done"
-                title="Отметить как изученное"
-              />
-            </button>
-          )}
+          <button
+            className={cl.difficult}
+            onClick={userWord?.optional ? handleUpdateHardWord : handleAddHardWord}
+            disabled={isHardLoading}
+          >
+            <img
+              src={userWord?.optional?.isHard ? iconInDifficult : iconDifficult}
+              alt="difficult"
+              title='Добавить в "Cложные слова"'
+            />
+          </button>
+          <button
+            className={cl.done}
+            onClick={userWord?.optional ? handleUpdateEasyWord : handleAddEasyWord}
+            disabled={isEasyWord}
+          >
+            <img
+              src={userWord?.optional?.isEasy ? iconInDone : iconDone}
+              alt="done"
+              title="Отметить как изученное"
+            />
+          </button>
         </div>
       )}
     </div>
