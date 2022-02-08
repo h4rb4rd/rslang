@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import AuthContext from '../../context';
-import { fetchUnauthorizedWords, fetchWords } from '../../services/fetchService';
+import ApiService from '../../services/ApiService';
 
 // styles
 import cl from './Sprint.module.scss';
@@ -17,25 +17,24 @@ function isRight() {
 function SprintGame({ level }) {
   const { isAuth } = useContext(AuthContext);
   const [wordIndex, setWordIndex] = useState(0);
-  const [translate, setTranslate] = useState('');
-  function setTranslateWord() {
-    console.log('setTranslate');
+  const [words, setWords] = useState([]);
+
+  const [seconds, setSeconds] = useState(60);
+
+  const translate = useMemo(() => {
+    let result = '';
     if (isRight()) {
-      setTranslate(words[wordIndex]?.wordTranslate);
+      result = words[wordIndex]?.wordTranslate;
     } else {
       let tmpIndex = 0;
-      if (words?.length) {
-        tmpIndex = getRandomNum(0, words?.length - 1);
-        while (tmpIndex === wordIndex) {
-          tmpIndex = getRandomNum(0, words?.length - 1);
-        }
+      tmpIndex = getRandomNum(0, words.length - 1);
+      while (tmpIndex === wordIndex) {
+        tmpIndex = getRandomNum(0, words.length - 1);
       }
-
-      setTranslate(words[tmpIndex]?.wordTranslate);
+      result = words[tmpIndex]?.wordTranslate;
     }
-    console.log(translate, words[wordIndex]?.wordTranslate);
-  }
-  const [words, setWords] = useState([], setTranslateWord);
+    return result;
+  }, [words, wordIndex]);
 
   const setWordsList = (wordsList) => {
     const arr = wordsList.map((item) => {
@@ -47,19 +46,29 @@ function SprintGame({ level }) {
       };
     });
     setWords(arr);
-    // console.log(words);
-    // setTranslateWord();
   };
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     if (isAuth) {
-      fetchWords(userId, level, getRandomNum(0, 30), 20, setWordsList);
+      ApiService.getWords(userId, level - 1, getRandomNum(0, 30), 20, setWordsList);
     } else {
-      fetchUnauthorizedWords(level, getRandomNum(0, 30), setWordsList);
+      ApiService.getUnauthorizedWords(level - 1, getRandomNum(0, 30), setWordsList);
     }
-    // setTranslateWord();
   }, []);
+
+  useEffect(() => {
+    let timer;
+    if (seconds > 0) {
+      timer = setTimeout(() => setSeconds((s) => s - 1), 1000);
+    }
+
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
+  }, [seconds]);
 
   const checkAnswer = (ans) => {
     if (ans === 'yes') {
@@ -86,7 +95,6 @@ function SprintGame({ level }) {
     } else {
       setWordIndex(0);
     }
-    setTranslateWord();
   };
 
   return (
@@ -95,6 +103,7 @@ function SprintGame({ level }) {
         <span>{words[wordIndex]?.word}</span>
         <span>{translate}</span>
       </div>
+      <div>{seconds}</div>
       <div className={cl.btnWrapper}>
         <button
           className={`${cl.answBtn} ${cl.btnNo}`}
