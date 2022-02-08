@@ -4,6 +4,7 @@ import ApiService from '../../services/ApiService';
 
 // styles
 import cl from './Sprint.module.scss';
+import SprintTimer from './SprintTimer';
 
 function getRandomNum(min, max) {
   const rand = min + Math.random() * (max + 1 - min);
@@ -16,10 +17,8 @@ function isRight() {
 
 function SprintGame({ level }) {
   const { isAuth } = useContext(AuthContext);
-  const [wordIndex, setWordIndex] = useState(0);
-  const [words, setWords] = useState([]);
-
-  const [seconds, setSeconds] = useState(60);
+  const [wordIndex, setWordIndex] = useState(-1);
+  const [words, setWords] = useState(['']);
 
   const translate = useMemo(() => {
     let result = '';
@@ -27,9 +26,10 @@ function SprintGame({ level }) {
       result = words[wordIndex]?.wordTranslate;
     } else {
       let tmpIndex = 0;
-      tmpIndex = getRandomNum(0, words.length - 1);
+      tmpIndex = getRandomNum(0, 19);
+      // words.length - 1
       while (tmpIndex === wordIndex) {
-        tmpIndex = getRandomNum(0, words.length - 1);
+        tmpIndex = getRandomNum(0, 19);
       }
       result = words[tmpIndex]?.wordTranslate;
     }
@@ -45,7 +45,7 @@ function SprintGame({ level }) {
         countRight: 0,
       };
     });
-    setWords(arr);
+    setWords([...arr]);
   };
 
   useEffect(() => {
@@ -55,20 +55,8 @@ function SprintGame({ level }) {
     } else {
       ApiService.getUnauthorizedWords(level - 1, getRandomNum(0, 30), setWordsList);
     }
+    setWordIndex(0);
   }, []);
-
-  useEffect(() => {
-    let timer;
-    if (seconds > 0) {
-      timer = setTimeout(() => setSeconds((s) => s - 1), 1000);
-    }
-
-    return () => {
-      if (timer) {
-        clearTimeout(timer);
-      }
-    };
-  }, [seconds]);
 
   const checkAnswer = (ans) => {
     if (ans === 'yes') {
@@ -97,13 +85,29 @@ function SprintGame({ level }) {
     }
   };
 
+  const handleKeyPress = (e) => {
+    console.log(e);
+  };
+
   return (
-    <div className={cl.sprintGame}>
+    <div
+      className={cl.sprintGame}
+      onKeyDown={(e) => {
+        e.stopPropagation();
+        if (e.key === 'ArrowRight') {
+          checkAnswer('yes');
+        }
+        if (e.key === 'ArrowLeft') {
+          checkAnswer('no');
+        }
+      }}
+      tabIndex="-1"
+    >
       <div className={cl.wordWrapper}>
         <span>{words[wordIndex]?.word}</span>
         <span>{translate}</span>
       </div>
-      <div>{seconds}</div>
+      <SprintTimer secCount={60} />
       <div className={cl.btnWrapper}>
         <button
           className={`${cl.answBtn} ${cl.btnNo}`}
