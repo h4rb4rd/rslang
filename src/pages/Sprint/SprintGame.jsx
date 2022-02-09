@@ -5,6 +5,7 @@ import ApiService from '../../services/ApiService';
 // styles
 import cl from './Sprint.module.scss';
 import SprintTimer from './SprintTimer';
+import SprintWords from './SprintWords';
 
 function getRandomNum(min, max) {
   const rand = min + Math.random() * (max + 1 - min);
@@ -102,7 +103,7 @@ function SprintGame({ level }) {
       answerMistake();
       console.log('no');
     }
-    if (wordIndex < words.length) {
+    if (wordIndex < words.length - 1) {
       setWordIndex(wordIndex + 1);
     } else {
       setWordIndex(0);
@@ -142,10 +143,11 @@ function SprintGame({ level }) {
           <div className={`${cl.point} ${checkSeqRight(3)}`}> </div>
         </div>
       </div>
-      <div className={cl.wordWrapper}>
+      <SprintWords word={words[wordIndex]?.word} translate={translate} />
+      {/* <div className={cl.wordWrapper}>
         <span>{words[wordIndex]?.word}</span>
         <span>{translate}</span>
-      </div>
+      </div> */}
       <SprintTimer secCount={60} setEnd={setIsEnd} />
       <div className={cl.btnWrapper}>
         <button
@@ -153,7 +155,6 @@ function SprintGame({ level }) {
           onClick={() => {
             checkAnswer('no');
           }}
-          disabled={!isEnd}
         >
           No
         </button>
@@ -162,7 +163,6 @@ function SprintGame({ level }) {
           onClick={() => {
             checkAnswer('yes');
           }}
-          disabled={!isEnd}
         >
           Yes
         </button>

@@ -70,6 +70,8 @@
     cursor: pointer;
 }
 
+
+
 .btnNo {
     background-color: #f53958;
     border-top-right-radius: 20px;
@@ -108,6 +110,20 @@
 	border-right-color: #f53958;
 	border-width: 25px;
 	margin-top: -25px;
+}
+
+.answBtn.btnOk:disabled , .answBtn.btnNo:disabled{
+    background-color: #5e574d;
+    background-image: linear-gradient(315deg, #5e574d 0%, #7d6d61 74%);
+    color: #7f8c8d;
+}
+
+.answBtn.btnNo:disabled::before{
+    border-right-color: #7d6d61;
+}
+
+.answBtn.btnOk:disabled::after{
+    border-left-color: #5e574d;
 }
 
 .scoreWrap{
