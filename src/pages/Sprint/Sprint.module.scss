@@ -109,3 +109,44 @@
 	border-width: 25px;
 	margin-top: -25px;
 }
+
+.scoreWrap{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 10px;
+}
+
+.score{
+    font-size: 26px;
+    font-weight: 700;
+    color: #1cb0f6;
+    font-family: "Mochiy Pop P One", sans-serif;
+}
+
+.inc{
+    font-size: 16px;
+    font-weight: 700;
+    color: #1cb0f6;
+    font-family: "Mochiy Pop P One", sans-serif;
+}
+
+.rightPoints{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.point{
+    width: 10px;
+    height: 10px;
+    background-color: gray;
+    border-radius: 50%;
+}
+
+.point.right{
+    background: linear-gradient(180deg, #1caff6 0, #5accec 100%);;
+}

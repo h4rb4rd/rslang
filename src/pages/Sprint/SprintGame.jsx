@@ -19,6 +19,9 @@ function SprintGame({ level }) {
   const { isAuth } = useContext(AuthContext);
   const [wordIndex, setWordIndex] = useState(-1);
   const [words, setWords] = useState(['']);
+  const [score, setScore] = useState(0);
+  const [increment, setIncrement] = useState(10);
+  const [seqRight, setSeqRight] = useState(0);
 
   const translate = useMemo(() => {
     let result = '';
@@ -58,24 +61,43 @@ function SprintGame({ level }) {
     setWordIndex(0);
   }, []);
 
+  function answerRight() {
+    setScore(score + increment);
+    if (increment < 30) {
+      setIncrement(increment + 10);
+    }
+    if (seqRight < 3) {
+      setSeqRight(seqRight + 1);
+    }
+  }
+
+  function answerMistake() {
+    setIncrement(10);
+    setSeqRight(0);
+  }
+
   const checkAnswer = (ans) => {
     if (ans === 'yes') {
       if (translate === words[wordIndex].wordTranslate) {
         if (words[wordIndex].countRight !== 3) {
           words[wordIndex].countRight++;
+          answerRight();
           console.log('yes');
         }
       } else {
         words[wordIndex].countRight = 0;
+        answerMistake();
         console.log('no');
       }
     } else if (translate !== words[wordIndex].wordTranslate) {
       if (words[wordIndex].countRight !== 3) {
         words[wordIndex].countRight++;
+        answerRight();
         console.log('yes');
       }
     } else {
       words[wordIndex].countRight = 0;
+      answerMistake();
       console.log('no');
     }
     if (wordIndex < words.length) {
@@ -87,6 +109,16 @@ function SprintGame({ level }) {
 
   const handleKeyPress = (e) => {
     console.log(e);
+  };
+
+  const checkSeqRight = (value) => {
+    if (seqRight === 0) {
+      return '';
+    }
+    if (value >= seqRight) {
+      return cl.right;
+    }
+    return '';
   };
 
   return (
@@ -103,6 +135,15 @@ function SprintGame({ level }) {
       }}
       tabIndex="-1"
     >
+      <div className={cl.scoreWrap}>
+        <div className={cl.score}>{score}</div>
+        <div className={cl.inc}>{`+${increment}`}</div>
+        <div className={cl.rightPoints}>
+          <div className={`${cl.point} ${checkSeqRight(1)} `}> </div>
+          <div className={`${cl.point} ${checkSeqRight(2)}`}> </div>
+          <div className={`${cl.point} ${checkSeqRight(3)}`}> </div>
+        </div>
+      </div>
       <div className={cl.wordWrapper}>
         <span>{words[wordIndex]?.word}</span>
         <span>{translate}</span>
