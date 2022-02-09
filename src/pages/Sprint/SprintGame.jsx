@@ -22,6 +22,7 @@ function SprintGame({ level }) {
   const [score, setScore] = useState(0);
   const [increment, setIncrement] = useState(10);
   const [seqRight, setSeqRight] = useState(0);
+  const [isEnd, setIsEnd] = useState(false);
 
   const translate = useMemo(() => {
     let result = '';
@@ -77,6 +78,7 @@ function SprintGame({ level }) {
   }
 
   const checkAnswer = (ans) => {
+    if (isEnd) return;
     if (ans === 'yes') {
       if (translate === words[wordIndex].wordTranslate) {
         if (words[wordIndex].countRight !== 3) {
@@ -105,10 +107,6 @@ function SprintGame({ level }) {
     } else {
       setWordIndex(0);
     }
-  };
-
-  const handleKeyPress = (e) => {
-    console.log(e);
   };
 
   const checkSeqRight = (value) => {
@@ -148,13 +146,14 @@ function SprintGame({ level }) {
         <span>{words[wordIndex]?.word}</span>
         <span>{translate}</span>
       </div>
-      <SprintTimer secCount={60} />
+      <SprintTimer secCount={60} setEnd={setIsEnd} />
       <div className={cl.btnWrapper}>
         <button
           className={`${cl.answBtn} ${cl.btnNo}`}
           onClick={() => {
             checkAnswer('no');
           }}
+          disabled={!isEnd}
         >
           No
         </button>
@@ -163,6 +162,7 @@ function SprintGame({ level }) {
           onClick={() => {
             checkAnswer('yes');
           }}
+          disabled={!isEnd}
         >
           Yes
         </button>
