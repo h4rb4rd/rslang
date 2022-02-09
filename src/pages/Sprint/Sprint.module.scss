@@ -55,6 +55,9 @@
     width: 100%;
     justify-content: center;
     column-gap: 15px;
+    &:focus{
+        outline: none;
+    }
 }
 
 .answBtn {

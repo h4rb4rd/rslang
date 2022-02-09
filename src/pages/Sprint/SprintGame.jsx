@@ -7,81 +7,63 @@ import cl from './Sprint.module.scss';
 import SprintTimer from './SprintTimer';
 import SprintWords from './SprintWords';
 
+function showCorrectTranslate() {
+  return Math.random() > 0.5;
+}
+
 function getRandomNum(min, max) {
   const rand = min + Math.random() * (max + 1 - min);
   return Math.floor(rand);
 }
 
-function isRight() {
-  return Math.random() > 0.5;
-}
+function SprintGame({ words }) {
+  const [wordIndex, setWordIndex] = useState(0);
 
-function SprintGame({ level }) {
-  const { isAuth } = useContext(AuthContext);
-  const [wordIndex, setWordIndex] = useState(-1);
-  const [words, setWords] = useState(['']);
   const [score, setScore] = useState(0);
   const [increment, setIncrement] = useState(10);
-  const [seqRight, setSeqRight] = useState(0);
+  const [rightAnswersCount, setRightAnswersCount] = useState(0);
   const [isEnd, setIsEnd] = useState(false);
 
   const translate = useMemo(() => {
     let result = '';
-    if (isRight()) {
+
+    if (showCorrectTranslate()) {
       result = words[wordIndex]?.wordTranslate;
     } else {
-      let tmpIndex = 0;
-      tmpIndex = getRandomNum(0, 19);
-      // words.length - 1
+      let tmpIndex = getRandomNum(0, 19);
+
       while (tmpIndex === wordIndex) {
         tmpIndex = getRandomNum(0, 19);
       }
+
       result = words[tmpIndex]?.wordTranslate;
     }
+
     return result;
   }, [words, wordIndex]);
 
-  const setWordsList = (wordsList) => {
-    const arr = wordsList.map((item) => {
-      return {
-        id: item._id,
-        word: item.word,
-        wordTranslate: item.wordTranslate,
-        countRight: 0,
-      };
-    });
-    setWords([...arr]);
-  };
-
-  useEffect(() => {
-    const userId = localStorage.getItem('userId');
-    if (isAuth) {
-      ApiService.getWords(userId, level - 1, getRandomNum(0, 30), 20, setWordsList);
-    } else {
-      ApiService.getUnauthorizedWords(level - 1, getRandomNum(0, 30), setWordsList);
-    }
-    setWordIndex(0);
-  }, []);
+  console.log('file', words);
 
   function answerRight() {
     setScore(score + increment);
     if (increment < 30) {
       setIncrement(increment + 10);
     }
-    if (seqRight < 3) {
-      setSeqRight(seqRight + 1);
+    if (rightAnswersCount < 3) {
+      setRightAnswersCount(rightAnswersCount + 1);
     }
   }
 
   function answerMistake() {
     setIncrement(10);
-    setSeqRight(0);
+    setRightAnswersCount(0);
   }
 
   const checkAnswer = (ans) => {
     if (isEnd) return;
+    console.log({ words, wordIndex, translate });
     if (ans === 'yes') {
-      if (translate === words[wordIndex].wordTranslate) {
+      if (translate === words[wordIndex]?.wordTranslate) {
         if (words[wordIndex].countRight !== 3) {
           words[wordIndex].countRight++;
           answerRight();
@@ -92,7 +74,7 @@ function SprintGame({ level }) {
         answerMistake();
         console.log('no');
       }
-    } else if (translate !== words[wordIndex].wordTranslate) {
+    } else if (translate !== words[wordIndex]?.wordTranslate) {
       if (words[wordIndex].countRight !== 3) {
         words[wordIndex].countRight++;
         answerRight();
@@ -110,60 +92,73 @@ function SprintGame({ level }) {
     }
   };
 
-  const checkSeqRight = (value) => {
-    if (seqRight === 0) {
+  const checkrightAnswersCountOne = () => {
+    if (rightAnswersCount === 0) {
       return '';
     }
-    if (value >= seqRight) {
+    if (rightAnswersCount >= 1) {
       return cl.right;
     }
     return '';
   };
 
+  const checkrightAnswersCountTwo = () => {
+    if (rightAnswersCount === 0) {
+      return '';
+    }
+    if (rightAnswersCount >= 2) {
+      return cl.right;
+    }
+    return '';
+  };
+
+  const checkrightAnswersCountThree = () => {
+    if (rightAnswersCount === 0) {
+      return '';
+    }
+    if (rightAnswersCount >= 3) {
+      return cl.right;
+    }
+    return '';
+  };
+
+  const handleKeyDown = (e) => {
+    console.log('handleKeyDown', e);
+    e.preventDefault();
+    if (e.key === 'ArrowRight') {
+      checkAnswer('yes');
+    }
+
+    if (e.key === 'ArrowLeft') {
+      checkAnswer('no');
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [words, wordIndex, translate]);
+
   return (
-    <div
-      className={cl.sprintGame}
-      onKeyDown={(e) => {
-        e.stopPropagation();
-        if (e.key === 'ArrowRight') {
-          checkAnswer('yes');
-        }
-        if (e.key === 'ArrowLeft') {
-          checkAnswer('no');
-        }
-      }}
-      tabIndex="-1"
-    >
+    <div className={cl.sprintGame}>
       <div className={cl.scoreWrap}>
         <div className={cl.score}>{score}</div>
         <div className={cl.inc}>{`+${increment}`}</div>
         <div className={cl.rightPoints}>
-          <div className={`${cl.point} ${checkSeqRight(1)} `}> </div>
-          <div className={`${cl.point} ${checkSeqRight(2)}`}> </div>
-          <div className={`${cl.point} ${checkSeqRight(3)}`}> </div>
+          <div className={`${cl.point} ${checkrightAnswersCountOne()}`}> </div>
+          <div className={`${cl.point} ${checkrightAnswersCountTwo()}`}> </div>
+          <div className={`${cl.point} ${checkrightAnswersCountThree()}`}> </div>
         </div>
       </div>
       <SprintWords word={words[wordIndex]?.word} translate={translate} />
-      {/* <div className={cl.wordWrapper}>
-        <span>{words[wordIndex]?.word}</span>
-        <span>{translate}</span>
-      </div> */}
       <SprintTimer secCount={60} setEnd={setIsEnd} />
       <div className={cl.btnWrapper}>
-        <button
-          className={`${cl.answBtn} ${cl.btnNo}`}
-          onClick={() => {
-            checkAnswer('no');
-          }}
-        >
+        <button className={`${cl.answBtn} ${cl.btnNo}`} onClick={() => checkAnswer('no')}>
           No
         </button>
-        <button
-          className={`${cl.answBtn} ${cl.btnOk}`}
-          onClick={() => {
-            checkAnswer('yes');
-          }}
-        >
+        <button className={`${cl.answBtn} ${cl.btnOk}`} onClick={() => checkAnswer('yes')}>
           Yes
         </button>
       </div>

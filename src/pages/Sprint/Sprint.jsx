@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import AuthContext from '../../context';
+import ApiService from '../../services/ApiService';
 import LevelGame from './LevelGame';
 
 // styles
 import cl from './Sprint.module.scss';
 import SprintGame from './SprintGame';
 
+function getRandomNum(min, max) {
+  const rand = min + Math.random() * (max + 1 - min);
+  return Math.floor(rand);
+}
+
+const MAX_WORD_COUNT = 20;
+
 function Sprint() {
+  const { isAuth } = useContext(AuthContext);
   const [level, setLevel] = useState(0);
+  const [words, setWords] = useState([]);
 
   const levels = [1, 2, 3, 4, 5, 6];
 
@@ -14,6 +25,35 @@ function Sprint() {
     setLevel(lvl);
     console.log(lvl);
   };
+
+  const setWordsList = (wordsList) => {
+    console.log({ wordsList });
+    const wordsListMapped = wordsList.map((item) => {
+      const id = item._id || item.id;
+
+      return {
+        id,
+        word: item.word,
+        wordTranslate: item.wordTranslate,
+        countRight: 0,
+      };
+    });
+
+    setWords(wordsListMapped);
+  };
+
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    const groupNum = level - 1;
+    const pageNum = getRandomNum(0, 30);
+    if (isAuth) {
+      ApiService.getWords(userId, groupNum, pageNum, MAX_WORD_COUNT, setWordsList);
+    } else {
+      ApiService.getUnauthorizedWords(groupNum, pageNum, setWordsList);
+    }
+
+    // setWordIndex(0);
+  }, [level]);
 
   return (
     <div className={cl.sprint}>
@@ -24,7 +64,7 @@ function Sprint() {
           ))}
         </div>
       ) : (
-        <SprintGame level={level} />
+        <SprintGame words={words} />
       )}
     </div>
   );
