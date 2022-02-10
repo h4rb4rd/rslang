@@ -4,6 +4,7 @@ import ApiService from '../../services/ApiService';
 
 // styles
 import cl from './Sprint.module.scss';
+import SprintEndGame from './SprintEndGame';
 import SprintTimer from './SprintTimer';
 import SprintWords from './SprintWords';
 
@@ -16,7 +17,7 @@ function getRandomNum(min, max) {
   return Math.floor(rand);
 }
 
-function SprintGame({ words }) {
+function SprintGame({ words, tryAgain }) {
   const [wordIndex, setWordIndex] = useState(0);
 
   const [score, setScore] = useState(0);
@@ -155,25 +156,31 @@ function SprintGame({ words }) {
 
   return (
     <div className={cl.sprintGame}>
-      <div className={cl.scoreWrap}>
-        <div className={cl.score}>{score}</div>
-        <div className={cl.inc}>{`+${increment}`}</div>
-        <div className={cl.rightPoints}>
-          <div className={`${cl.point} ${checkRightAnswers(1)}`}> </div>
-          <div className={`${cl.point} ${checkRightAnswers(2)}`}> </div>
-          <div className={`${cl.point} ${checkRightAnswers(3)}`}> </div>
+      {!isEnd ? (
+        <div className={cl.sprintGame}>
+          <div className={cl.scoreWrap}>
+            <div className={cl.score}>{score}</div>
+            <div className={cl.inc}>{`+${increment}`}</div>
+            <div className={cl.rightPoints}>
+              <div className={`${cl.point} ${checkRightAnswers(1)}`}> </div>
+              <div className={`${cl.point} ${checkRightAnswers(2)}`}> </div>
+              <div className={`${cl.point} ${checkRightAnswers(3)}`}> </div>
+            </div>
+          </div>
+          <SprintWords word={words[wordIndex]?.word} translate={translate} />
+          <SprintTimer secCount={60} setEnd={setIsEnd} />
+          <div className={cl.btnWrapper}>
+            <button className={`${cl.answBtn} ${cl.btnNo}`} onClick={() => checkAnswer('no')}>
+              No
+            </button>
+            <button className={`${cl.answBtn} ${cl.btnOk}`} onClick={() => checkAnswer('yes')}>
+              Yes
+            </button>
+          </div>
         </div>
-      </div>
-      <SprintWords word={words[wordIndex]?.word} translate={translate} />
-      <SprintTimer secCount={60} setEnd={setIsEnd} />
-      <div className={cl.btnWrapper}>
-        <button className={`${cl.answBtn} ${cl.btnNo}`} onClick={() => checkAnswer('no')}>
-          No
-        </button>
-        <button className={`${cl.answBtn} ${cl.btnOk}`} onClick={() => checkAnswer('yes')}>
-          Yes
-        </button>
-      </div>
+      ) : (
+        <SprintEndGame wordsList={words} tryAgain={tryAgain} />
+      )}
     </div>
   );
 }

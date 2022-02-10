@@ -64,7 +64,7 @@ function Sprint() {
           ))}
         </div>
       ) : (
-        <SprintGame words={words} />
+        <SprintGame words={words} tryAgain={setLevel} />
       )}
     </div>
   );
