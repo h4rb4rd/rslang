@@ -63,15 +63,15 @@ function SprintGame({ words, tryAgain }) {
   }
 
   const incCountRight = (word) => {
-    if (word.option.isHard) {
+    if (word.options.isHard) {
       console.log('isHard');
-      if (word.option.countRight !== 5) {
+      if (word.options.countRight !== 5) {
         word.option.countRight++;
         answerRight();
       }
-    } else if (word.option.countRight !== 3) {
+    } else if (word.options.countRight !== 3) {
       console.log('noIsHard');
-      word.option.countRight++;
+      word.options.countRight++;
       answerRight();
     }
   };
@@ -88,7 +88,7 @@ function SprintGame({ words, tryAgain }) {
         // }
         incCountRight(words[wordIndex]);
       } else {
-        words[wordIndex].option.countRight = 0;
+        words[wordIndex].options.countRight = 0;
         answerMistake();
         console.log('no');
       }
@@ -100,7 +100,7 @@ function SprintGame({ words, tryAgain }) {
       // }
       incCountRight(words[wordIndex]);
     } else {
-      words[wordIndex].option.countRight = 0;
+      words[wordIndex].options.countRight = 0;
       answerMistake();
       console.log('no');
     }

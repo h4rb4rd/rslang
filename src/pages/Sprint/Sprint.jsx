@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useLinkClickHandler } from 'react-router-dom';
 import AuthContext from '../../context';
 import ApiService from '../../services/ApiService';
 import LevelGame from './LevelGame';
@@ -18,6 +19,7 @@ function Sprint() {
   const { isAuth } = useContext(AuthContext);
   const [level, setLevel] = useState(0);
   const [words, setWords] = useState([]);
+  useLinkClickHandler
 
   const levels = [1, 2, 3, 4, 5, 6];
 
@@ -35,7 +37,10 @@ function Sprint() {
         id,
         word: item.word,
         wordTranslate: item.wordTranslate,
-        option: { ...item.option, countRight: item.option?.countRight || 0 },
+        options: {
+          ...item.userWord?.optional,
+          countRight: item.userWord?.optional.countRight || 0,
+        },
       };
     });
 
@@ -45,7 +50,7 @@ function Sprint() {
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     const groupNum = level - 1;
-    const pageNum = getRandomNum(0, 30);
+    const pageNum = getRandomNum(0, 29);
     if (isAuth) {
       ApiService.getWords(userId, groupNum, pageNum, MAX_WORD_COUNT, setWordsList);
     } else {
