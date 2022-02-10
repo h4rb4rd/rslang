@@ -62,29 +62,45 @@ function SprintGame({ words, tryAgain }) {
     setRightAnswersCount(0);
   }
 
+  const incCountRight = (word) => {
+    if (word.option.isHard) {
+      console.log('isHard');
+      if (word.option.countRight !== 5) {
+        word.option.countRight++;
+        answerRight();
+      }
+    } else if (word.option.countRight !== 3) {
+      console.log('noIsHard');
+      word.option.countRight++;
+      answerRight();
+    }
+  };
+
   const checkAnswer = (ans) => {
     if (isEnd) return;
     console.log({ words, wordIndex, translate });
     if (ans === 'yes') {
       if (translate === words[wordIndex]?.wordTranslate) {
-        if (words[wordIndex].countRight !== 3) {
-          words[wordIndex].countRight++;
-          answerRight();
-          console.log('yes');
-        }
+        // if (words[wordIndex].option.countRight !== 3) {
+        //   words[wordIndex].option.countRight++;
+        //   answerRight();
+        //   console.log('yes');
+        // }
+        incCountRight(words[wordIndex]);
       } else {
-        words[wordIndex].countRight = 0;
+        words[wordIndex].option.countRight = 0;
         answerMistake();
         console.log('no');
       }
     } else if (translate !== words[wordIndex]?.wordTranslate) {
-      if (words[wordIndex].countRight !== 3) {
-        words[wordIndex].countRight++;
-        answerRight();
-        console.log('yes');
-      }
+      // if (words[wordIndex].option.countRight !== 3) {
+      //   words[wordIndex].option.countRight++;
+      //   answerRight();
+      //   console.log('yes');
+      // }
+      incCountRight(words[wordIndex]);
     } else {
-      words[wordIndex].countRight = 0;
+      words[wordIndex].option.countRight = 0;
       answerMistake();
       console.log('no');
     }
@@ -95,35 +111,35 @@ function SprintGame({ words, tryAgain }) {
     }
   };
 
-  const checkrightAnswersCountOne = () => {
-    if (rightAnswersCount === 0) {
-      return '';
-    }
-    if (rightAnswersCount >= 1) {
-      return cl.right;
-    }
-    return '';
-  };
+  // const checkrightAnswersCountOne = () => {
+  //   if (rightAnswersCount === 0) {
+  //     return '';
+  //   }
+  //   if (rightAnswersCount >= 1) {
+  //     return cl.right;
+  //   }
+  //   return '';
+  // };
 
-  const checkrightAnswersCountTwo = () => {
-    if (rightAnswersCount === 0) {
-      return '';
-    }
-    if (rightAnswersCount >= 2) {
-      return cl.right;
-    }
-    return '';
-  };
+  // const checkrightAnswersCountTwo = () => {
+  //   if (rightAnswersCount === 0) {
+  //     return '';
+  //   }
+  //   if (rightAnswersCount >= 2) {
+  //     return cl.right;
+  //   }
+  //   return '';
+  // };
 
-  const checkrightAnswersCountThree = () => {
-    if (rightAnswersCount === 0) {
-      return '';
-    }
-    if (rightAnswersCount >= 3) {
-      return cl.right;
-    }
-    return '';
-  };
+  // const checkrightAnswersCountThree = () => {
+  //   if (rightAnswersCount === 0) {
+  //     return '';
+  //   }
+  //   if (rightAnswersCount >= 3) {
+  //     return cl.right;
+  //   }
+  //   return '';
+  // };
 
   const checkRightAnswers = (value) => {
     if (rightAnswersCount === 0) {

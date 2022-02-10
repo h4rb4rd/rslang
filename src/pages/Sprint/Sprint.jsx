@@ -27,7 +27,7 @@ function Sprint() {
   };
 
   const setWordsList = (wordsList) => {
-    console.log({ wordsList });
+    console.log('sprint', { wordsList });
     const wordsListMapped = wordsList.map((item) => {
       const id = item._id || item.id;
 
@@ -35,7 +35,7 @@ function Sprint() {
         id,
         word: item.word,
         wordTranslate: item.wordTranslate,
-        countRight: 0,
+        option: { ...item.option, countRight: item.option?.countRight || 0 },
       };
     });
 
