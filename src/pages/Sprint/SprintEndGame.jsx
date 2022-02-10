@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SprintEndGame({ wordsList, tryAgain }) {
+function SprintEndGame({ wordsList, score, tryAgain }) {
   const wordsErrorList = wordsList.filter((word) => !word.option.countRight);
   const wordsRightList = wordsList.filter((word) => word.option.countRight);
   return (

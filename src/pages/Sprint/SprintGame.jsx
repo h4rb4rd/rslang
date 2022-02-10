@@ -195,7 +195,7 @@ function SprintGame({ words, tryAgain }) {
           </div>
         </div>
       ) : (
-        <SprintEndGame wordsList={words} tryAgain={tryAgain} />
+        <SprintEndGame wordsList={words} score={score} tryAgain={tryAgain} />
       )}
     </div>
   );
