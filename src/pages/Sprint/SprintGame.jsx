@@ -46,11 +46,13 @@ function SprintGame({ words }) {
 
   function answerRight() {
     setScore(score + increment);
-    if (increment < 30) {
+    if (increment < 30 && rightAnswersCount === 2) {
       setIncrement(increment + 10);
     }
     if (rightAnswersCount < 3) {
       setRightAnswersCount(rightAnswersCount + 1);
+    } else {
+      setRightAnswersCount(0);
     }
   }
 
@@ -122,6 +124,16 @@ function SprintGame({ words }) {
     return '';
   };
 
+  const checkRightAnswers = (value) => {
+    if (rightAnswersCount === 0) {
+      return '';
+    }
+    if (rightAnswersCount >= value) {
+      return cl.right;
+    }
+    return '';
+  };
+
   const handleKeyDown = (e) => {
     console.log('handleKeyDown', e);
     e.preventDefault();
@@ -147,9 +159,9 @@ function SprintGame({ words }) {
         <div className={cl.score}>{score}</div>
         <div className={cl.inc}>{`+${increment}`}</div>
         <div className={cl.rightPoints}>
-          <div className={`${cl.point} ${checkrightAnswersCountOne()}`}> </div>
-          <div className={`${cl.point} ${checkrightAnswersCountTwo()}`}> </div>
-          <div className={`${cl.point} ${checkrightAnswersCountThree()}`}> </div>
+          <div className={`${cl.point} ${checkRightAnswers(1)}`}> </div>
+          <div className={`${cl.point} ${checkRightAnswers(2)}`}> </div>
+          <div className={`${cl.point} ${checkRightAnswers(3)}`}> </div>
         </div>
       </div>
       <SprintWords word={words[wordIndex]?.word} translate={translate} />
