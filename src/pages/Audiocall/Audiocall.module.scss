@@ -1,2 +1,89 @@
 .audiocall {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #1caff6 0, #5accec 100%);
+  padding: 3rem;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 3rem;
+    background-image: url('../../assets/about/clouds.svg');
+    background-size: contain;
+    background-position: center center;
+    width: 100%;
+    height: 30rem;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;
+  flex-grow: 1;
+  max-width: 68.2rem;
+  gap: 4rem;
+  z-index: 10;
+}
+
+.title {
+  text-align: center;
+  font-size: 5rem;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 2rem;
+}
+
+.level-btns-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.level-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  font-weight: 500;
+  color: #1cb0f6;
+  border-radius: 16px;
+  border: 2px solid #e5e5e5;
+  border-bottom: 6px solid #e5e5e5;
+  background-color: #fff;
+  padding: 2rem 3rem;
+  font-size: 3rem;
+  transition: all 0.4s;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+.back-btn {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 30px;
+
+  a {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('../../assets/about/cloud-right.svg') no-repeat;
+    background-size: contain;
+    height: 7.5rem;
+    width: 18.25rem;
+    color: #1cb0f6;
+    padding-top: 1em;
+    transition: all 0.4s;
+    &:hover {
+      opacity: 0.92;
+    }
+  }
 }

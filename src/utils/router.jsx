@@ -29,4 +29,5 @@ export const publicRoutes = [
   { id: '3', path: '/textbook', component: <Textbook /> },
   { id: '4', path: '/games', component: <Games /> },
   { id: '5', path: '*', component: <Navigate to="/about" /> },
+  { id: '6', path: '/audiocall', component: <Audiocall /> },
 ];
