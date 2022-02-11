@@ -10,7 +10,7 @@ function SprintTimer({ secCount, setEnd }) {
     if (seconds > 0) {
       timer = setTimeout(() => setSeconds((s) => s - 1), 1000);
     } else {
-      setEnd(true);
+      setEnd();
     }
 
     return () => {

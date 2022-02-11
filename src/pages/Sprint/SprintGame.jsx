@@ -24,6 +24,8 @@ function SprintGame({ words, tryAgain }) {
   const [increment, setIncrement] = useState(10);
   const [rightAnswersCount, setRightAnswersCount] = useState(0);
   const [isEnd, setIsEnd] = useState(false);
+  const [seriesCorrectAnswers, setSeriesCorrectAnswers] = useState(0);
+  const [accCorrectAnswers, setAccCorrectAnswers] = useState(0);
 
   const translate = useMemo(() => {
     let result = '';
@@ -43,7 +45,21 @@ function SprintGame({ words, tryAgain }) {
     return result;
   }, [words, wordIndex]);
 
-  console.log('file', words);
+  function checkSeriesAnswer() {
+    console.log(`${accCorrectAnswers} > ${seriesCorrectAnswers}`);
+    if (accCorrectAnswers > seriesCorrectAnswers) {
+      setSeriesCorrectAnswers(accCorrectAnswers);
+      setAccCorrectAnswers(0);
+      console.log('seriesCorrectAnswers', seriesCorrectAnswers);
+    }
+  }
+
+  const changeIsEnd = () => {
+    checkSeriesAnswer();
+    setIsEnd(true);
+  };
+
+  // console.log('file', words);
 
   function answerRight() {
     setScore(score + increment);
@@ -58,19 +74,19 @@ function SprintGame({ words, tryAgain }) {
   }
 
   function answerMistake() {
+    checkSeriesAnswer();
     setIncrement(10);
     setRightAnswersCount(0);
   }
 
   const incCountRight = (word) => {
+    setAccCorrectAnswers(accCorrectAnswers + 1);
     if (word.options.isHard) {
-      console.log('isHard');
       if (word.options.countRight !== 5) {
         word.option.countRight++;
         answerRight();
       }
     } else if (word.options.countRight !== 3) {
-      console.log('noIsHard');
       word.options.countRight++;
       answerRight();
     }
@@ -81,28 +97,16 @@ function SprintGame({ words, tryAgain }) {
     console.log({ words, wordIndex, translate });
     if (ans === 'yes') {
       if (translate === words[wordIndex]?.wordTranslate) {
-        // if (words[wordIndex].option.countRight !== 3) {
-        //   words[wordIndex].option.countRight++;
-        //   answerRight();
-        //   console.log('yes');
-        // }
         incCountRight(words[wordIndex]);
       } else {
         words[wordIndex].options.countRight = 0;
         answerMistake();
-        console.log('no');
       }
     } else if (translate !== words[wordIndex]?.wordTranslate) {
-      // if (words[wordIndex].option.countRight !== 3) {
-      //   words[wordIndex].option.countRight++;
-      //   answerRight();
-      //   console.log('yes');
-      // }
       incCountRight(words[wordIndex]);
     } else {
       words[wordIndex].options.countRight = 0;
       answerMistake();
-      console.log('no');
     }
     if (wordIndex < words.length - 1) {
       setWordIndex(wordIndex + 1);
@@ -110,36 +114,6 @@ function SprintGame({ words, tryAgain }) {
       setWordIndex(0);
     }
   };
-
-  // const checkrightAnswersCountOne = () => {
-  //   if (rightAnswersCount === 0) {
-  //     return '';
-  //   }
-  //   if (rightAnswersCount >= 1) {
-  //     return cl.right;
-  //   }
-  //   return '';
-  // };
-
-  // const checkrightAnswersCountTwo = () => {
-  //   if (rightAnswersCount === 0) {
-  //     return '';
-  //   }
-  //   if (rightAnswersCount >= 2) {
-  //     return cl.right;
-  //   }
-  //   return '';
-  // };
-
-  // const checkrightAnswersCountThree = () => {
-  //   if (rightAnswersCount === 0) {
-  //     return '';
-  //   }
-  //   if (rightAnswersCount >= 3) {
-  //     return cl.right;
-  //   }
-  //   return '';
-  // };
 
   const checkRightAnswers = (value) => {
     if (rightAnswersCount === 0) {
@@ -152,7 +126,6 @@ function SprintGame({ words, tryAgain }) {
   };
 
   const handleKeyDown = (e) => {
-    console.log('handleKeyDown', e);
     e.preventDefault();
     if (e.key === 'ArrowRight') {
       checkAnswer('yes');
@@ -184,7 +157,7 @@ function SprintGame({ words, tryAgain }) {
             </div>
           </div>
           <SprintWords word={words[wordIndex]?.word} translate={translate} />
-          <SprintTimer secCount={60} setEnd={setIsEnd} />
+          <SprintTimer secCount={60} setEnd={changeIsEnd} />
           <div className={cl.btnWrapper}>
             <button className={`${cl.answBtn} ${cl.btnNo}`} onClick={() => checkAnswer('no')}>
               No
