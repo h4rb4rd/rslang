@@ -17,7 +17,7 @@ function getRandomNum(min, max) {
   return Math.floor(rand);
 }
 
-function SprintGame({ words, tryAgain }) {
+function SprintGame({ words, tryAgain, statistic }) {
   const [wordIndex, setWordIndex] = useState(0);
 
   const [score, setScore] = useState(0);
@@ -166,7 +166,13 @@ function SprintGame({ words, tryAgain }) {
           </div>
         </div>
       ) : (
-        <SprintEndGame wordsList={words} score={score} tryAgain={tryAgain} />
+        <SprintEndGame
+          wordsList={words}
+          score={score}
+          tryAgain={tryAgain}
+          seriesAnswer={seriesCorrectAnswers}
+          statistic={statistic}
+        />
       )}
     </div>
   );

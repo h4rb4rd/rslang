@@ -3,16 +3,29 @@ import ApiService from '../../services/ApiService';
 
 import cl from './SprintEnd.module.scss';
 
-function SprintEndGame({ wordsList, score, tryAgain }) {
-  const [correctAnswerCount, setCorrectAnswerCount] = useState(-1);
-  const [mistakesAnswerCount, setMistakesAnswerCount] = useState(-1);
+function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) {
+  const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
+  const [mistakesAnswerCount, setMistakesAnswerCount] = useState(0);
+
+  const [countNewWord, setCountNewWord] = useState(0);
   const userId = localStorage.getItem('userId');
   const wordsErrorList = wordsList.filter((word) => !word.options.countRight);
   const wordsRightList = wordsList.filter((word) => word.options.countRight);
 
-  function showStatistic(data) {
-    console.log('stat', { data });
-  }
+  const updateStatistic = (learnedWords) => {
+    console.log('statUpd', { statistic });
+    const percentAnswer = (correctAnswerCount * 100) / 20;
+    const optional = {
+      seriesAnswer:
+        statistic.optional?.seriesAnswer > seriesAnswer
+          ? statistic.optional?.seriesAnswer
+          : seriesAnswer,
+      percentAnswer,
+      countNewWord: statistic.optional?.countNewWord || 0 + countNewWord,
+    };
+    console.log(optional);
+    ApiService.updateUserStatistic(userId, learnedWords, optional);
+  };
 
   useEffect(() => {
     const learnedWords = wordsList?.filter(
@@ -20,6 +33,7 @@ function SprintEndGame({ wordsList, score, tryAgain }) {
     ).length;
     setCorrectAnswerCount(wordsList?.filter((word) => word.options.countRight).length);
     setMistakesAnswerCount(wordsList?.filter((word) => !word.options.countRight).length);
+    setCountNewWord(wordsList?.filter((word) => !word.userWord).length);
     wordsList?.forEach((word) => {
       const optional = { ...word.options };
       if (optional.isHard) {
@@ -40,10 +54,10 @@ function SprintEndGame({ wordsList, score, tryAgain }) {
         ApiService.addUserWord(userId, word.id, 'easy', optional);
       }
     });
-
-    ApiService.getStatistics(userId, showStatistic);
-
-    ApiService.updateUserStatistic(userId, learnedWords, {});
+    if (wordsList.length) {
+      console.log('statEff', statistic);
+      updateStatistic(learnedWords);
+    }
   }, [wordsList]);
 
   return (

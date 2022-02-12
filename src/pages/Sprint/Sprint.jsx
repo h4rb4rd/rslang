@@ -20,9 +20,14 @@ function Sprint() {
   const [isGame, setIsGame] = useState(false);
   const [level, setLevel] = useState(0);
   const [words, setWords] = useState([]);
+  const [statistic, setStatistic] = useState({});
   useLinkClickHandler;
 
   const levels = [1, 2, 3, 4, 5, 6];
+
+  function getStatistic(data) {
+    setStatistic(data);
+  }
 
   const changeLevel = (lvl) => {
     setIsGame(true);
@@ -59,7 +64,7 @@ function Sprint() {
     } else {
       ApiService.getUnauthorizedWords(groupNum, pageNum, setWordsList);
     }
-
+    ApiService.getStatistics(userId, getStatistic);
     // setWordIndex(0);
   }, [level]);
 
@@ -72,7 +77,7 @@ function Sprint() {
           ))}
         </div>
       ) : (
-        <SprintGame words={words} tryAgain={setIsGame} />
+        <SprintGame words={words} tryAgain={setIsGame} statistic={statistic} />
       )}
     </div>
   );
