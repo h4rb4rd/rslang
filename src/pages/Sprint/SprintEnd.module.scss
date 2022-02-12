@@ -5,25 +5,25 @@
 }
 
 .resultGame {
-  padding: 15px 015px;
+  padding: 15px 0 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .words {
-  padding: 10px 10px 60px;
+  padding: 10px;
 }
 
 .wordsWrapper {
-  height: 100%;
+  height: calc(100vh - 300px);
   overflow-y: scroll;
 }
 
 .wordsWrapper::-webkit-scrollbar {
   width: 5px;
   border-radius: 5px;
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(6px);
 }
 
@@ -34,6 +34,9 @@
 }
 
 .headResult {
+  display: flex;
+  justify-content: flex-start;
+  column-gap: 10px;
   font-size: 24px;
   font-weight: bold;
   padding: 10px 0 10px;
@@ -49,4 +52,12 @@
   column-gap: 5px;
   padding: 5px 0 5px;
   border-bottom: 1px solid #696667;
+}
+
+.tryAgain{
+  background: linear-gradient(180deg, #1caff6 0, #5accec 100%);;
+  color: #fff;
+  font-family: 'Mochiy Pop P One', sans-serif;
+  padding: 10px;
+  border-radius: 16px;
 }

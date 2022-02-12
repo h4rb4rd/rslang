@@ -33,10 +33,10 @@ function SprintGame({ words, tryAgain }) {
     if (showCorrectTranslate()) {
       result = words[wordIndex]?.wordTranslate;
     } else {
-      let tmpIndex = getRandomNum(0, 19);
+      let tmpIndex = getRandomNum(0, words.length - 1);
 
       while (tmpIndex === wordIndex) {
-        tmpIndex = getRandomNum(0, 19);
+        tmpIndex = getRandomNum(0, words.length - 1);
       }
 
       result = words[tmpIndex]?.wordTranslate;
@@ -46,11 +46,9 @@ function SprintGame({ words, tryAgain }) {
   }, [words, wordIndex]);
 
   function checkSeriesAnswer() {
-    console.log(`${accCorrectAnswers} > ${seriesCorrectAnswers}`);
     if (accCorrectAnswers > seriesCorrectAnswers) {
       setSeriesCorrectAnswers(accCorrectAnswers);
       setAccCorrectAnswers(0);
-      console.log('seriesCorrectAnswers', seriesCorrectAnswers);
     }
   }
 
@@ -94,7 +92,6 @@ function SprintGame({ words, tryAgain }) {
 
   const checkAnswer = (ans) => {
     if (isEnd) return;
-    console.log({ words, wordIndex, translate });
     if (ans === 'yes') {
       if (translate === words[wordIndex]?.wordTranslate) {
         incCountRight(words[wordIndex]);
@@ -138,6 +135,7 @@ function SprintGame({ words, tryAgain }) {
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
+    console.log('wordsGame', { words });
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };

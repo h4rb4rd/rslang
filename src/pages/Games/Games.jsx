@@ -24,7 +24,9 @@ function Games() {
           <Link to="/audiocall">Аудио вызов</Link>
         </div>
         <div className={[cl.game, cl.sprint].join(' ')}>
-          <Link to="/sprint">Спринт</Link>
+          <Link to="/sprint" state="header">
+            Спринт
+          </Link>
         </div>
       </div>
     </div>

@@ -19,7 +19,7 @@ function Sprint() {
   const { isAuth } = useContext(AuthContext);
   const [level, setLevel] = useState(0);
   const [words, setWords] = useState([]);
-  useLinkClickHandler
+  useLinkClickHandler;
 
   const levels = [1, 2, 3, 4, 5, 6];
 
@@ -37,6 +37,7 @@ function Sprint() {
         id,
         word: item.word,
         wordTranslate: item.wordTranslate,
+        userWord: item.userWord,
         options: {
           ...item.userWord?.optional,
           countRight: item.userWord?.optional.countRight || 0,

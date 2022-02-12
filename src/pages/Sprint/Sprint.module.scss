@@ -3,13 +3,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(180deg, #1caff6 0, #5accec 100%);;
+    background: linear-gradient(180deg, #1caff6 0, #5accec 100%);
+    padding: 10px;
 }
 
 .lvlWrapper{
     display: flex;
     justify-content: center;
-    column-gap: 10px;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .level {

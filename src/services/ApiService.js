@@ -151,6 +151,7 @@ export default class ApiService {
   }
 
   static async getStatistics(userId, callback) {
+    console.log('token - ', localStorage.getItem('token'));
     try {
       const response = await axios.get(`/users/${userId}/statistics`, {
         baseURL: this.API_URL,
