@@ -41,6 +41,8 @@ function SprintEndGame({ wordsList, score, tryAgain }) {
       }
     });
 
+    ApiService.getStatistics(userId, showStatistic);
+
     ApiService.updateUserStatistic(userId, learnedWords, {});
   }, [wordsList]);
 
@@ -48,7 +50,7 @@ function SprintEndGame({ wordsList, score, tryAgain }) {
     <div className={cl.endWrapper}>
       <div className={cl.resultGame}>
         <div>{score}</div>
-        <button className={cl.tryAgain} onClick={() => tryAgain(0)}>
+        <button className={cl.tryAgain} onClick={() => tryAgain(false)}>
           Try Again
         </button>
       </div>

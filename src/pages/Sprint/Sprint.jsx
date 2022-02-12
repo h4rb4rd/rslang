@@ -17,6 +17,7 @@ const MAX_WORD_COUNT = 20;
 
 function Sprint() {
   const { isAuth } = useContext(AuthContext);
+  const [isGame, setIsGame] = useState(false);
   const [level, setLevel] = useState(0);
   const [words, setWords] = useState([]);
   useLinkClickHandler;
@@ -24,6 +25,7 @@ function Sprint() {
   const levels = [1, 2, 3, 4, 5, 6];
 
   const changeLevel = (lvl) => {
+    setIsGame(true);
     setLevel(lvl);
     console.log(lvl);
   };
@@ -50,7 +52,7 @@ function Sprint() {
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
-    const groupNum = level - 1;
+    const groupNum = level;
     const pageNum = getRandomNum(0, 29);
     if (isAuth) {
       ApiService.getWords(userId, groupNum, pageNum, MAX_WORD_COUNT, setWordsList);
@@ -63,14 +65,14 @@ function Sprint() {
 
   return (
     <div className={cl.sprint}>
-      {!level ? (
+      {!isGame ? (
         <div className={cl.lvlWrapper}>
           {levels.map((item) => (
             <LevelGame key={item} level={item} changeLevel={changeLevel} />
           ))}
         </div>
       ) : (
-        <SprintGame words={words} tryAgain={setLevel} />
+        <SprintGame words={words} tryAgain={setIsGame} />
       )}
     </div>
   );
