@@ -65,7 +65,6 @@ function Sprint() {
       ApiService.getUnauthorizedWords(groupNum, pageNum, setWordsList);
     }
     ApiService.getStatistics(userId, getStatistic);
-    // setWordIndex(0);
   }, [level]);
 
   return (
