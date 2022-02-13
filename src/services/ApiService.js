@@ -57,6 +57,27 @@ export default class ApiService {
     }
   }
 
+  static async getNonEasyWords(userId, groupNum, pageNum, limit, callback) {
+    try {
+      const response = await axios.get(
+        `/users/${userId}/aggregatedWords?group=${groupNum}&page=${pageNum}&wordsPerPage=${20}&filter={"$or":[{ "userWord.optional.isEasy":false},{"userWord.optional.isEasy":null},{"userWord":null}]}`,
+
+        {
+          baseURL: this.API_URL,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      callback(response.data[0].paginatedResults);
+    } catch (err) {
+      throw err.response;
+    }
+  }
+
   static async getUnauthorizedWords(groupNum, pageNum, callback) {
     try {
       const response = await this.authInstance.get(`/words?group=${groupNum}&page=${pageNum}`);
