@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { TEXTBOOK_WORDS_PER_PAGE } from '../../constants';
 import ApiService from '../../services/ApiService';
 
 import cl from './SprintEnd.module.scss';
@@ -11,7 +12,7 @@ function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) 
   const wordsRightList = wordsList.filter((word) => word.options.countRight);
 
   const updateStatistic = (learnedWords, correctAnswer, newWord) => {
-    const percent = (correctAnswer * 100) / 20;
+    const percent = (correctAnswer * 100) / TEXTBOOK_WORDS_PER_PAGE;
     const optional = {
       seriesAnswer:
         statistic.optional?.seriesAnswer > seriesAnswer

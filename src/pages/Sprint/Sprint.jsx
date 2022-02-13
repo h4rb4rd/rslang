@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLinkClickHandler } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { TEXTBOOK_WORDS_PER_PAGE } from '../../constants';
 import AuthContext from '../../context';
 import ApiService from '../../services/ApiService';
 import LevelGame from './LevelGame';
+import LevelsGame from './LevelsGame';
 
 // styles
 import cl from './Sprint.module.scss';
@@ -13,15 +15,13 @@ function getRandomNum(min, max) {
   return Math.floor(rand);
 }
 
-const MAX_WORD_COUNT = 20;
-
 function Sprint() {
+  const { state } = useLocation();
   const { isAuth } = useContext(AuthContext);
   const [isGame, setIsGame] = useState(false);
   const [level, setLevel] = useState(0);
   const [words, setWords] = useState([]);
   const [statistic, setStatistic] = useState({});
-  useLinkClickHandler;
 
   const levels = [1, 2, 3, 4, 5, 6];
 
@@ -60,21 +60,21 @@ function Sprint() {
     const groupNum = level;
     const pageNum = getRandomNum(0, 29);
     if (isAuth) {
-      ApiService.getWords(userId, groupNum, pageNum, MAX_WORD_COUNT, setWordsList);
+      ApiService.getWords(userId, groupNum, pageNum, TEXTBOOK_WORDS_PER_PAGE, setWordsList);
     } else {
       ApiService.getUnauthorizedWords(groupNum, pageNum, setWordsList);
     }
     ApiService.getStatistics(userId, getStatistic);
+    return () => {
+      words.length = 0;
+      setIsGame(false);
+    };
   }, [level]);
 
   return (
     <div className={cl.sprint}>
       {!isGame ? (
-        <div className={cl.lvlWrapper}>
-          {levels.map((item) => (
-            <LevelGame key={item} level={item} changeLevel={changeLevel} />
-          ))}
-        </div>
+        <LevelsGame levels={levels} changeLevel={changeLevel} state={state} />
       ) : (
         <SprintGame words={words} tryAgain={setIsGame} statistic={statistic} />
       )}

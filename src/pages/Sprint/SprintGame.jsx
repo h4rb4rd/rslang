@@ -135,8 +135,8 @@ function SprintGame({ words, tryAgain, statistic }) {
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
-    console.log('wordsGame', { words });
     return () => {
+      console.log('gameUnmount');
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [words, wordIndex, translate]);
