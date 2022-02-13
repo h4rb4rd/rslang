@@ -60,7 +60,7 @@ export default class ApiService {
   static async getNonEasyWords(userId, groupNum, pageNum, limit, callback) {
     try {
       const response = await axios.get(
-        `/users/${userId}/aggregatedWords?group=${groupNum}&page=${pageNum}&wordsPerPage=${20}&filter={"$or":[{ "userWord.optional.isEasy":false},{"userWord.optional.isEasy":null},{"userWord":null}]}`,
+        `/users/${userId}/aggregatedWords?group=${groupNum}&page=${pageNum}&wordsPerPage=${limit}&filter={"$or":[{ "userWord.optional.isEasy":false},{"userWord.optional.isEasy":null},{"userWord":null}]}`,
 
         {
           baseURL: this.API_URL,
