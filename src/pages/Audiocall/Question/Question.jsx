@@ -4,10 +4,12 @@ import shuffleArray from '../../../utils/shuffleArray';
 import AnswerBtn from '../AnswerBtn/AnswerBtn';
 import Preloader from '../../../components/Preloader/Preloader';
 
+// styles
 import cl from './Question.module.scss';
 
-function Question({ rightAnswer, wrongAnswers, setWordIndex, setScore }) {
+function Question({ rightAnswer, wrongAnswers, wordIndex, setWordIndex, score, setScore }) {
   const [isQuestionAnswered, setIsQuestionAnswered] = useState(false);
+  const [allAnswers, setAllAnswers] = useState(null);
 
   const playWordAudio = () => {
     const wordAudio = new Audio();
@@ -15,34 +17,38 @@ function Question({ rightAnswer, wrongAnswers, setWordIndex, setScore }) {
     wordAudio.play();
   };
 
-  const shuffledAllAnswers = shuffleArray(
-    wrongAnswers
-      .map((wrongAnswer) => {
-        return {
-          id: wrongAnswer.id || wrongAnswer._id,
-          wordTranslate: wrongAnswer.wordTranslate,
-          isRightAnswer: false,
-        };
-      })
-      .concat({
-        id: rightAnswer.id || rightAnswer._id,
-        wordTranslate: rightAnswer.wordTranslate,
-        isRightAnswer: true,
-      })
-  );
-
-  const answerBtns = shuffledAllAnswers.map((answer, i) => {
-    return (
-      <AnswerBtn
-        className={cl['answer-btn']}
-        text={answer.wordTranslate}
-        id={answer.id}
-        isRightAnswer={answer.isRightAnswer}
-        index={i + 1}
-        key={answer.id}
-      />
+  const renderAllAnswers = () => {
+    const shuffledAnswerList = shuffleArray(
+      wrongAnswers
+        .map((wrongAnswer) => {
+          return {
+            id: wrongAnswer.id || wrongAnswer._id,
+            wordTranslate: wrongAnswer.wordTranslate,
+            isRightAnswer: false,
+          };
+        })
+        .concat({
+          id: rightAnswer.id || rightAnswer._id,
+          wordTranslate: rightAnswer.wordTranslate,
+          isRightAnswer: true,
+        })
     );
-  });
+
+    setAllAnswers(shuffledAnswerList);
+  };
+
+  useEffect(() => {
+    playWordAudio();
+  }, [wordIndex]);
+
+  useEffect(() => {
+    renderAllAnswers();
+  }, [wordIndex]);
+
+  const showNextQuestion = () => {
+    setWordIndex(wordIndex + 1);
+    setIsQuestionAnswered(false);
+  };
 
   return (
     <div className={cl['question-wrapper']}>
@@ -58,8 +64,30 @@ function Question({ rightAnswer, wrongAnswers, setWordIndex, setScore }) {
           </svg>
         </button>
       </div>
-      <div className={cl['answer-btns-container']}>{answerBtns}</div>
-      <button className={cl['skip-btn']}>I don&apos;t know</button>
+      {allAnswers ? (
+        <div className={cl['answer-btns-container']}>
+          {allAnswers.map((answer, i) => {
+            return (
+              <AnswerBtn
+                text={answer.wordTranslate}
+                id={answer.id}
+                isRightAnswer={answer.isRightAnswer}
+                index={i + 1}
+                key={answer.id}
+                isQuestionAnswered={isQuestionAnswered}
+                setIsQuestionAnswered={setIsQuestionAnswered}
+                score={score}
+                setScore={setScore}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <Preloader />
+      )}
+      <button onClick={showNextQuestion} className={cl['next-btn']}>
+        {isQuestionAnswered ? 'Next' : `I don't know`}
+      </button>
     </div>
   );
 }

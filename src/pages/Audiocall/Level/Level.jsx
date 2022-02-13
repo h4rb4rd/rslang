@@ -4,10 +4,10 @@ import { MAX_WORDS_COUNT } from '../../../constants';
 import getRandomNum from '../../../utils/getRandomNum';
 import shuffleArray from '../../../utils/shuffleArray';
 import Preloader from '../../../components/Preloader/Preloader';
+import Question from '../Question/Question';
 
 // styles
 import cl from './Level.module.scss';
-import Question from '../Question/Question';
 
 function Level({ levelNumber }) {
   const [words, setWords] = useState(null);
@@ -40,13 +40,15 @@ function Level({ levelNumber }) {
   return (
     <div className={cl.wrapper}>
       <div className={cl.score}>
-        <p> {score} / 20 </p>
+        <p> {wordIndex} / 20 </p>
       </div>
       {words ? (
         <Question
           rightAnswer={words[wordIndex]}
           wrongAnswers={getWrongAnswers(words)}
+          wordIndex={wordIndex}
           setWordIndex={setWordIndex}
+          score={score}
           setScore={setScore}
         />
       ) : (
