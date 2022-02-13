@@ -123,7 +123,6 @@ function SprintGame({ words, tryAgain, statistic }) {
   };
 
   const handleKeyDown = (e) => {
-    e.preventDefault();
     if (e.key === 'ArrowRight') {
       checkAnswer('yes');
     }
@@ -134,10 +133,10 @@ function SprintGame({ words, tryAgain, statistic }) {
   };
 
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown);
     return () => {
       console.log('gameUnmount');
-      window.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, [words, wordIndex, translate]);
 
