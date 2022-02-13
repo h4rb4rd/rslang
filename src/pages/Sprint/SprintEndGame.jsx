@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import ApiService from '../../services/ApiService';
 
 import cl from './SprintEnd.module.scss';
@@ -6,24 +6,20 @@ import cl from './SprintEnd.module.scss';
 function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) {
   const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
   const [mistakesAnswerCount, setMistakesAnswerCount] = useState(0);
-
-  const [countNewWord, setCountNewWord] = useState(0);
   const userId = localStorage.getItem('userId');
   const wordsErrorList = wordsList.filter((word) => !word.options.countRight);
   const wordsRightList = wordsList.filter((word) => word.options.countRight);
 
-  const updateStatistic = (learnedWords) => {
-    console.log('statUpd', { statistic });
-    const percentAnswer = (correctAnswerCount * 100) / 20;
+  const updateStatistic = (learnedWords, correctAnswer, newWord) => {
+    const percent = (correctAnswer * 100) / 20;
     const optional = {
       seriesAnswer:
         statistic.optional?.seriesAnswer > seriesAnswer
           ? statistic.optional?.seriesAnswer
           : seriesAnswer,
-      percentAnswer,
-      countNewWord: statistic.optional?.countNewWord || 0 + countNewWord,
+      percentAnswer: percent,
+      countNewWord: statistic.optional?.countNewWord || 0 + newWord,
     };
-    console.log(optional);
     ApiService.updateUserStatistic(userId, learnedWords, optional);
   };
 
@@ -31,9 +27,10 @@ function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) 
     const learnedWords = wordsList?.filter(
       (word) => word.options.countRight === 3 || word.options.countRight === 5
     ).length;
-    setCorrectAnswerCount(wordsList?.filter((word) => word.options.countRight).length);
+    const correctAnswer = wordsList?.filter((word) => word.options.countRight).length;
+    setCorrectAnswerCount(correctAnswer);
     setMistakesAnswerCount(wordsList?.filter((word) => !word.options.countRight).length);
-    setCountNewWord(wordsList?.filter((word) => !word.userWord).length);
+    const newWord = wordsList?.filter((word) => !word.userWord).length;
     wordsList?.forEach((word) => {
       const optional = { ...word.options };
       if (optional.isHard) {
@@ -55,8 +52,7 @@ function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) 
       }
     });
     if (wordsList.length) {
-      console.log('statEff', statistic);
-      updateStatistic(learnedWords);
+      updateStatistic(learnedWords, correctAnswer, newWord);
     }
   }, [wordsList]);
 
