@@ -25,7 +25,10 @@
   align-self: center;
   justify-content: center;
   flex-grow: 1;
-  max-width: 68.2rem;
+  max-width: 126rem;
+  margin-bottom: 4rem;
+  width: 100%;
+  height: 100%;
   gap: 4rem;
   z-index: 10;
 }
@@ -40,7 +43,7 @@
 
 .level-btns-container {
   display: flex;
-  gap: 20px;
+  gap: 2rem;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -52,13 +55,14 @@
   flex-wrap: wrap;
   font-weight: 500;
   color: #1cb0f6;
-  border-radius: 16px;
-  border: 2px solid #e5e5e5;
-  border-bottom: 6px solid #e5e5e5;
+  border-radius: 1.6rem;
+  border: 0.2rem solid #e5e5e5;
+  border-bottom: 0.6rem solid #e5e5e5;
   background-color: #fff;
   padding: 2rem 3rem;
-  font-size: 3rem;
-  transition: all 0.4s;
+  font-size: 4rem;
+  font-family: "Mochiy Pop P One", sans-serif;
+  transition: all 0.3s ease-in-out;
   &:hover {
     background-color: rgba(255, 255, 255, 0.9);
   }
@@ -68,7 +72,7 @@
   display: flex;
   justify-content: flex-end;
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 3rem;
 
   a {
     position: relative;
@@ -81,7 +85,7 @@
     width: 18.25rem;
     color: #1cb0f6;
     padding-top: 1em;
-    transition: all 0.4s;
+    transition: all 0.3s ease-in-out;
     &:hover {
       opacity: 0.92;
     }

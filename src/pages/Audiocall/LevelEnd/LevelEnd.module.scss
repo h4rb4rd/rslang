@@ -1,0 +1,52 @@
+.endWrapper {
+  color: #1cb0f6;
+  font-family: 'Mochiy Pop P One', sans-serif;
+  overflow: hidden;
+}
+
+.resultGame {
+  padding: 15px 015px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.words {
+  padding: 10px 10px 60px;
+}
+
+.wordsWrapper {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.wordsWrapper::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 1);
+  backdrop-filter: blur(6px);
+}
+
+.wordsWrapper::-webkit-scrollbar-thumb {
+  background-color: #237e8f;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.headResult {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 10px 0 10px;
+}
+
+.mistake {
+  color: #f61c70;
+}
+
+.word {
+  padding: 10px 0 10px;
+  display: flex;
+  column-gap: 5px;
+  padding: 5px 0 5px;
+  border-bottom: 1px solid #696667;
+}
