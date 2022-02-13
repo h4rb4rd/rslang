@@ -149,6 +149,46 @@ export default class ApiService {
       throw err.response;
     }
   }
+
+  static async getStatistics(userId, callback) {
+    console.log('token - ', localStorage.getItem('token'));
+    try {
+      const response = await axios.get(`/users/${userId}/statistics`, {
+        baseURL: this.API_URL,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+
+      callback(response.data);
+    } catch (err) {
+      throw err.response;
+    }
+  }
+
+  static async updateUserStatistic(userId, learnedWords, options) {
+    try {
+      await axios.put(
+        `/users/${userId}/statistics`,
+        {
+          learnedWords,
+          optional: options,
+        },
+        {
+          baseURL: this.API_URL,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+    } catch (err) {
+      throw err.response;
+    }
+  }
 }
 
 // Alexand1234 Alexand1234@mail.com A@lexand1234

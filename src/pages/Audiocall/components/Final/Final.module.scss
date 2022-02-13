@@ -1,7 +1,6 @@
 .wrapper {
   display: flex;
   justify-content: center;
-  align-items: center;
   flex-direction: column;
   gap: 2rem;
   background-color: white;
@@ -15,19 +14,27 @@
   font-weight: 500;
   color: black;
   margin-bottom: 2rem;
+  color: #1caff6;
 }
 
 .info {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  margin-bottom: 2.5rem;
+  p {
+    font-size: 2.5rem;
+    color: #1caff6;
+    text-align: left;
+  }
 }
 
 .again-btn {
   width: 100%;
-  padding: 1rem;
-  font-size: 2rem;
+  padding: 1.5rem;
+  font-size: 2.3rem;
+  line-height: 3.5rem;
   color: white;
-  background-color: #1caff6;
+  background: linear-gradient(180deg, #1caff6 0, #5accec 100%);
   border-radius: 1rem;
 }

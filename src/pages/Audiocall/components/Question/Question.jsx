@@ -1,21 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import ApiService from '../../../services/ApiService';
-import shuffleArray from '../../../utils/shuffleArray';
+import ApiService from '../../../../services/ApiService';
+import shuffleArray from '../../../../utils/shuffleArray';
 import AnswerBtn from '../AnswerBtn/AnswerBtn';
-import Preloader from '../../../components/Preloader/Preloader';
+import Preloader from '../../../../components/Preloader/Preloader';
 
 // styles
 import cl from './Question.module.scss';
 
-function Question({
-  rightAnswer,
-  wrongAnswers,
-  wordIndex,
-  setWordIndex,
-  score,
-  setScore,
-  setIsEnd,
-}) {
+function Question({ rightAnswer, wrongAnswers, wordIndex, saveResult, showNextQuestion }) {
   const [isQuestionAnswered, setIsQuestionAnswered] = useState(false);
   const [allAnswers, setAllAnswers] = useState(null);
 
@@ -30,35 +22,27 @@ function Question({
       wrongAnswers
         .map((wrongAnswer) => {
           return {
-            id: wrongAnswer.id || wrongAnswer._id,
             wordTranslate: wrongAnswer.wordTranslate,
-            isRightAnswer: false,
+            isAnswerCorrect: false,
           };
         })
         .concat({
-          id: rightAnswer.id || rightAnswer._id,
           wordTranslate: rightAnswer.wordTranslate,
-          isRightAnswer: true,
+          isAnswerCorrect: true,
         })
     );
-
     setAllAnswers(shuffledAnswerList);
   };
 
   useEffect(() => {
-    playWordAudio();
-  }, [wordIndex]);
-
-  useEffect(() => {
     renderAllAnswers();
+    playWordAudio();
+    setIsQuestionAnswered(false);
   }, [wordIndex]);
 
-  const showNextQuestion = () => {
-    setWordIndex(wordIndex + 1);
-    if (wordIndex === 19) {
-      setIsEnd(true);
-    }
-    setIsQuestionAnswered(false);
+  const checkAnswer = (isAnswerCorrect) => {
+    saveResult(isAnswerCorrect);
+    setIsQuestionAnswered(true);
   };
 
   return (
@@ -83,13 +67,11 @@ function Question({
             return (
               <AnswerBtn
                 text={answer.wordTranslate}
-                id={answer.id}
-                isRightAnswer={answer.isRightAnswer}
+                isAnswerCorrect={answer.isAnswerCorrect}
                 index={i + 1}
-                key={answer.id}
-                setIsQuestionAnswered={setIsQuestionAnswered}
-                score={score}
-                setScore={setScore}
+                key={answer.wordTranslate}
+                wordIndex={wordIndex}
+                checkAnswer={checkAnswer}
               />
             );
           })}
@@ -98,7 +80,7 @@ function Question({
         <Preloader />
       )}
       <button onClick={showNextQuestion} className={cl['next-btn']}>
-        {isQuestionAnswered ? 'Next' : `I don't know`}
+        {isQuestionAnswered ? 'Следующий' : `Я не знаю`}
       </button>
     </div>
   );

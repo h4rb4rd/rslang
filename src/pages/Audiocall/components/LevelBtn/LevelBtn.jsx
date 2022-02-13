@@ -5,9 +5,9 @@ import cl from './LevelBtn.module.scss';
 
 function LevelBtn({ level, changeLevel }) {
   return (
-    <div className={cl.level} onClick={() => changeLevel(level)}>
+    <button className={cl['level-btn']} onClick={() => changeLevel(level - 1)}>
       {level}
-    </div>
+    </button>
   );
 }
 

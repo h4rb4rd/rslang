@@ -88,8 +88,12 @@ function Navigation({
       >
         <span>Мини игры</span>
         <PopUp posY="4.3rem" posX="8rem" isVisible={isGamesVisible}>
-          <Link to="/audiocall">Аудио вызов</Link>
-          <Link to="/sprint">Спринт</Link>
+          <Link to="/audiocall" state="textbook">
+            Аудио вызов
+          </Link>
+          <Link to="/sprint" state="textbook">
+            Спринт
+          </Link>
         </PopUp>
       </div>
       <div
