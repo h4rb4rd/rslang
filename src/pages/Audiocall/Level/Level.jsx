@@ -5,6 +5,7 @@ import getRandomNum from '../../../utils/getRandomNum';
 import shuffleArray from '../../../utils/shuffleArray';
 import Preloader from '../../../components/Preloader/Preloader';
 import Question from '../Question/Question';
+import Final from '../Final/Final';
 
 // styles
 import cl from './Level.module.scss';
@@ -13,6 +14,7 @@ function Level({ levelNumber }) {
   const [words, setWords] = useState(null);
   const [wordIndex, setWordIndex] = useState(0);
   const [score, setScore] = useState(0);
+  const [isEnd, setIsEnd] = useState(false);
 
   const userId = localStorage.getItem('userId');
   const pageNum = getRandomNum(0, 29);
@@ -39,20 +41,27 @@ function Level({ levelNumber }) {
 
   return (
     <div className={cl.wrapper}>
-      <div className={cl.score}>
-        <p> {wordIndex} / 20 </p>
-      </div>
-      {words ? (
-        <Question
-          rightAnswer={words[wordIndex]}
-          wrongAnswers={getWrongAnswers(words)}
-          wordIndex={wordIndex}
-          setWordIndex={setWordIndex}
-          score={score}
-          setScore={setScore}
-        />
+      {!isEnd ? (
+        <div>
+          <div className={cl.score}>
+            <p> {wordIndex} / 20 </p>
+          </div>
+          {words ? (
+            <Question
+              rightAnswer={words[wordIndex]}
+              wrongAnswers={getWrongAnswers(words)}
+              wordIndex={wordIndex}
+              setWordIndex={setWordIndex}
+              score={score}
+              setScore={setScore}
+              setIsEnd={setIsEnd}
+            />
+          ) : (
+            <Preloader />
+          )}
+        </div>
       ) : (
-        <Preloader />
+        <Final score={score} />
       )}
     </div>
   );

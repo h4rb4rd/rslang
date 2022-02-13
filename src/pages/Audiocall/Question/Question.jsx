@@ -7,7 +7,15 @@ import Preloader from '../../../components/Preloader/Preloader';
 // styles
 import cl from './Question.module.scss';
 
-function Question({ rightAnswer, wrongAnswers, wordIndex, setWordIndex, score, setScore }) {
+function Question({
+  rightAnswer,
+  wrongAnswers,
+  wordIndex,
+  setWordIndex,
+  score,
+  setScore,
+  setIsEnd,
+}) {
   const [isQuestionAnswered, setIsQuestionAnswered] = useState(false);
   const [allAnswers, setAllAnswers] = useState(null);
 
@@ -47,6 +55,9 @@ function Question({ rightAnswer, wrongAnswers, wordIndex, setWordIndex, score, s
 
   const showNextQuestion = () => {
     setWordIndex(wordIndex + 1);
+    if (wordIndex === 19) {
+      setIsEnd(true);
+    }
     setIsQuestionAnswered(false);
   };
 
@@ -65,7 +76,9 @@ function Question({ rightAnswer, wrongAnswers, wordIndex, setWordIndex, score, s
         </button>
       </div>
       {allAnswers ? (
-        <div className={cl['answer-btns-container']}>
+        <div
+          className={`${cl['answer-btns-container']} ${isQuestionAnswered ? `${cl.disabled}` : ''}`}
+        >
           {allAnswers.map((answer, i) => {
             return (
               <AnswerBtn
@@ -74,7 +87,6 @@ function Question({ rightAnswer, wrongAnswers, wordIndex, setWordIndex, score, s
                 isRightAnswer={answer.isRightAnswer}
                 index={i + 1}
                 key={answer.id}
-                isQuestionAnswered={isQuestionAnswered}
                 setIsQuestionAnswered={setIsQuestionAnswered}
                 score={score}
                 setScore={setScore}

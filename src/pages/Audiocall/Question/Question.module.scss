@@ -41,6 +41,10 @@
   display: flex;
   justify-content: center;
   gap: 1rem;
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.8;
+  }
 }
 
 .image {
