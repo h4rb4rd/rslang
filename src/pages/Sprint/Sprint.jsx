@@ -24,12 +24,6 @@ function Sprint() {
 
   const levels = [1, 2, 3, 4, 5, 6];
 
-  // if (state !== 'header') {
-  //   console.log('if');
-  //   // setIsGame(true);
-  //   setLevel(localStorage.getItem('group-num'));
-  // }
-
   console.log('render');
   function getStatistic(data) {
     setStatistic(data);
@@ -42,6 +36,7 @@ function Sprint() {
   };
 
   const setWordsList = (wordsList) => {
+    console.log(wordsList);
     const wordsListMapped = wordsList.map((item) => {
       const id = item._id || item.id;
 
@@ -53,50 +48,12 @@ function Sprint() {
         options: {
           ...item.userWord?.optional,
           countRight: item.userWord?.optional.countRight || 0,
+          statistics: { ...(item.userWord?.optional.statistics || { wrong: 0, correct: 0 }) },
         },
       };
     });
 
     setWords(wordsListMapped);
-  };
-
-  const getWordForGame = (userId, groupNum, pageNumParam) => {
-    // let wordsListGame = [];
-    // let pageNumLoc = +pageNumParam;
-    // ApiService.getNonEasyWords(userId, 1, 2, 20, console.log);
-    // const setWordsListGame = (data) => {
-    //   wordsListGame = data.map((item) => {
-    //     if (!item.userWord?.optional?.isEasy) {
-    //       return {
-    //         id: item._id || item.id,
-    //         word: item.word,
-    //         wordTranslate: item.wordTranslate,
-    //         userWord: item.userWord,
-    //         options: {
-    //           ...item.userWord?.optional,
-    //           countRight: item.userWord?.optional.countRight || 0,
-    //         },
-    //       };
-    //     }
-    //     return '';
-    //   });
-    //   wordsListGame = wordsListGame.filter((item) => item);
-    //   pageNumLoc--;
-    // };
-    // while (wordsListGame.length < 20 && pageNumLoc > -1) {
-    //   if (isAuth) {
-    //     ApiService.getWords(
-    //       userId,
-    //       groupNum,
-    //       pageNumLoc,
-    //       TEXTBOOK_WORDS_PER_PAGE,
-    //       setWordsListGame
-    //     );
-    //   } else {
-    //     ApiService.getUnauthorizedWords(groupNum, pageNumLoc, setWordsListGame);
-    //   }
-    // }
-    // setWords(wordsListGame.slice(0, 20));
   };
 
   useEffect(() => {
@@ -110,20 +67,22 @@ function Sprint() {
         ApiService.getUnauthorizedWords(groupNum, pageNum, setWordsList);
       }
     } else {
-      setIsGame(true);
+      // setIsGame(true);
       const pageNumStor = localStorage.getItem('page-num');
       const lvl = localStorage.getItem('group-num');
-      getWordForGame(userId, lvl, pageNumStor);
+      // setLevel(lvl);
+      ApiService.getNonEasyWords(userId, level, pageNumStor, TEXTBOOK_WORDS_PER_PAGE, setWordsList);
     }
     ApiService.getStatistics(userId, getStatistic);
     return () => {
       words.length = 0;
       // setIsGame(false);
     };
-  }, [level]);
+  }, [level, isGame]);
 
   const tryAgain = () => {
     setIsGame(false);
+    setLevel(0);
   };
 
   return (

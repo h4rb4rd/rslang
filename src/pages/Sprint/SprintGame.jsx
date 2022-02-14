@@ -60,6 +60,7 @@ function SprintGame({ words, tryAgain, statistic }) {
   // console.log('file', words);
 
   function answerRight() {
+    words[wordIndex].options.statistic.correct++;
     setScore(score + increment);
     if (increment < 30 && rightAnswersCount === 2) {
       setIncrement(increment + 10);
@@ -72,6 +73,7 @@ function SprintGame({ words, tryAgain, statistic }) {
   }
 
   function answerMistake() {
+    words[wordIndex].options.statistic.wrong++;
     checkSeriesAnswer();
     setIncrement(10);
     setRightAnswersCount(0);

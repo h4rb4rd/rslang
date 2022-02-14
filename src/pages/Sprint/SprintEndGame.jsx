@@ -11,26 +11,33 @@ function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) 
   const wordsErrorList = wordsList.filter((word) => !word.options.countRight);
   const wordsRightList = wordsList.filter((word) => word.options.countRight);
 
-  const updateStatistic = (learnedWords, correctAnswer, newWord) => {
+  const updateStatistic = (learnedWords, newWord, correctAnswer, mistakeAnswer) => {
     const percent = (correctAnswer * 100) / TEXTBOOK_WORDS_PER_PAGE;
     const optional = {
-      seriesAnswer:
-        statistic.optional?.seriesAnswer > seriesAnswer
-          ? statistic.optional?.seriesAnswer
-          : seriesAnswer,
-      percentAnswer: percent,
-      countNewWord: statistic.optional?.countNewWord || 0 + newWord,
+      ...statistic.optional,
+      // seriesAnswer:
+      //   statistic.optional?.seriesAnswer > seriesAnswer
+      //     ? statistic.optional?.seriesAnswer
+      //     : seriesAnswer,
+      // percentAnswer: percent,
+      // countNewWord: statistic.optional?.countNewWord || 0 + newWord,
     };
+    optional.sprint.newWord = optional.sprint.newWord + newWord || newWord;
+    optional.sprint.correct = optional.sprint.correct + correctAnswer || correctAnswer;
+    optional.sprint.wrong = optional.sprint.wrong + mistakeAnswer || mistakeAnswer;
+    optional.sprint.row = optional.sprint?.row > seriesAnswer ? optional.sprint?.row : seriesAnswer;
     ApiService.updateUserStatistic(userId, learnedWords, optional);
   };
 
   useEffect(() => {
-    const learnedWords = wordsList?.filter(
-      (word) => word.options.countRight === 3 || word.options.countRight === 5
-    ).length;
+    // const learnedWords = wordsList?.filter(
+    //   (word) => word.options.countRight === 3 || word.options.countRight === 5
+    // ).length;
+    let learnedWords = statistic.learnedWords || 0;
     const correctAnswer = wordsList?.filter((word) => word.options.countRight).length;
+    const mistakeAnswer = wordsList?.filter((word) => !word.options.countRight).length;
     setCorrectAnswerCount(correctAnswer);
-    setMistakesAnswerCount(wordsList?.filter((word) => !word.options.countRight).length);
+    setMistakesAnswerCount(mistakeAnswer);
     const newWord = wordsList?.filter((word) => !word.userWord).length;
     wordsList?.forEach((word) => {
       const optional = { ...word.options };
@@ -41,9 +48,14 @@ function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) 
         }
       } else if (optional.countRight === 3) {
         optional.isEasy = true;
+        learnedWords++;
       }
       if (!optional.countRight) {
         optional.isEasy = false;
+        learnedWords--;
+        if (learnedWords < 0) {
+          learnedWords = 0;
+        }
       }
 
       if (word.userWord?.optional) {
@@ -53,7 +65,7 @@ function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) 
       }
     });
     if (wordsList.length) {
-      updateStatistic(learnedWords, correctAnswer, newWord);
+      updateStatistic(learnedWords, newWord, correctAnswer, mistakeAnswer);
     }
   }, [wordsList]);
 
