@@ -60,7 +60,8 @@ function SprintGame({ words, tryAgain, statistic }) {
   // console.log('file', words);
 
   function answerRight() {
-    words[wordIndex].options.statistic.correct++;
+    const correct = words[wordIndex].options.statistics?.correct || 0;
+    words[wordIndex].options.statistics.correct = correct + 1;
     setScore(score + increment);
     if (increment < 30 && rightAnswersCount === 2) {
       setIncrement(increment + 10);
@@ -73,21 +74,27 @@ function SprintGame({ words, tryAgain, statistic }) {
   }
 
   function answerMistake() {
-    words[wordIndex].options.statistic.wrong++;
+    const wrong = words[wordIndex].options.statistics?.wrong || 0;
+    words[wordIndex].options.statistics.wrong = wrong + 1;
     checkSeriesAnswer();
     setIncrement(10);
     setRightAnswersCount(0);
   }
 
   const incCountRight = (word) => {
+    console.log('right', word);
     setAccCorrectAnswers(accCorrectAnswers + 1);
     if (word.options.isHard) {
-      if (word.options.countRight !== 5) {
-        word.option.countRight++;
+      // if (word.options.countRight !== 5) {
+      //   word.option.countRight++;
+      //   answerRight();
+      // }
+      if (word.options.statistics.row !== 5) {
+        word.options.statistics.row += 1;
         answerRight();
       }
-    } else if (word.options.countRight !== 3) {
-      word.options.countRight++;
+    } else if (word.options.statistics.row !== 3) {
+      word.options.statistics.row += 1;
       answerRight();
     }
   };
@@ -98,13 +105,13 @@ function SprintGame({ words, tryAgain, statistic }) {
       if (translate === words[wordIndex]?.wordTranslate) {
         incCountRight(words[wordIndex]);
       } else {
-        words[wordIndex].options.countRight = 0;
+        words[wordIndex].options.statistics.row = 0;
         answerMistake();
       }
     } else if (translate !== words[wordIndex]?.wordTranslate) {
       incCountRight(words[wordIndex]);
     } else {
-      words[wordIndex].options.countRight = 0;
+      words[wordIndex].options.statistics.row = 0;
       answerMistake();
     }
     if (wordIndex < words.length - 1) {
@@ -135,6 +142,7 @@ function SprintGame({ words, tryAgain, statistic }) {
   };
 
   useEffect(() => {
+    console.log('game', { words });
     document.addEventListener('keydown', handleKeyDown);
     return () => {
       console.log('gameUnmount');

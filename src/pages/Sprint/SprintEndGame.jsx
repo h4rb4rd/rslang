@@ -22,9 +22,17 @@ function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) 
       // percentAnswer: percent,
       // countNewWord: statistic.optional?.countNewWord || 0 + newWord,
     };
-    optional.sprint.newWord = optional.sprint.newWord + newWord || newWord;
-    optional.sprint.correct = optional.sprint.correct + correctAnswer || correctAnswer;
-    optional.sprint.wrong = optional.sprint.wrong + mistakeAnswer || mistakeAnswer;
+    if (!optional.sprint) {
+      optional.sprint = {
+        newWord: 0,
+        correct: 0,
+        wrong: 0,
+        row: 0,
+      };
+    }
+    optional.sprint.newWord += newWord;
+    optional.sprint.correct += correctAnswer;
+    optional.sprint.wrong += mistakeAnswer;
     optional.sprint.row = optional.sprint?.row > seriesAnswer ? optional.sprint?.row : seriesAnswer;
     ApiService.updateUserStatistic(userId, learnedWords, optional);
   };
@@ -33,24 +41,25 @@ function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) 
     // const learnedWords = wordsList?.filter(
     //   (word) => word.options.countRight === 3 || word.options.countRight === 5
     // ).length;
+    console.log('endGame', { wordsList });
     let learnedWords = statistic.learnedWords || 0;
-    const correctAnswer = wordsList?.filter((word) => word.options.countRight).length;
-    const mistakeAnswer = wordsList?.filter((word) => !word.options.countRight).length;
+    const correctAnswer = wordsList?.filter((word) => word.options.statistics.row).length;
+    const mistakeAnswer = wordsList?.filter((word) => !word.options.statistics.row).length;
     setCorrectAnswerCount(correctAnswer);
     setMistakesAnswerCount(mistakeAnswer);
     const newWord = wordsList?.filter((word) => !word.userWord).length;
     wordsList?.forEach((word) => {
       const optional = { ...word.options };
       if (optional.isHard) {
-        if (optional.countRight === 5) {
+        if (optional.statistics.row === 5) {
           optional.isHard = false;
           optional.isEasy = true;
         }
-      } else if (optional.countRight === 3) {
+      } else if (optional.statistics.row === 3) {
         optional.isEasy = true;
         learnedWords++;
       }
-      if (!optional.countRight) {
+      if (!optional.statistics.row) {
         optional.isEasy = false;
         learnedWords--;
         if (learnedWords < 0) {

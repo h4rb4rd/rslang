@@ -17,7 +17,7 @@ function getRandomNum(min, max) {
 function Sprint() {
   const { state } = useLocation();
   const { isAuth } = useContext(AuthContext);
-  const [isGame, setIsGame] = useState(false);
+  const [isGame, setIsGame] = useState(state !== 'header');
   const [level, setLevel] = useState(0);
   const [words, setWords] = useState([]);
   const [statistic, setStatistic] = useState({});
@@ -47,8 +47,10 @@ function Sprint() {
         userWord: item.userWord,
         options: {
           ...item.userWord?.optional,
-          countRight: item.userWord?.optional.countRight || 0,
-          statistics: { ...(item.userWord?.optional.statistics || { wrong: 0, correct: 0 }) },
+          // countRight: item.userWord?.optional.countRight || 0,
+          statistics: {
+            ...(item.userWord?.optional.statistics || { row: 0, wrong: 0, correct: 0 }),
+          },
         },
       };
     });
@@ -57,6 +59,7 @@ function Sprint() {
   };
 
   useEffect(() => {
+    console.log('effect', { words }, isGame);
     const userId = localStorage.getItem('userId');
     const groupNum = level;
     const pageNum = getRandomNum(0, 29);
@@ -68,17 +71,19 @@ function Sprint() {
       }
     } else {
       // setIsGame(true);
+      console.log('effectState', state);
       const pageNumStor = localStorage.getItem('page-num');
       const lvl = localStorage.getItem('group-num');
       // setLevel(lvl);
-      ApiService.getNonEasyWords(userId, level, pageNumStor, TEXTBOOK_WORDS_PER_PAGE, setWordsList);
+      console.log('effectParam', userId, lvl, pageNumStor, TEXTBOOK_WORDS_PER_PAGE, isGame);
+      ApiService.getNonEasyWords(userId, lvl, pageNumStor, TEXTBOOK_WORDS_PER_PAGE, setWordsList);
     }
     ApiService.getStatistics(userId, getStatistic);
     return () => {
       words.length = 0;
       // setIsGame(false);
     };
-  }, [level, isGame]);
+  }, [level]);
 
   const tryAgain = () => {
     setIsGame(false);

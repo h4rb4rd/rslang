@@ -5,13 +5,13 @@ import LevelGame from './LevelGame';
 import cl from './Sprint.module.scss';
 
 function LevelsGame({ levels, changeLevel, state }) {
-  useEffect(() => {
-    if (state !== 'header') {
-      const lvl = localStorage.getItem('group-num');
-      changeLevel(lvl);
-      console.log('lvls');
-    }
-  }, [state]);
+  // useEffect(() => {
+  //   if (state !== 'header') {
+  //     const lvl = localStorage.getItem('group-num');
+  //     changeLevel(lvl);
+  //     console.log('lvls');
+  //   }
+  // }, [state]);
   return (
     <div className={cl.lvlWrapper}>
       {levels.map((item) => (
