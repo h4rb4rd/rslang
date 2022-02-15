@@ -26,13 +26,13 @@ function SprintGame({ words, tryAgain, statistic }) {
     if (showCorrectTranslate()) {
       result = words[wordIndex]?.wordTranslate;
     } else {
-      let tmpIndex = getRandomNum(0, words.length - 1);
+      // let tmpIndex = getRandomNum(0, words.length - 1);
 
-      while (tmpIndex === wordIndex) {
-        tmpIndex = getRandomNum(0, words.length - 1);
-      }
+      // while (tmpIndex === wordIndex) {
+      //   tmpIndex = getRandomNum(0, words.length - 1);
+      // }
 
-      result = words[tmpIndex]?.wordTranslate;
+      result = words[getRandomNum(0, words.length - 1)]?.wordTranslate;
     }
 
     return result;
@@ -138,6 +138,7 @@ function SprintGame({ words, tryAgain, statistic }) {
     document.addEventListener('keydown', handleKeyDown);
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
+      setIsEnd(false);
     };
   }, [words, wordIndex, translate]);
 

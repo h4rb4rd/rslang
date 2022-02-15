@@ -13,14 +13,14 @@ import getRandomNum from '../../utils/getRandomNum';
 function Sprint() {
   const { state } = useLocation();
   const { isAuth } = useContext(AuthContext);
-  const [isGame, setIsGame] = useState(state !== 'header');
+  const [isGame, setIsGame] = useState(false);
   const [level, setLevel] = useState(0);
   const [words, setWords] = useState([]);
   const [statistic, setStatistic] = useState({});
 
   const levels = [1, 2, 3, 4, 5, 6];
 
-  console.log('render');
+  console.log('render', isGame, level, state);
   function getStatistic(data) {
     setStatistic(data);
   }
@@ -77,10 +77,10 @@ function Sprint() {
     ApiService.getStatistics(userId, getStatistic);
     return () => {
       words.length = 0;
-      console.log('unmountGame', { words });
+
       // setIsGame(false);
     };
-  }, [level]);
+  }, [level, isGame]);
 
   const tryAgain = () => {
     setIsGame(false);
@@ -94,6 +94,7 @@ function Sprint() {
       ) : (
         <SprintGame words={words} tryAgain={tryAgain} statistic={statistic} />
       )}
+      {/* <LevelsGame levels={levels} changeLevel={changeLevel} state={state} /> */}
     </div>
   );
 }
