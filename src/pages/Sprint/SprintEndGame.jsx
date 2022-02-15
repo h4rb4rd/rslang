@@ -82,30 +82,31 @@ function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) 
     <div className={cl.endWrapper}>
       <div className={cl.resultGame}>
         <div>{score}</div>
+        <div>Результат</div>
         <button className={cl.tryAgain} onClick={() => tryAgain()}>
           Try Again
         </button>
       </div>
       <div className={cl.wordsWrapper}>
         <div className={cl.words}>
-          <div>
-            <div className={cl.headResult}>
-              {' '}
-              <div>Mistakes</div>
-              <div>{mistakesAnswerCount}</div>{' '}
-            </div>
-            {wordsErrorList.map((word) => (
-              <div className={cl.word} key={word.id}>{`${word.word} - ${word.wordTranslate}`}</div>
-            ))}
+          <div className={cl.headResult}>
+            <div>Количество ошибок</div>
+            <div>{mistakesAnswerCount}</div>
           </div>
-          <div>
-            <div className={cl.headResult}>
-              <div>Correct Answers</div>
-              <div>{correctAnswerCount}</div>{' '}
-            </div>
-            {wordsRightList.map((word) => (
+          {/* {wordsErrorList.map((word) => (
               <div className={cl.word} key={word.id}>{`${word.word} - ${word.wordTranslate}`}</div>
-            ))}
+            ))} */}
+
+          <div className={cl.headResult}>
+            <div>Количество правильных</div>
+            <div>{correctAnswerCount}</div>
+          </div>
+          {/* {wordsRightList.map((word) => (
+              <div className={cl.word} key={word.id}>{`${word.word} - ${word.wordTranslate}`}</div>
+            ))} */}
+          <div className={cl.headResult}>
+            <div>Серия правильных ответов</div>
+            <div>{seriesAnswer}</div>
           </div>
         </div>
       </div>

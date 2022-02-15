@@ -8,11 +8,7 @@ import LevelsGame from './LevelsGame';
 // styles
 import cl from './Sprint.module.scss';
 import SprintGame from './SprintGame';
-
-function getRandomNum(min, max) {
-  const rand = min + Math.random() * (max + 1 - min);
-  return Math.floor(rand);
-}
+import getRandomNum from '../../utils/getRandomNum';
 
 function Sprint() {
   const { state } = useLocation();
@@ -73,14 +69,15 @@ function Sprint() {
       // setIsGame(true);
       console.log('effectState', state);
       const pageNumStor = localStorage.getItem('page-num');
-      const lvl = localStorage.getItem('group-num');
-      // setLevel(lvl);
-      console.log('effectParam', userId, lvl, pageNumStor, TEXTBOOK_WORDS_PER_PAGE, isGame);
-      ApiService.getNonEasyWords(userId, lvl, pageNumStor, TEXTBOOK_WORDS_PER_PAGE, setWordsList);
+      // const lvl = localStorage.getItem('group-num');
+      // setLevel(lvl);S
+      console.log('effectParam', userId, level, pageNumStor, TEXTBOOK_WORDS_PER_PAGE, isGame);
+      ApiService.getNonEasyWords(userId, level, pageNumStor, TEXTBOOK_WORDS_PER_PAGE, setWordsList);
     }
     ApiService.getStatistics(userId, getStatistic);
     return () => {
       words.length = 0;
+      console.log('unmountGame', { words });
       // setIsGame(false);
     };
   }, [level]);

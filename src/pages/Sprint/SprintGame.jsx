@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import AuthContext from '../../context';
-import ApiService from '../../services/ApiService';
-
+import getRandomNum from '../../utils/getRandomNum';
 // styles
 import cl from './Sprint.module.scss';
 import SprintEndGame from './SprintEndGame';
@@ -10,11 +8,6 @@ import SprintWords from './SprintWords';
 
 function showCorrectTranslate() {
   return Math.random() > 0.5;
-}
-
-function getRandomNum(min, max) {
-  const rand = min + Math.random() * (max + 1 - min);
-  return Math.floor(rand);
 }
 
 function SprintGame({ words, tryAgain, statistic }) {
@@ -142,10 +135,8 @@ function SprintGame({ words, tryAgain, statistic }) {
   };
 
   useEffect(() => {
-    console.log('game', { words });
     document.addEventListener('keydown', handleKeyDown);
     return () => {
-      console.log('gameUnmount');
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [words, wordIndex, translate]);
