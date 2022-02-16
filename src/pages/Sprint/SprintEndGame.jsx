@@ -73,9 +73,9 @@ function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) 
     <div className={cl.endWrapper}>
       <div className={cl.resultGame}>
         <div>{score}</div>
-        <div>Результат</div>
+        <div className={cl.resultHead}>Результат</div>
         <button className={cl.tryAgain} onClick={() => tryAgain()}>
-          Try Again
+          Заново
         </button>
       </div>
       <div className={cl.wordsWrapper}>

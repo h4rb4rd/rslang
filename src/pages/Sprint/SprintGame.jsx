@@ -168,10 +168,10 @@ function SprintGame({ words, tryAgain, statistic }) {
           <SprintTimer secCount={60} setEnd={changeIsEnd} />
           <div className={cl.btnWrapper}>
             <button className={`${cl.answBtn} ${cl.btnNo}`} onClick={() => checkAnswer('no')}>
-              No
+              Нет
             </button>
             <button className={`${cl.answBtn} ${cl.btnOk}`} onClick={() => checkAnswer('yes')}>
-              Yes
+              Да
             </button>
           </div>
         </div>

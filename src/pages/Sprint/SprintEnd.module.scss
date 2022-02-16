@@ -1,7 +1,6 @@
 .endWrapper {
   color: #1cb0f6;
   font-family: 'Mochiy Pop P One', sans-serif;
-  overflow: hidden;
 }
 
 .resultGame {
@@ -17,7 +16,6 @@
 
 .wordsWrapper {
   height: calc(100vh - 300px);
-  overflow-y: scroll;
 }
 
 .wordsWrapper::-webkit-scrollbar {
@@ -42,6 +40,12 @@
   padding: 10px 0 10px;
 }
 
+.resultHead{
+  font-family: Roboto, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+}
+
 .mistake {
   color: #f61c70;
 }
@@ -57,7 +61,15 @@
 .tryAgain{
   background: linear-gradient(180deg, #1caff6 0, #5accec 100%);;
   color: #fff;
-  font-family: 'Mochiy Pop P One', sans-serif;
+  font-family: Roboto, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
   padding: 10px;
   border-radius: 16px;
+  box-shadow: 1px 6px 11px 1px rgb(0 0 0 / 70%);
+  transition: box-shadow 0.3s ease;
+}
+
+.tryAgain:hover {
+  box-shadow: 1px 1px 1px 1px rgb(0 0 0 / 70%);
 }
