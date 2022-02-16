@@ -5,10 +5,17 @@ import cl from './Sprint.module.scss';
 import SprintEndGame from './SprintEndGame';
 import SprintTimer from './SprintTimer';
 import SprintWords from './SprintWords';
+import Wrong from '../../assets/audio/wrong.mp3';
+import Right from '../../assets/audio/correctanswer.mp3';
+import Final from '../../assets/audio/final.mp3';
 
 function showCorrectTranslate() {
   return Math.random() > 0.5;
 }
+
+const wrongSound = new Audio(Wrong);
+const rightSound = new Audio(Right);
+const finalSound = new Audio(Final);
 
 function SprintGame({ words, tryAgain, statistic }) {
   const [wordIndex, setWordIndex] = useState(0);
@@ -32,6 +39,18 @@ function SprintGame({ words, tryAgain, statistic }) {
     return result;
   }, [words, wordIndex]);
 
+  const playSound = (isCorrect) => {
+    rightSound.pause();
+    rightSound.currentTime = 0;
+    wrongSound.pause();
+    wrongSound.currentTime = 0;
+    if (isCorrect) {
+      rightSound.play();
+    } else {
+      wrongSound.play();
+    }
+  };
+
   function checkSeriesAnswer() {
     if (accCorrectAnswers > seriesCorrectAnswers) {
       setSeriesCorrectAnswers(accCorrectAnswers);
@@ -42,9 +61,11 @@ function SprintGame({ words, tryAgain, statistic }) {
   const changeIsEnd = () => {
     checkSeriesAnswer();
     setIsEnd(true);
+    finalSound.play();
   };
 
   function answerRight() {
+    playSound(true);
     const correct = words[wordIndex].options.statistics?.correct || 0;
     words[wordIndex].options.statistics.correct = correct + 1;
     setScore(score + increment);
@@ -59,6 +80,7 @@ function SprintGame({ words, tryAgain, statistic }) {
   }
 
   function answerMistake() {
+    playSound(false);
     const wrong = words[wordIndex].options.statistics?.wrong || 0;
     words[wordIndex].options.statistics.wrong = wrong + 1;
     checkSeriesAnswer();
