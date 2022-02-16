@@ -33,6 +33,7 @@
     flex: 1;
     height: calc(100vh - 17rem);
     max-width: 500px;
+    max-height: 500px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -66,11 +67,11 @@
     outline: none;
     border: none;
     font-family: "Mochiy Pop P One", sans-serif;
-    color: #1cb0f6;
+    color: #2103ca;
     padding: 5px;
     max-width: 130px;
     width: 100%;
-    
+    display: flex;
     position: relative;
     cursor: pointer;
 }
@@ -78,43 +79,31 @@
 
 
 .btnNo {
-    background-color: #f53958;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    justify-content: flex-end;
+    padding-right: 20px;
+    background-color: rgba(255, 99, 71, 0.8);
+    border-radius: 10px;
 }
 
 .btnOk {
-    background-color: lime;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
+    justify-content: flex-start;
+    padding-left: 20px;
+    background-color: rgba(144, 238, 144, 0.9);
+    border-radius: 10px;
 }
 
 .btnOk::after{
-    left: 100%;
-	top: 50%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
+    right: 20px;
+	top: 5px;
+	content: ">";
 	position: absolute;
-    border-color: rgba(136, 183, 213, 0);
-	border-left-color: lime;
-	border-width: 25px;
-	margin-top: -25px;
 }
 
 .btnNo::before{
-    right: 100%;
-	top: 50%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-    border-color: rgba(194, 225, 245, 0);
-	border-right-color: #f53958;
-	border-width: 25px;
-	margin-top: -25px;
+    left: 20px;
+	top: 5px;
+	content: " < ";
+    position: absolute;
 }
 
 .answBtn.btnOk:disabled , .answBtn.btnNo:disabled{
