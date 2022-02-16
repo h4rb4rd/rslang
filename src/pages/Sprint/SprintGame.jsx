@@ -26,12 +26,6 @@ function SprintGame({ words, tryAgain, statistic }) {
     if (showCorrectTranslate()) {
       result = words[wordIndex]?.wordTranslate;
     } else {
-      // let tmpIndex = getRandomNum(0, words.length - 1);
-
-      // while (tmpIndex === wordIndex) {
-      //   tmpIndex = getRandomNum(0, words.length - 1);
-      // }
-
       result = words[getRandomNum(0, words.length - 1)]?.wordTranslate;
     }
 
@@ -49,8 +43,6 @@ function SprintGame({ words, tryAgain, statistic }) {
     checkSeriesAnswer();
     setIsEnd(true);
   };
-
-  // console.log('file', words);
 
   function answerRight() {
     const correct = words[wordIndex].options.statistics?.correct || 0;
@@ -75,13 +67,8 @@ function SprintGame({ words, tryAgain, statistic }) {
   }
 
   const incCountRight = (word) => {
-    console.log('right', word);
     setAccCorrectAnswers(accCorrectAnswers + 1);
     if (word.options.isHard) {
-      // if (word.options.countRight !== 5) {
-      //   word.option.countRight++;
-      //   answerRight();
-      // }
       if (word.options.statistics.row !== 5) {
         word.options.statistics.row += 1;
         answerRight();

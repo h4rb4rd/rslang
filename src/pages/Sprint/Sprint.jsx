@@ -20,7 +20,6 @@ function Sprint() {
 
   const levels = [1, 2, 3, 4, 5, 6];
 
-  console.log('render', isGame, level, state);
   function getStatistic(data) {
     setStatistic(data);
   }
@@ -43,7 +42,6 @@ function Sprint() {
         userWord: item.userWord,
         options: {
           ...item.userWord?.optional,
-          // countRight: item.userWord?.optional.countRight || 0,
           statistics: {
             ...(item.userWord?.optional.statistics || { row: 0, wrong: 0, correct: 0 }),
           },
@@ -66,19 +64,12 @@ function Sprint() {
         ApiService.getUnauthorizedWords(groupNum, pageNum, setWordsList);
       }
     } else {
-      // setIsGame(true);
-      console.log('effectState', state);
       const pageNumStor = localStorage.getItem('page-num');
-      // const lvl = localStorage.getItem('group-num');
-      // setLevel(lvl);S
-      console.log('effectParam', userId, level, pageNumStor, TEXTBOOK_WORDS_PER_PAGE, isGame);
       ApiService.getNonEasyWords(userId, level, pageNumStor, TEXTBOOK_WORDS_PER_PAGE, setWordsList);
     }
     ApiService.getStatistics(userId, getStatistic);
     return () => {
       words.length = 0;
-
-      // setIsGame(false);
     };
   }, [level, isGame]);
 
@@ -94,7 +85,6 @@ function Sprint() {
       ) : (
         <SprintGame words={words} tryAgain={tryAgain} statistic={statistic} />
       )}
-      {/* <LevelsGame levels={levels} changeLevel={changeLevel} state={state} /> */}
     </div>
   );
 }
