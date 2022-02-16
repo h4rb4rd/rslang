@@ -27,11 +27,9 @@ function Sprint() {
   const changeLevel = (lvl) => {
     setIsGame(true);
     setLevel(lvl);
-    console.log(level);
   };
 
   const setWordsList = (wordsList) => {
-    console.log(wordsList);
     const wordsListMapped = wordsList.map((item) => {
       const id = item._id || item.id;
 
@@ -53,7 +51,6 @@ function Sprint() {
   };
 
   useEffect(() => {
-    console.log('effect', { words }, isGame);
     const userId = localStorage.getItem('userId');
     const groupNum = level;
     const pageNum = getRandomNum(0, 29);
