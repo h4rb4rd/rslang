@@ -14,7 +14,9 @@ function showCorrectTranslate() {
 }
 
 const wrongSound = new Audio(Wrong);
+wrongSound.volume = 0.5;
 const rightSound = new Audio(Right);
+rightSound.volume = 0.5;
 const finalSound = new Audio(Final);
 
 function SprintGame({ words, tryAgain, statistic }) {
@@ -134,6 +136,7 @@ function SprintGame({ words, tryAgain, statistic }) {
   };
 
   const handleKeyDown = (e) => {
+    if (isEnd) return;
     if (e.key === 'ArrowRight') {
       checkAnswer('yes');
     }
@@ -147,7 +150,6 @@ function SprintGame({ words, tryAgain, statistic }) {
     document.addEventListener('keydown', handleKeyDown);
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      setIsEnd(false);
     };
   }, [words, wordIndex, translate]);
 

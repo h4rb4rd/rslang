@@ -8,8 +8,6 @@ function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) 
   const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
   const [mistakesAnswerCount, setMistakesAnswerCount] = useState(0);
   const userId = localStorage.getItem('userId');
-  const wordsErrorList = wordsList.filter((word) => !word.options.countRight);
-  const wordsRightList = wordsList.filter((word) => word.options.countRight);
 
   const updateStatistic = (learnedWords, newWord, correctAnswer, mistakeAnswer) => {
     const optional = {
@@ -42,11 +40,11 @@ function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) 
     wordsList?.forEach((word) => {
       const optional = { ...word.options };
       if (optional.isHard) {
-        if (optional.statistics.row === 5) {
+        if (optional.statistics.row >= 5) {
           optional.isHard = false;
           optional.isEasy = true;
         }
-      } else if (optional.statistics.row === 3) {
+      } else if (optional.statistics.row >= 3) {
         optional.isEasy = true;
         learnedWords++;
       }
