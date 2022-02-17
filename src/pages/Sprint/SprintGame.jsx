@@ -71,7 +71,7 @@ function SprintGame({ words, tryAgain, statistic }) {
     const correct = words[wordIndex].options.statistics?.correct || 0;
     words[wordIndex].options.statistics.correct = correct + 1;
     setScore(score + increment);
-    if (increment < 30 && rightAnswersCount === 2) {
+    if (increment < 30 && rightAnswersCount === 3) {
       setIncrement(increment + 10);
     }
     if (rightAnswersCount < 3) {
@@ -151,7 +151,7 @@ function SprintGame({ words, tryAgain, statistic }) {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [words, wordIndex, translate]);
+  }, [words, wordIndex, translate, isEnd]);
 
   return (
     <div className={cl.sprintGame}>
