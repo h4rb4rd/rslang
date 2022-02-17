@@ -40,11 +40,11 @@ function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) 
     wordsList?.forEach((word) => {
       const optional = { ...word.options };
       if (optional.isHard) {
-        if (optional.statistics.row >= 5) {
+        if (optional.statistics.row === 5) {
           optional.isHard = false;
           optional.isEasy = true;
         }
-      } else if (optional.statistics.row >= 3) {
+      } else if (optional.statistics.row === 3) {
         optional.isEasy = true;
         learnedWords++;
       }
