@@ -43,6 +43,7 @@ function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) 
         if (optional.statistics.row === 5) {
           optional.isHard = false;
           optional.isEasy = true;
+          learnedWords++;
         }
       } else if (optional.statistics.row === 3) {
         optional.isEasy = true;
