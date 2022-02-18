@@ -20,7 +20,7 @@ function Navigation({
   setPageNum,
   setGroupNum,
 }) {
-  const { isAuth, setIsAuth } = useContext(AuthContext);
+  const { isAuth } = useContext(AuthContext);
   const [isChaptersVisible, setIsChaptersVisible] = useState(false);
   const [chapterTitle, setChapterTitle] = useState(`Раздел ${groupNum + 1}`);
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
@@ -56,7 +56,7 @@ function Navigation({
         tabIndex={0}
       >
         <span>{chapterTitle}</span>
-        <PopUp posY="4.3rem" posX="8rem" isVisible={isChaptersVisible}>
+        <PopUp posY="4.3rem" posX="9.9rem" isVisible={isChaptersVisible}>
           <div className={cl.buttons}>
             {chapters.map((chapter, idx) => {
               return (
@@ -87,7 +87,7 @@ function Navigation({
         tabIndex={-2}
       >
         <span>Мини игры</span>
-        <PopUp posY="4.3rem" posX="8rem" isVisible={isGamesVisible}>
+        <PopUp posY="4.3rem" posX="9.9rem" isVisible={isGamesVisible}>
           <Link to="/audiocall">Аудио вызов</Link>
           <Link to="/sprint" state="textbook">
             Спринт
@@ -103,7 +103,7 @@ function Navigation({
         tabIndex={-1}
       >
         <span>Настройки</span>
-        <PopUp posY="4.3rem" posX="8rem" isVisible={isSettingsVisible}>
+        <PopUp posY="4.3rem" posX="11.2rem" isVisible={isSettingsVisible}>
           <div className={cl.options}>
             <label htmlFor="translate" className={cl.label}>
               <input

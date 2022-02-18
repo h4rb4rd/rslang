@@ -1,0 +1,45 @@
+.statistics {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    font-size: 1.7rem;
+    color: #1caff6;
+    font-weight: 500;
+    align-self: flex-start;
+    margin-bottom: 1rem;
+  }
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 500;
+  color: #1caff6;
+  margin-bottom: 2rem;
+}
+
+.progress {
+  width: 10rem;
+  height: 10rem;
+  margin-bottom: 3rem;
+}
+
+.close {
+  position: absolute;
+  top: -5rem;
+  right: -5rem;
+  color: #fff;
+  background: none;
+  font-size: 3rem;
+}
+
+@media screen and (max-width: 575.98px) {
+  .close {
+    top: -5rem;
+    right: -1.3rem;
+  }
+}

@@ -36,5 +36,11 @@ module.exports = {
     'jsx-a11y/no-static-element-interactions': 'off',
     'no-plusplus': 'off',
     'no-unsafe-optional-chaining': 'warn',
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
   },
 };

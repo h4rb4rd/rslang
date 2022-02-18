@@ -16,10 +16,6 @@
   padding: 10px;
 }
 
-.wordsWrapper {
-  height: calc(100vh - 300px);
-}
-
 .wordsWrapper::-webkit-scrollbar {
   width: 5px;
   border-radius: 5px;
@@ -42,7 +38,7 @@
   padding: 10px 0 10px;
 }
 
-.resultHead{
+.resultHead {
   font-family: Roboto, sans-serif;
   font-size: 24px;
   font-weight: bold;
@@ -60,8 +56,8 @@
   border-bottom: 1px solid #696667;
 }
 
-.tryAgain{
-  background: linear-gradient(180deg, #1caff6 0, #5accec 100%);;
+.tryAgain {
+  background: linear-gradient(180deg, #1caff6 0, #5accec 100%);
   color: #fff;
   font-family: Roboto, sans-serif;
   font-size: 24px;

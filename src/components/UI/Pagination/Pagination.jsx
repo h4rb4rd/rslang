@@ -88,7 +88,7 @@ function Pagination({ isPageEasy, pageNum, setPageNum }) {
         tabIndex={0}
       >
         <span>{pageTitle}</span>
-        <PopUp posY="4.3rem" posX="8rem" isVisible={isPagesVisible}>
+        <PopUp posY="4.3rem" posX="5.9rem" isVisible={isPagesVisible}>
           <div className={cl.buttons}>
             {pages.map((page, idx) => {
               return (
