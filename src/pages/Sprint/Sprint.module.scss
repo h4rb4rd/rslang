@@ -1,2 +1,179 @@
 .sprint {
+    flex:1 1 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, #1caff6 0, #5accec 100%);
+    padding: 10px;
+}
+
+.levels{
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    justify-content: center;
+    align-items: center;
+}
+
+.lvlHead{
+    font-family: Roboto, sans-serif;
+    font-size: 42px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+}
+
+.lvlWrapper{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.level {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    font-family: "Mochiy Pop P One", sans-serif;
+    align-self: center;
+    color: #1cb0f6;
+    font-size: 3rem;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.sprintGame {
+    flex: 1;
+    height: calc(100vh - 17rem);
+    max-width: 500px;
+    max-height: 500px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 10px;
+}
+
+.wordWrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    font-family: "Mochiy Pop P One", sans-serif;
+    align-items: center;
+    color: #1cb0f6;
+    font-size: 3rem;
+}
+
+.btnWrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    column-gap: 15px;
+    &:focus{
+        outline: none;
+    }
+}
+
+.answBtn {
+    outline: none;
+    border: none;
+    font-family: "Mochiy Pop P One", sans-serif;
+    font-weight: bold;
+    color: #1D7074;
+    padding: 5px;
+    max-width: 130px;
+    width: 100%;
+    display: flex;
+    position: relative;
+    cursor: pointer;
+}
+
+
+
+.btnNo {
+    justify-content: flex-end;
+    padding-right: 20px;
+    background-color: rgba(255, 99, 71, 0.8);
+    border-radius: 10px;
+}
+
+.btnOk {
+    justify-content: flex-start;
+    padding-left: 20px;
+    background-color: rgba(144, 238, 144, 0.9);
+    border-radius: 10px;
+}
+
+.btnOk::after{
+    right: 20px;
+	top: 5px;
+	content: ">";
+	position: absolute;
+}
+
+.btnNo::before{
+    left: 20px;
+	top: 5px;
+	content: " < ";
+    position: absolute;
+}
+
+.answBtn.btnOk:disabled , .answBtn.btnNo:disabled{
+    background-color: #5e574d;
+    background-image: linear-gradient(315deg, #5e574d 0%, #7d6d61 74%);
+    color: #7f8c8d;
+}
+
+.answBtn.btnNo:disabled::before{
+    border-right-color: #7d6d61;
+}
+
+.answBtn.btnOk:disabled::after{
+    border-left-color: #5e574d;
+}
+
+.scoreWrap{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 10px;
+}
+
+.score{
+    font-size: 26px;
+    font-weight: 700;
+    color: #1cb0f6;
+    font-family: "Mochiy Pop P One", sans-serif;
+}
+
+.inc{
+    font-size: 16px;
+    font-weight: 700;
+    color: #1cb0f6;
+    font-family: "Mochiy Pop P One", sans-serif;
+}
+
+.rightPoints{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.point{
+    width: 10px;
+    height: 10px;
+    background-color: gray;
+    border-radius: 50%;
+}
+
+.point.right{
+    background: linear-gradient(180deg, #1caff6 0, #5accec 100%);;
 }

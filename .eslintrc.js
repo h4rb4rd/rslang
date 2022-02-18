@@ -32,5 +32,9 @@ module.exports = {
     'react/prop-types': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/button-has-type': 'off',
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'jsx-a11y/no-static-element-interactions': 'off',
+    'no-plusplus': 'off',
+    'no-unsafe-optional-chaining': 'warn',
   },
 };
