@@ -188,6 +188,44 @@ export default class ApiService {
       throw err.response;
     }
   }
+
+  static async getUserSettings(userId, callback) {
+    try {
+      const response = await axios.get(`/users/${userId}/settings`, {
+        baseURL: this.API_URL,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+
+      callback(response.data);
+    } catch (err) {
+      throw err.response;
+    }
+  }
+
+  static async updateUserSettings(userId, options) {
+    try {
+      await axios.put(
+        `/users/${userId}/settings`,
+        {
+          optional: options,
+        },
+        {
+          baseURL: this.API_URL,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+    } catch (err) {
+      throw err.response;
+    }
+  }
 }
 
-// Alexand1234 Alexand1234@mail.com A@lexand1234
+// Alexand444222 Alexand444222@mail.com A@lexand444222

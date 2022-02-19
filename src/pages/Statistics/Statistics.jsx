@@ -10,12 +10,12 @@ import LongTermStatistics from '../../components/LongTermStatistics/LongTermStat
 
 function Statistics() {
   const [statistics, setStatistics] = useState(null);
-  const [statisticType, setStatisticType] = useState('short');
+  const [statisticType, setStatisticType] = useState('long');
 
   const userId = localStorage.getItem('userId');
 
   useEffect(() => {
-    ApiService.getStatistics(userId, setStatistics);
+    ApiService.getStatistics(userId, setStatistics).catch((err) => console.log(err.statusText));
   }, []);
 
   return (
@@ -25,7 +25,7 @@ function Statistics() {
         {statisticType === 'short' ? (
           <ShortTermStatistics statistics={statistics} />
         ) : (
-          <LongTermStatistics statistics={statistics} />
+          <LongTermStatistics />
         )}
       </div>
     </div>

@@ -17,7 +17,7 @@ function WordStatistics({ statistics, setIsModal }) {
 
   function countCorrectAnswersPercent() {
     const totalAnswers = correctAnswers + wrongAnswers;
-    const percent = Math.floor((correctAnswers * 100) / totalAnswers);
+    const percent = totalAnswers ? Math.floor((correctAnswers * 100) / totalAnswers) : 0;
     setCorrectAnswersPercent(percent);
   }
 

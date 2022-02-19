@@ -8,12 +8,8 @@ import cl from './ShortTermStatistics.module.scss';
 function ShortTermStatistics({ statistics }) {
   return (
     <div className={cl.shortStatistics}>
-      {statistics?.optional?.sprint && (
-        <Statistics title="Спринт" statistics={statistics?.optional?.sprint} />
-      )}
-      {statistics?.optional?.audiocall && (
-        <Statistics title="Аудиовызов" statistics={statistics?.optional?.audiocall} />
-      )}
+      <Statistics title="Спринт" statistics={statistics?.optional?.sprint} />
+      <Statistics title="Аудиовызов" statistics={statistics?.optional?.audiocall} />
     </div>
   );
 }
@@ -25,7 +21,7 @@ function Statistics({ title, statistics }) {
 
   function countCorrectAnswersPercent() {
     const totalAnswers = correctAnswers + wrongAnswers;
-    const percent = Math.floor((correctAnswers * 100) / totalAnswers);
+    const percent = totalAnswers ? Math.floor((correctAnswers * 100) / totalAnswers) : 0;
     setCorrectAnswersPercent(percent);
   }
 

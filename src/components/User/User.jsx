@@ -18,13 +18,66 @@ import AuthContext from '../../context';
 function User({ openUserInfo, closeUserInfo, isVisible }) {
   const { setIsAuth } = useContext(AuthContext);
   const [userData, setUserData] = useState(null);
+  const [statistics, setStatistics] = useState(null);
+  const [userSettings, setUserSettings] = useState({});
+
   const navigate = useNavigate();
   const userInfo = useRef();
   const userId = localStorage.getItem('userId');
 
+  const week = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+  const date = new Date();
+  const dayNum = date.getDay();
+  const day = week[dayNum];
+  const currentStatistics = statistics?.optional || {};
+
+  useEffect(() => {
+    ApiService.getStatistics(userId, setStatistics).catch((err) => console.log(err.statusText));
+  }, []);
+
+  function updateDailyStatistics() {
+    ApiService.getUserSettings(userId, setUserSettings)
+      .then(() => {
+        if (userSettings?.optional?.dayNum !== dayNum) {
+          const optional = {
+            dayNum,
+            dailyStatistics: {
+              ...userSettings?.optional?.dailyStatistics,
+              [day]: currentStatistics,
+            },
+          };
+
+          ApiService.updateUserSettings(userId, optional).then(() => {
+            setUserSettings({ ...userSettings, optional });
+            ApiService.updateUserStatistic(userId, '', {});
+          });
+        }
+      })
+      .catch((err) => {
+        if (err.status === 404) {
+          const optional = {
+            dayNum,
+            dailyStatistics: {
+              ...userSettings?.optional?.dailyStatistics,
+              [day]: currentStatistics,
+            },
+          };
+
+          ApiService.updateUserSettings(userId, optional).then(() => {
+            setUserSettings({ ...userSettings, optional });
+            ApiService.updateUserStatistic(userId, '', {});
+          });
+        }
+      });
+  }
+
   useEffect(() => {
     ApiService.getUser(userId, setUserData);
   }, []);
+
+  useEffect(() => {
+    updateDailyStatistics();
+  }, [statistics]);
 
   const hadnleLogout = () => {
     localStorage.clear();
