@@ -21,7 +21,9 @@ function Games() {
       <div className={cl.content}>
         <h2 className={cl.title}>Развлекайся и учись!</h2>
         <div className={[cl.game, cl.audiocall].join(' ')}>
-          <Link to="/audiocall">Аудио вызов</Link>
+          <Link to="/audiocall" state="header">
+            Аудио вызов
+          </Link>
         </div>
         <div className={[cl.game, cl.sprint].join(' ')}>
           <Link to="/sprint" state="header">

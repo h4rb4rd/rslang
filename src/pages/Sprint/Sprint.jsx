@@ -64,7 +64,9 @@ function Sprint() {
       const pageNumStor = localStorage.getItem('page-num');
       ApiService.getNonEasyWords(userId, level, pageNumStor, TEXTBOOK_WORDS_PER_PAGE, setWordsList);
     }
-    ApiService.getStatistics(userId, getStatistic);
+    if (isAuth) {
+      ApiService.getStatistics(userId, getStatistic);
+    }
     return () => {
       words.length = 0;
     };
