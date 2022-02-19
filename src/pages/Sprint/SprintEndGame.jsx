@@ -8,20 +8,12 @@ function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) 
   const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
   const [mistakesAnswerCount, setMistakesAnswerCount] = useState(0);
   const userId = localStorage.getItem('userId');
-  const wordsErrorList = wordsList.filter((word) => !word.options.countRight);
-  const wordsRightList = wordsList.filter((word) => word.options.countRight);
 
   const updateStatistic = (learnedWords, newWord, correctAnswer, mistakeAnswer) => {
-    const percent = (correctAnswer * 100) / TEXTBOOK_WORDS_PER_PAGE;
     const optional = {
       ...statistic.optional,
-      // seriesAnswer:
-      //   statistic.optional?.seriesAnswer > seriesAnswer
-      //     ? statistic.optional?.seriesAnswer
-      //     : seriesAnswer,
-      // percentAnswer: percent,
-      // countNewWord: statistic.optional?.countNewWord || 0 + newWord,
     };
+
     if (!optional.sprint) {
       optional.sprint = {
         newWord: 0,
@@ -30,6 +22,7 @@ function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) 
         row: 0,
       };
     }
+
     optional.sprint.newWord += newWord;
     optional.sprint.correct += correctAnswer;
     optional.sprint.wrong += mistakeAnswer;
@@ -38,10 +31,6 @@ function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) 
   };
 
   useEffect(() => {
-    // const learnedWords = wordsList?.filter(
-    //   (word) => word.options.countRight === 3 || word.options.countRight === 5
-    // ).length;
-    console.log('endGame', { wordsList });
     let learnedWords = statistic.learnedWords || 0;
     const correctAnswer = wordsList?.filter((word) => word.options.statistics.row).length;
     const mistakeAnswer = wordsList?.filter((word) => !word.options.statistics.row).length;
@@ -54,6 +43,7 @@ function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) 
         if (optional.statistics.row === 5) {
           optional.isHard = false;
           optional.isEasy = true;
+          learnedWords++;
         }
       } else if (optional.statistics.row === 3) {
         optional.isEasy = true;
@@ -82,9 +72,9 @@ function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) 
     <div className={cl.endWrapper}>
       <div className={cl.resultGame}>
         <div>{score}</div>
-        <div>Результат</div>
+        <div className={cl.resultHead}>Результат</div>
         <button className={cl.tryAgain} onClick={() => tryAgain()}>
-          Try Again
+          Заново
         </button>
       </div>
       <div className={cl.wordsWrapper}>
@@ -93,17 +83,10 @@ function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) 
             <div>Количество ошибок</div>
             <div>{mistakesAnswerCount}</div>
           </div>
-          {/* {wordsErrorList.map((word) => (
-              <div className={cl.word} key={word.id}>{`${word.word} - ${word.wordTranslate}`}</div>
-            ))} */}
-
           <div className={cl.headResult}>
             <div>Количество правильных</div>
             <div>{correctAnswerCount}</div>
           </div>
-          {/* {wordsRightList.map((word) => (
-              <div className={cl.word} key={word.id}>{`${word.word} - ${word.wordTranslate}`}</div>
-            ))} */}
           <div className={cl.headResult}>
             <div>Серия правильных ответов</div>
             <div>{seriesAnswer}</div>

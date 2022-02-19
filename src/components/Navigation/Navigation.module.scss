@@ -166,3 +166,24 @@
     margin-right: 1rem;
   }
 }
+
+@media screen and (max-width: 767.98px) {
+  .navigation {
+    max-width: 60rem;
+    align-self: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+  .chapters,
+  .games,
+  .settings {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 1rem;
+  }
+}

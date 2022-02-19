@@ -5,10 +5,19 @@ import cl from './Sprint.module.scss';
 import SprintEndGame from './SprintEndGame';
 import SprintTimer from './SprintTimer';
 import SprintWords from './SprintWords';
+import Wrong from '../../assets/audio/wrong.mp3';
+import Right from '../../assets/audio/correctanswer.mp3';
+import Final from '../../assets/audio/final.mp3';
 
 function showCorrectTranslate() {
   return Math.random() > 0.5;
 }
+
+const wrongSound = new Audio(Wrong);
+wrongSound.volume = 0.5;
+const rightSound = new Audio(Right);
+rightSound.volume = 0.5;
+const finalSound = new Audio(Final);
 
 function SprintGame({ words, tryAgain, statistic }) {
   const [wordIndex, setWordIndex] = useState(0);
@@ -26,17 +35,23 @@ function SprintGame({ words, tryAgain, statistic }) {
     if (showCorrectTranslate()) {
       result = words[wordIndex]?.wordTranslate;
     } else {
-      // let tmpIndex = getRandomNum(0, words.length - 1);
-
-      // while (tmpIndex === wordIndex) {
-      //   tmpIndex = getRandomNum(0, words.length - 1);
-      // }
-
       result = words[getRandomNum(0, words.length - 1)]?.wordTranslate;
     }
 
     return result;
   }, [words, wordIndex]);
+
+  const playSound = (isCorrect) => {
+    rightSound.pause();
+    rightSound.currentTime = 0;
+    wrongSound.pause();
+    wrongSound.currentTime = 0;
+    if (isCorrect) {
+      rightSound.play();
+    } else {
+      wrongSound.play();
+    }
+  };
 
   function checkSeriesAnswer() {
     if (accCorrectAnswers > seriesCorrectAnswers) {
@@ -48,15 +63,15 @@ function SprintGame({ words, tryAgain, statistic }) {
   const changeIsEnd = () => {
     checkSeriesAnswer();
     setIsEnd(true);
+    finalSound.play();
   };
 
-  // console.log('file', words);
-
   function answerRight() {
+    playSound(true);
     const correct = words[wordIndex].options.statistics?.correct || 0;
     words[wordIndex].options.statistics.correct = correct + 1;
     setScore(score + increment);
-    if (increment < 30 && rightAnswersCount === 2) {
+    if (increment < 30 && rightAnswersCount === 3) {
       setIncrement(increment + 10);
     }
     if (rightAnswersCount < 3) {
@@ -67,6 +82,7 @@ function SprintGame({ words, tryAgain, statistic }) {
   }
 
   function answerMistake() {
+    playSound(false);
     const wrong = words[wordIndex].options.statistics?.wrong || 0;
     words[wordIndex].options.statistics.wrong = wrong + 1;
     checkSeriesAnswer();
@@ -75,13 +91,8 @@ function SprintGame({ words, tryAgain, statistic }) {
   }
 
   const incCountRight = (word) => {
-    console.log('right', word);
     setAccCorrectAnswers(accCorrectAnswers + 1);
     if (word.options.isHard) {
-      // if (word.options.countRight !== 5) {
-      //   word.option.countRight++;
-      //   answerRight();
-      // }
       if (word.options.statistics.row !== 5) {
         word.options.statistics.row += 1;
         answerRight();
@@ -125,6 +136,7 @@ function SprintGame({ words, tryAgain, statistic }) {
   };
 
   const handleKeyDown = (e) => {
+    if (isEnd) return;
     if (e.key === 'ArrowRight') {
       checkAnswer('yes');
     }
@@ -138,9 +150,8 @@ function SprintGame({ words, tryAgain, statistic }) {
     document.addEventListener('keydown', handleKeyDown);
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      setIsEnd(false);
     };
-  }, [words, wordIndex, translate]);
+  }, [words, wordIndex, translate, isEnd]);
 
   return (
     <div className={cl.sprintGame}>
@@ -159,10 +170,10 @@ function SprintGame({ words, tryAgain, statistic }) {
           <SprintTimer secCount={60} setEnd={changeIsEnd} />
           <div className={cl.btnWrapper}>
             <button className={`${cl.answBtn} ${cl.btnNo}`} onClick={() => checkAnswer('no')}>
-              No
+              Нет
             </button>
             <button className={`${cl.answBtn} ${cl.btnOk}`} onClick={() => checkAnswer('yes')}>
-              Yes
+              Да
             </button>
           </div>
         </div>

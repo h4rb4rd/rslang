@@ -13,6 +13,11 @@ import iconInDifficult from '../../assets/wordcard/indifficult.svg';
 import iconDone from '../../assets/wordcard/done.svg';
 import iconInDone from '../../assets/wordcard/indone.svg';
 import iconFolder from '../../assets/navigation/folder.svg';
+import iconStatistics from '../../assets/wordcard/statistics.svg';
+
+// components
+import MyModal from '../UI/MyModal';
+import WordStatistics from '../WordStatistics/WordStatistics';
 
 // constants
 import { TEXTBOOK_WORDS_PER_PAGE } from '../../constants';
@@ -41,6 +46,7 @@ function WordCard({
   const [options, setOptions] = useState(userWord?.optional || {});
   const [isHardLoading, setIsHardLoading] = useState(false);
   const [isEasyWord, setIsEasyWord] = useState(false);
+  const [isModal, setIsModal] = useState(false);
 
   const $textExample = useRef();
   const $textMeaning = useRef();
@@ -225,6 +231,19 @@ function WordCard({
               title="Отметить как изученное"
             />
           </button>
+          {userWord?.optional?.statistics && (
+            <div>
+              <button className={cl.statistics} onClick={() => setIsModal(true)}>
+                <img src={iconStatistics} alt="word statistics" />
+              </button>
+              <MyModal isVisible={isModal} setIsVisible={setIsModal}>
+                <WordStatistics
+                  statistics={userWord?.optional?.statistics}
+                  setIsModal={setIsModal}
+                />
+              </MyModal>
+            </div>
+          )}
         </div>
       )}
     </div>
