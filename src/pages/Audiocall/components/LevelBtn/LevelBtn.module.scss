@@ -1,0 +1,19 @@
+.level-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  font-weight: 500;
+  color: #1cb0f6;
+  border-radius: 1.6rem;
+  border: 0.2rem solid #e5e5e5;
+  border-bottom: 0.6rem solid #e5e5e5;
+  background-color: #fff;
+  padding: 2rem 3rem;
+  font-size: 4rem;
+  font-family: "Mochiy Pop P One", sans-serif;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+}
