@@ -54,25 +54,20 @@ function Audiocall() {
     const userId = localStorage.getItem('userId');
 
     if (state === 'header') {
-      const groupNum = level;
-      const pageNum = 1;
-
-      // todo return random
-      // const pageNum = getRandomNum(0, 29);
+      const pageNum = getRandomNum(0, 29);
 
       if (isAuth) {
-        ApiService.getWords(userId, groupNum, pageNum, MAX_WORDS_COUNT, setWordList);
+        ApiService.getWords(userId, level, pageNum, MAX_WORDS_COUNT, setWordList);
       } else {
-        ApiService.getUnauthorizedWords(groupNum, pageNum, setWordList);
+        ApiService.getUnauthorizedWords(level, pageNum, setWordList);
       }
     } else {
-      const groupNum = localStorage.getItem('group-num');
       const pageNum = localStorage.getItem('page-num');
 
       if (isAuth) {
-        ApiService.getNonEasyWords(userId, groupNum, pageNum, MAX_WORDS_COUNT, setWordList);
+        ApiService.getNonEasyWords(userId, level, pageNum, MAX_WORDS_COUNT, setWordList);
       } else {
-        ApiService.getUnauthorizedWords(groupNum, pageNum, setWordList);
+        ApiService.getUnauthorizedWords(level, pageNum, setWordList);
       }
     }
 
