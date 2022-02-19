@@ -28,5 +28,7 @@ export const publicRoutes = [
   { id: '2', path: '/about', component: <About /> },
   { id: '3', path: '/textbook', component: <Textbook /> },
   { id: '4', path: '/games', component: <Games /> },
-  { id: '5', path: '*', component: <Navigate to="/about" /> },
+  { id: '5', path: '/audiocall', component: <Audiocall /> },
+  { id: '6', path: '/sprint', component: <Sprint /> },
+  { id: '7', path: '*', component: <Navigate to="/about" /> },
 ];

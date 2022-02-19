@@ -95,7 +95,7 @@ function Level({ words, tryAgain, statistic }) {
       </div>
       {!isEnd ? (
         <div>
-          {words ? (
+          {words.length ? (
             <Question
               rightAnswer={words[wordIndex]}
               wrongAnswers={getWrongAnswers(words)}

@@ -13,7 +13,7 @@ function Question({ rightAnswer, wrongAnswers, wordIndex, saveResult, showNextQu
 
   const playWordAudio = () => {
     const wordAudio = new Audio();
-    wordAudio.src = `${ApiService.API_URL}/${rightAnswer.audio}`;
+    wordAudio.src = `${ApiService.API_URL}/${rightAnswer?.audio}`;
     wordAudio.play();
   };
 
@@ -22,12 +22,12 @@ function Question({ rightAnswer, wrongAnswers, wordIndex, saveResult, showNextQu
       wrongAnswers
         .map((wrongAnswer) => {
           return {
-            wordTranslate: wrongAnswer.wordTranslate,
+            wordTranslate: wrongAnswer?.wordTranslate,
             isAnswerCorrect: false,
           };
         })
         .concat({
-          wordTranslate: rightAnswer.wordTranslate,
+          wordTranslate: rightAnswer?.wordTranslate,
           isAnswerCorrect: true,
         })
     );
@@ -66,10 +66,10 @@ function Question({ rightAnswer, wrongAnswers, wordIndex, saveResult, showNextQu
           {allAnswers.map((answer, i) => {
             return (
               <AnswerBtn
-                text={answer.wordTranslate}
+                text={answer?.wordTranslate}
                 isAnswerCorrect={answer.isAnswerCorrect}
                 index={i + 1}
-                key={answer.wordTranslate}
+                key={answer?.wordTranslate}
                 wordIndex={wordIndex}
                 checkAnswer={checkAnswer}
               />
