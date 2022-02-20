@@ -1,10 +1,12 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { TEXTBOOK_WORDS_PER_PAGE } from '../../constants';
+import React, { useEffect, useState, useContext } from 'react';
+
+import AuthContext from '../../context';
 import ApiService from '../../services/ApiService';
 
 import cl from './SprintEnd.module.scss';
 
 function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) {
+  const { isAuth } = useContext(AuthContext);
   const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
   const [mistakesAnswerCount, setMistakesAnswerCount] = useState(0);
   const userId = localStorage.getItem('userId');
@@ -57,14 +59,18 @@ function SprintEndGame({ wordsList, score, tryAgain, seriesAnswer, statistic }) 
         }
       }
 
-      if (word.userWord?.optional) {
-        ApiService.updateUserWord(userId, word.id, 'easy', optional);
-      } else {
-        ApiService.addUserWord(userId, word.id, 'easy', optional);
+      if (isAuth) {
+        if (word.userWord?.optional) {
+          ApiService.updateUserWord(userId, word.id, 'easy', optional);
+        } else {
+          ApiService.addUserWord(userId, word.id, 'easy', optional);
+        }
       }
     });
     if (wordsList.length) {
-      updateStatistic(learnedWords, newWord, correctAnswer, mistakeAnswer);
+      if (isAuth) {
+        updateStatistic(learnedWords, newWord, correctAnswer, mistakeAnswer);
+      }
     }
   }, [wordsList]);
 

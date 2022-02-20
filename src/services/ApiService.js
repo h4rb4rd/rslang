@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 export default class ApiService {
-  static API_URL = 'https://react-learnwords-example.herokuapp.com';
+  static API_URL = 'https://rslang-worlds.herokuapp.com';
+  // https://react-learnwords-example.herokuapp.com
 
   static authInstance = axios.create({
     baseURL: this.API_URL,
@@ -249,3 +250,4 @@ export default class ApiService {
 }
 
 // Alexand9911 Alexand9911@mail.com A@lexand9911
+// Alexand99112 Alexand99112@mail.com A@lexand99112

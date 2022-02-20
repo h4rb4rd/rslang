@@ -6,68 +6,77 @@ import cl from './Team.module.scss';
 // image
 import developerImage from '../../assets/team/developer.jpg';
 
+// avatars
+import tleadAva from '../../assets/team/ava-tlead.png';
+import avaYuliya from '../../assets/team/ava-yuliya.jpg';
+import avaMaks from '../../assets/team/ava-maks.jpg';
+
 function Team() {
   const developers = [
     {
       id: 1,
-      name: 'Developer Name',
-      imageUrl: developerImage,
-      position: 'Developer',
-      githubUrl: 'https://github.com/',
+      name: 'Александр Данилов',
+      imageUrl: tleadAva,
+      position: 'Team leader',
+      githubUrl: 'https://github.com/h4rb4rd',
       description: [
         {
           id: 1,
-          text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum vel illo, doloremque, a fugit',
+          text: 'Авторизация',
         },
         {
           id: 2,
-          text: 'unde amet consectetur temporibus maiores exercitationem numquam? Dignissimos, esse',
+          text: 'Электронный учебник',
         },
         {
           id: 3,
-          text: 'cupiditate dolores id fuga architecto rem distinctio?',
+          text: 'Статистика',
+        },
+        {
+          id: 4,
+          text: 'Общий дизайн',
         },
       ],
     },
     {
       id: 2,
-      name: 'Developer Name',
-      imageUrl: developerImage,
+      name: 'Юлия Каримова',
+      imageUrl: avaYuliya,
       position: 'Developer',
-      githubUrl: 'https://github.com/',
+      githubUrl: 'https://github.com/yuliya-karimova',
       description: [
         {
           id: 1,
-          text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum vel illo, doloremque, a fugit',
+          text: 'Игра "Аудиовызов"',
         },
         {
           id: 2,
-          text: 'unde amet consectetur temporibus maiores exercitationem numquam? Dignissimos, esse',
+          text: 'Презентация',
         },
         {
           id: 3,
-          text: 'cupiditate dolores id fuga architecto rem distinctio?',
+          text: 'Дизайн игры "Аудиовызов"',
         },
       ],
     },
     {
       id: 3,
-      name: 'Developer Name',
-      imageUrl: developerImage,
+      name: 'Максим Романенко',
+      imageUrl: avaMaks,
       position: 'Developer',
-      githubUrl: 'https://github.com/',
+      githubUrl: 'https://github.com/Mrak9087',
       description: [
         {
           id: 1,
-          text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum vel illo, doloremque, a fugit',
+          text: 'Игра "Спринт"',
         },
         {
           id: 2,
-          text: 'unde amet consectetur temporibus maiores exercitationem numquam? Dignissimos, esse',
+          text: 'Создание копии бэкенда',
         },
         {
           id: 3,
-          text: 'cupiditate dolores id fuga architecto rem distinctio?',
+          text: 'Дизайн игры "Спринт"',
         },
       ],
     },

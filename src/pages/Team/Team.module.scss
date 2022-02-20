@@ -27,10 +27,12 @@
 }
 
 .title {
+  position: relative;
   font-size: 4rem;
   font-weight: 500;
   color: #fff;
   margin-bottom: 5rem;
+  z-index: 10;
 }
 
 .content {
@@ -48,13 +50,15 @@
   max-width: 32rem;
   width: 100%;
   background-color: #fff;
-  padding: 0px 3rem;
+  padding: 0rem 3rem 1rem 3rem;
   z-index: 3;
 }
 
 .image {
   width: 32rem;
+  height: 32rem;
   margin-bottom: 1rem;
+  object-fit: cover;
 }
 
 .name {
@@ -62,11 +66,12 @@
   color: #7c7c7c;
   margin-bottom: 1rem;
 }
+
 .position {
   font-size: 2.2rem;
   font-weight: 500;
   color: #afafaf;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .github {
