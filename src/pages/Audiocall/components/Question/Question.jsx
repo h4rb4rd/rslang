@@ -72,6 +72,7 @@ function Question({ rightAnswer, wrongAnswers, wordIndex, saveResult, showNextQu
                 key={answer?.wordTranslate}
                 wordIndex={wordIndex}
                 checkAnswer={checkAnswer}
+                showNextQuestion={showNextQuestion}
               />
             );
           })}
