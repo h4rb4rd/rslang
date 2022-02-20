@@ -21,9 +21,15 @@
   border: 0.8rem solid white;
   border-radius: 50%;
   font-size: 2.2rem;
-  font-family: "Mochiy Pop P One", sans-serif;
+  font-family: 'Mochiy Pop P One', sans-serif;
 
   p {
     color: white;
+  }
+}
+@media screen and (max-width: 479.98px) {
+  .quesion-num {
+    width: 10rem;
+    height: 10rem;
   }
 }

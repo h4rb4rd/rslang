@@ -62,7 +62,17 @@ function Sprint() {
       }
     } else {
       const pageNumStor = localStorage.getItem('page-num');
-      ApiService.getNonEasyWords(userId, level, pageNumStor, TEXTBOOK_WORDS_PER_PAGE, setWordsList);
+      if (isAuth) {
+        ApiService.getNonEasyWords(
+          userId,
+          level,
+          pageNumStor,
+          TEXTBOOK_WORDS_PER_PAGE,
+          setWordsList
+        );
+      } else {
+        ApiService.getUnauthorizedWords(groupNum, pageNum, setWordsList);
+      }
     }
     if (isAuth) {
       ApiService.getStatistics(userId, getStatistic);

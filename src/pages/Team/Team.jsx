@@ -50,6 +50,27 @@ function Team() {
         },
       ],
     },
+    {
+      id: 3,
+      name: 'Developer Name',
+      imageUrl: developerImage,
+      position: 'Developer',
+      githubUrl: 'https://github.com/',
+      description: [
+        {
+          id: 1,
+          text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum vel illo, doloremque, a fugit',
+        },
+        {
+          id: 2,
+          text: 'unde amet consectetur temporibus maiores exercitationem numquam? Dignissimos, esse',
+        },
+        {
+          id: 3,
+          text: 'cupiditate dolores id fuga architecto rem distinctio?',
+        },
+      ],
+    },
   ];
 
   return (

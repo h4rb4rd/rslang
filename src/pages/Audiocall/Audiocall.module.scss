@@ -20,11 +20,15 @@
 }
 
 .back-btn {
+  position: absolute;
+  top: 5rem;
+  right: 5rem;
   display: flex;
   justify-content: flex-end;
-  width: 100%;
+  width: 20rem;
   margin-bottom: 3rem;
 
+  z-index: 10;
   a {
     position: relative;
     display: flex;
@@ -40,5 +44,13 @@
     &:hover {
       opacity: 0.92;
     }
+  }
+}
+
+@media screen and (max-width: 479.98px) {
+  .back-btn {
+    top: 3rem;
+    right: 0;
+    width: 16rem;
   }
 }

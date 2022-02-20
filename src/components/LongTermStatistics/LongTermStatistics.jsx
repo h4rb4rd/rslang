@@ -27,12 +27,16 @@ function LongTermStatistics() {
     if (data) {
       week.forEach((key) => {
         if (data && key in data) {
-          const learnedWordsCount = data[key].learnedWords;
-          const audiocallNewWords = data[key].statistics?.audiocall?.newWord || 0;
-          const sprintNewWords = data[key].statistics?.sprint?.newWord || 0;
+          const learnedWordsCount = data[key]?.learnedWords || 0;
+          const audiocallNewWords = data[key]?.statistics?.audiocall?.newWord || 0;
+          const sprintNewWords = data[key]?.statistics?.sprint?.newWord || 0;
           const newWordsCount = audiocallNewWords + sprintNewWords;
+
           newWordsArr.push(newWordsCount);
           learndWordsArr.push(learnedWordsCount);
+        } else {
+          newWordsArr.push(0);
+          learndWordsArr.push(0);
         }
       });
     }
@@ -54,7 +58,7 @@ function LongTermStatistics() {
       .then((res) => {
         const prevOptional = res.data.optional || {};
 
-        if (statistics) {
+        if (statistics && easyWords) {
           const options = {
             dayNum,
             [day]: {
@@ -74,7 +78,7 @@ function LongTermStatistics() {
         }
       })
       .catch((err) => {
-        if (statistics && err.status === 404) {
+        if (statistics && easyWords && err.status === 404) {
           const optional = {
             dayNum,
             [day]: {
@@ -93,7 +97,7 @@ function LongTermStatistics() {
 
   useEffect(() => {
     updateDailyStatistics();
-  }, [statistics]);
+  }, [statistics, easyWords]);
 
   const options = {
     maintainAspectRatio: false,
@@ -115,24 +119,24 @@ function LongTermStatistics() {
         label: 'Количество новых слов',
         data: newWords,
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 205, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(201, 203, 207, 0.2)',
+          'rgba(28, 176, 246, 0.7)',
+          'rgba(28, 176, 246, 0.7)',
+          'rgba(28, 176, 246, 0.7)',
+          'rgba(28, 176, 246, 0.7)',
+          'rgba(28, 176, 246, 0.7)',
+          'rgba(28, 176, 246, 0.7)',
+          'rgba(28, 176, 246, 0.7)',
         ],
         borderColor: [
-          'rgb(255, 99, 132)',
-          'rgb(255, 159, 64)',
-          'rgb(255, 205, 86)',
-          'rgb(75, 192, 192)',
-          'rgb(54, 162, 235)',
-          'rgb(153, 102, 255)',
-          'rgb(201, 203, 207)',
+          'rgba(28, 176, 246, 1)',
+          'rgba(28, 176, 246, 1)',
+          'rgba(28, 176, 246, 1)',
+          'rgba(28, 176, 246, 1)',
+          'rgba(28, 176, 246, 1)',
+          'rgba(28, 176, 246, 1)',
+          'rgba(28, 176, 246, 1)',
         ],
-        borderWidth: 1,
+        borderWidth: 2,
       },
     ],
   };
@@ -144,24 +148,24 @@ function LongTermStatistics() {
         label: 'Количества изученных слов',
         data: learnedWords,
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 205, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(201, 203, 207, 0.2)',
+          'rgba(28, 176, 246, 0.7)',
+          'rgba(28, 176, 246, 0.7)',
+          'rgba(28, 176, 246, 0.7)',
+          'rgba(28, 176, 246, 0.7)',
+          'rgba(28, 176, 246, 0.7)',
+          'rgba(28, 176, 246, 0.7)',
+          'rgba(28, 176, 246, 0.7)',
         ],
         borderColor: [
-          'rgb(255, 99, 132)',
-          'rgb(255, 159, 64)',
-          'rgb(255, 205, 86)',
-          'rgb(75, 192, 192)',
-          'rgb(54, 162, 235)',
-          'rgb(153, 102, 255)',
-          'rgb(201, 203, 207)',
+          'rgba(28, 176, 246, 1)',
+          'rgba(28, 176, 246, 1)',
+          'rgba(28, 176, 246, 1)',
+          'rgba(28, 176, 246, 1)',
+          'rgba(28, 176, 246, 1)',
+          'rgba(28, 176, 246, 1)',
+          'rgba(28, 176, 246, 1)',
         ],
-        borderWidth: 1,
+        borderWidth: 2,
       },
     ],
   };
