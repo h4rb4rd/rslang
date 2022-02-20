@@ -106,6 +106,25 @@ export default class ApiService {
     }
   }
 
+  static async getEasyWords(userId, callback) {
+    try {
+      const response = await axios.get(
+        `/users/${userId}/aggregatedWords?filter={"$and":[{ "userWord.optional.isEasy":true}]}`,
+        {
+          baseURL: this.API_URL,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      callback(response.data[0].paginatedResults);
+    } catch (err) {
+      throw err.response;
+    }
+  }
+
   static async addUserWord(userId, wordId, difficulty, options) {
     try {
       await axios.post(
@@ -201,6 +220,7 @@ export default class ApiService {
       });
 
       callback(response.data);
+      return response;
     } catch (err) {
       throw err.response;
     }
@@ -228,4 +248,4 @@ export default class ApiService {
   }
 }
 
-// Alexand444222 Alexand444222@mail.com A@lexand444222
+// Alexand9999 Alexand9999@mail.com A@lexand9999

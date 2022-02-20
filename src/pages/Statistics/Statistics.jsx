@@ -10,7 +10,7 @@ import LongTermStatistics from '../../components/LongTermStatistics/LongTermStat
 
 function Statistics() {
   const [statistics, setStatistics] = useState(null);
-  const [statisticType, setStatisticType] = useState('long');
+  const [statisticType, setStatisticType] = useState('short');
 
   const userId = localStorage.getItem('userId');
 
@@ -20,8 +20,14 @@ function Statistics() {
 
   return (
     <div className={cl.statistics}>
+      <div className={cl.buttons}>
+        <button onClick={() => setStatisticType('short')}>Дневная</button>
+        <button onClick={() => setStatisticType('long')}>Недельная</button>
+      </div>
       <div className={cl.content}>
-        <h2 className={cl.title}>Статистика</h2>
+        <h2 className={cl.title}>
+          {statisticType === 'short' ? 'Статистика за день' : 'Статистика за неделю'}
+        </h2>
         {statisticType === 'short' ? (
           <ShortTermStatistics statistics={statistics} />
         ) : (
