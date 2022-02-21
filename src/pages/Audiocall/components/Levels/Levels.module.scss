@@ -26,3 +26,9 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+@media screen and (max-width: 991.98px) {
+  .content {
+    margin-top: 12rem;
+  }
+}

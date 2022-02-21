@@ -2,7 +2,6 @@ import axios from 'axios';
 
 export default class ApiService {
   static API_URL = 'https://rslang-worlds.herokuapp.com';
-  // https://react-learnwords-example.herokuapp.com
 
   static authInstance = axios.create({
     baseURL: this.API_URL,
