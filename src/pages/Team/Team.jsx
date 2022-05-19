@@ -7,7 +7,7 @@ import cl from './Team.module.scss';
 import developerImage from '../../assets/team/developer.jpg';
 
 // avatars
-import tleadAva from '../../assets/team/ava-tlead.png';
+import tleadAva from '../../assets/team/ava-tlead.jpg';
 import avaYuliya from '../../assets/team/ava-yuliya.jpg';
 import avaMaks from '../../assets/team/ava-maks.jpg';
 
