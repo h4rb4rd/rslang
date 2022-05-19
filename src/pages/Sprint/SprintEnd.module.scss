@@ -1,0 +1,73 @@
+.endWrapper {
+  color: #1cb0f6;
+  font-family: 'Mochiy Pop P One', sans-serif;
+}
+
+.resultGame {
+  padding: 15px 0 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 10px;
+}
+
+.words {
+  padding: 10px;
+}
+
+.wordsWrapper::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(6px);
+}
+
+.wordsWrapper::-webkit-scrollbar-thumb {
+  background-color: #237e8f;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.headResult {
+  display: flex;
+  justify-content: flex-start;
+  column-gap: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 10px 0 10px;
+}
+
+.resultHead {
+  font-family: Roboto, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.mistake {
+  color: #f61c70;
+}
+
+.word {
+  padding: 10px 0 10px;
+  display: flex;
+  column-gap: 5px;
+  padding: 5px 0 5px;
+  border-bottom: 1px solid #696667;
+}
+
+.tryAgain {
+  background: linear-gradient(180deg, #1caff6 0, #5accec 100%);
+  color: #fff;
+  font-family: Roboto, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 16px;
+  box-shadow: 1px 6px 11px 1px rgb(0 0 0 / 70%);
+  transition: box-shadow 0.3s ease;
+}
+
+.tryAgain:hover {
+  box-shadow: 1px 1px 1px 1px rgb(0 0 0 / 70%);
+}

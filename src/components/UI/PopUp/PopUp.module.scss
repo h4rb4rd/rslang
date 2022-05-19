@@ -1,0 +1,21 @@
+.popup {
+  position: absolute;
+  transform: translateX(-50%);
+  max-width: 32rem;
+  height: auto;
+  min-width: 20rem;
+  background-color: #fff;
+  border: 2px solid #e5e5e5;
+  border-radius: 1.5rem;
+  cursor: auto;
+  display: none;
+  padding: 1rem;
+  z-index: 100;
+
+  &.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

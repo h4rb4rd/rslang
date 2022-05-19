@@ -1,0 +1,13 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_616_320)">
+<path d="M14 24C14 18.5 18.5 14 24 14C25 14 26.1 14.2 27 14.5V9C27 8.4 26.6 8 26 8H11H9C7.9 8 7 7.1 7 6C7 4.9 7.9 4 9 4H26C26.6 4 27 3.6 27 3C27 2.4 26.6 2 26 2H9C6.8 2 5 3.8 5 6V26C5 28.2 6.8 30 9 30H11H16C14.8 28.3 14 26.3 14 24Z" fill="tomato"/>
+<path d="M26 7H9C8.4 7 8 6.6 8 6C8 5.4 8.4 5 9 5H26C26.6 5 27 5.4 27 6C27 6.6 26.6 7 26 7Z" fill="tomato"/>
+<line x1="26.7886" y1="27.7886" x2="17.5962" y2="18.5962" stroke="tomato" stroke-width="3"/>
+<line y1="-1.5" x2="13" y2="-1.5" transform="matrix(0.707107 -0.707107 -0.707107 -0.707107 16.5355 26.7279)" stroke="tomato" stroke-width="3"/>
+</g>
+<defs>
+<clipPath id="clip0_616_320">
+<rect width="32" height="32" fill="white"/>
+</clipPath>
+</defs>
+</svg>

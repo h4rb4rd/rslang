@@ -1,0 +1,1 @@
+export const TEXTBOOK_WORDS_PER_PAGE = 20;
